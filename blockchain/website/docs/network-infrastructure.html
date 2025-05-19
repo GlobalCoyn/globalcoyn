@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GlobalCoyn Network Infrastructure - Documentation</title>
+    <link rel="stylesheet" href="../css/enhanced-styles.css">
+    <link rel="icon" type="image/png" href="../assets/logo.png">
+    <style>
+        .doc-content {
+            padding: var(--space-xl) 0;
+        }
+        
+        .doc-content h1 {
+            margin-bottom: var(--space-lg);
+        }
+        
+        .doc-content h2 {
+            margin-top: var(--space-xl);
+            margin-bottom: var(--space-md);
+            padding-bottom: var(--space-xs);
+            border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+        }
+        
+        .doc-content h3 {
+            margin-top: var(--space-lg);
+            margin-bottom: var(--space-sm);
+            color: var(--primary-color);
+        }
+        
+        .doc-content p {
+            margin-bottom: var(--space-md);
+            line-height: 1.7;
+        }
+        
+        .doc-content ul, .doc-content ol {
+            margin-bottom: var(--space-md);
+            padding-left: var(--space-xl);
+        }
+        
+        .doc-content li {
+            margin-bottom: var(--space-xs);
+        }
+        
+        .doc-content code {
+            background-color: rgba(0, 0, 0, 0.05);
+            padding: 0.2rem 0.4rem;
+            border-radius: var(--border-radius-sm);
+            font-family: monospace;
+        }
+        
+        .doc-content pre {
+            background-color: rgba(0, 0, 0, 0.05);
+            padding: var(--space-md);
+            border-radius: var(--border-radius-md);
+            overflow-x: auto;
+            margin-bottom: var(--space-md);
+        }
+        
+        .doc-content pre code {
+            background-color: transparent;
+            padding: 0;
+        }
+        
+        .code-block {
+            background-color: #f6f8fa;
+            padding: var(--space-md);
+            border-radius: var(--border-radius-md);
+            overflow-x: auto;
+            margin-bottom: var(--space-md);
+            font-family: monospace;
+            line-height: 1.5;
+        }
+        
+        .card {
+            background-color: var(--bg-card);
+            padding: var(--space-lg);
+            border-radius: var(--border-radius-md);
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+            margin-bottom: var(--space-lg);
+        }
+        
+        .card h3 {
+            margin-top: 0;
+        }
+        
+        .table-container {
+            overflow-x: auto;
+            margin-bottom: var(--space-lg);
+        }
+        
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        
+        th, td {
+            padding: var(--space-sm);
+            text-align: left;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+        }
+        
+        th {
+            background-color: rgba(0, 0, 0, 0.03);
+            font-weight: 600;
+        }
+        
+        tr:nth-child(even) {
+            background-color: rgba(0, 0, 0, 0.02);
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav>
+            <div class="logo">
+                <a href="/"><img src="../assets/logo.png" alt="GlobalCoyn"></a>
+            </div>
+            <div class="nav-wrapper">
+                <ul class="nav-links">
+                    <li><a href="../index.html#about">About</a></li>
+                    <li><a href="../index.html#features">Features</a></li>
+                    <li><a href="../index.html#network">Network</a></li>
+                    <li><a href="../index.html#download">Download</a></li>
+                    <li><a href="../index.html#documentation">Documentation</a></li>
+                </ul>
+                <div class="nav-controls">
+                    <button class="theme-toggle" aria-label="Toggle dark mode">
+                        <img src="../assets/moon.svg" alt="Toggle dark mode">
+                    </button>
+                    <div class="lang-selector">
+                        <select aria-label="Select language">
+                            <option value="en">EN</option>
+                            <option value="fr">FR</option>
+                            <option value="de">DE</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+        </nav>
+    </header>
+    
+    <section class="doc-content">
+        <div class="container">
+            <h1>GlobalCoyn Network Infrastructure</h1>
+            
+            <div class="card">
+                <h3>Network Overview</h3>
+                <p>The GlobalCoyn network is a decentralized peer-to-peer network designed for reliability, resilience, and performance. It employs multiple discovery mechanisms to ensure nodes can always find peers, even in challenging network conditions.</p>
+            </div>
+            
+            <h2>Network Architecture</h2>
+            <p>GlobalCoyn's network architecture is modeled after successful decentralized systems, incorporating modern best practices for peer discovery and connection management. The network consists of several key components:</p>
+            
+            <h3>Bootstrap Nodes</h3>
+            <p>Bootstrap nodes are stable, always-on servers that serve as entry points for new nodes joining the network. These nodes are maintained by the GlobalCoyn Foundation to ensure consistent availability.</p>
+            
+            <p>Current production bootstrap nodes:</p>
+            <div class="table-container">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Hostname</th>
+                            <th>P2P Port</th>
+                            <th>Web API Port</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>node1.globalcoyn.com</td>
+                            <td>9000</td>
+                            <td>8001</td>
+                        </tr>
+                        <tr>
+                            <td>node2.globalcoyn.com</td>
+                            <td>9000</td>
+                            <td>8001</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            
+            <p>When a new node is started, it will attempt to connect to these bootstrap nodes to initialize its peer list and synchronize the blockchain.</p>
+            
+            <h3>DNS Seed Nodes</h3>
+            <p>DNS seeds are domain names that resolve to IP addresses of reliable GlobalCoyn nodes. This allows for dynamic updates to the seed list without requiring client software updates.</p>
+            
+            <p>Current DNS seed domains:</p>
+            <ul>
+                <li>seed.globalcoyn.com</li>
+                <li>seed.globalcoyn.net</li>
+                <li>dnsseed.globalcoyn.org</li>
+            </ul>
+            
+            <p>The DNS seed system uses a special naming convention for service information:</p>
+            <div class="code-block">
+x1.seed.globalcoyn.com  # Web API port: 8001, P2P port: 9000
+x2.seed.globalcoyn.com  # Web API port: 8002, P2P port: 9001
+x3.seed.globalcoyn.com  # Web API port: 8003, P2P port: 9002
+</div>
+            
+            <h3>Hardcoded Seed Nodes</h3>
+            <p>As a fallback mechanism, the GlobalCoyn client includes a list of hardcoded seed nodes. These are used when bootstrap nodes and DNS seeds are unavailable.</p>
+            
+            <h3>Peer Exchange (PEX)</h3>
+            <p>Once a node is connected to the network, it exchanges peer information with other nodes. This allows for the discovery of additional peers beyond the initial bootstrap and seed nodes.</p>
+            
+            <h2>Connection Management</h2>
+            
+            <h3>Exponential Backoff</h3>
+            <p>GlobalCoyn uses an exponential backoff strategy for handling failed connection attempts. This reduces network congestion and improves connection reliability:</p>
+            
+            <div class="code-block">
+Initial retry delay: 5 seconds
+Max retry delay: 30 minutes
+Backoff factor: 1.5 (each retry is 1.5x longer than the previous)
+Max retry attempts: 10 per peer
+</div>
+            
+            <h3>Connection Limits</h3>
+            <p>Each node manages its connections to prevent overloading:</p>
+            <ul>
+                <li>Default max outbound connections: 8</li>
+                <li>Default max inbound connections: 125</li>
+                <li>Min outbound connections: 3</li>
+            </ul>
+            
+            <h2>Running a Bootstrap Node</h2>
+            <p>Network operators who want to run a bootstrap node should follow these steps:</p>
+            
+            <ol>
+                <li>Set up a server with a stable, public IP address or domain name</li>
+                <li>Install the GlobalCoyn node software</li>
+                <li>Configure the node as a bootstrap node using the provided configuration tools</li>
+                <li>Register the node with the GlobalCoyn network registry</li>
+            </ol>
+            
+            <p>Example configuration:</p>
+            <div class="code-block">
+# Set up a bootstrap node with node number 1
+python setup_bootstrap_node.py --node-number 1 --p2p-port 9000 --web-port 8001
+</div>
+
+            <p>For detailed instructions, see our <a href="bootstrap-node-setup.html">Bootstrap Node Setup Guide</a>.</p>
+            
+            <h2>Technical Details</h2>
+            
+            <h3>Connection Protocol</h3>
+            <p>GlobalCoyn uses a TCP-based protocol for peer-to-peer communication. The handshake process includes:</p>
+            <ol>
+                <li>Version negotiation to ensure compatibility</li>
+                <li>Network identification to prevent cross-network connections</li>
+                <li>Feature announcement to communicate capabilities</li>
+                <li>Chain validation to ensure peers are on the same blockchain</li>
+            </ol>
+            
+            <h3>Network Message Types</h3>
+            <p>The GlobalCoyn network protocol includes several message types:</p>
+            <ul>
+                <li><code>version</code>: Initial handshake message</li>
+                <li><code>getpeers</code>: Request peer list</li>
+                <li><code>peers</code>: Response with peer list</li>
+                <li><code>ping</code>: Heartbeat message</li>
+                <li><code>pong</code>: Response to ping</li>
+                <li><code>getblocks</code>: Request block headers</li>
+                <li><code>blocks</code>: Response with block data</li>
+                <li><code>tx</code>: Transaction broadcast</li>
+                <li><code>mempool</code>: Request pending transactions</li>
+            </ul>
+            
+            <h2>Future Improvements</h2>
+            <p>The GlobalCoyn network infrastructure roadmap includes:</p>
+            <ul>
+                <li>Enhanced peer scoring to identify and prefer reliable nodes</li>
+                <li>Improved bandwidth optimization for blockchain synchronization</li>
+                <li>Additional DNS seed operators for increased decentralization</li>
+                <li>Compact block relay to reduce bandwidth requirements</li>
+                <li>Tor network support for enhanced privacy</li>
+            </ul>
+        </div>
+    </section>
+    
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-logo">
+                    <img src="../assets/logo.png" alt="GlobalCoyn">
+                </div>
+                <div class="footer-links">
+                    <div class="footer-column">
+                        <h4>Resources</h4>
+                        <ul>
+                            <li><a href="../docs/whitepaper.html">Whitepaper</a></li>
+                            <li><a href="../docs/faq.html">FAQ</a></li>
+                            <li><a href="../docs/glossary.html">Glossary</a></li>
+                        </ul>
+                    </div>
+                    <div class="footer-column">
+                        <h4>Community</h4>
+                        <ul>
+                            <li><a href="https://github.com/globalcoyn" target="_blank">GitHub</a></li>
+                            <li><a href="https://twitter.com/globalcoyn" target="_blank">Twitter</a></li>
+                            <li><a href="https://discord.gg/globalcoyn" target="_blank">Discord</a></li>
+                        </ul>
+                    </div>
+                    <div class="footer-column">
+                        <h4>Legal</h4>
+                        <ul>
+                            <li><a href="../legal/terms.html">Terms</a></li>
+                            <li><a href="../legal/privacy.html">Privacy</a></li>
+                            <li><a href="../legal/policy.html">Policy</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="copyright">
+                <p>&copy; 2023-2025 GlobalCoyn Project. Released under the MIT license.</p>
+            </div>
+        </div>
+    </footer>
+    
+    <script src="../js/enhanced-script.js"></script>
+</body>
+</html>

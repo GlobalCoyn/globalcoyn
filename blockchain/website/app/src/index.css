@@ -1,0 +1,125 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --primary-color: #36b07e;
+  --secondary-color: #1f6c4e;
+  --dark-bg: #121212;
+  --light-bg: #ffffff;
+  --dark-text: #121212;
+  --light-text: #f5f5f5;
+}
+
+body {
+  margin: 0;
+  font-family: 'Helvetica', Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Custom classes */
+.btn-primary {
+  @apply bg-green-600 text-white font-medium py-2 px-4 rounded-md hover:bg-green-700 transition-colors;
+}
+
+.btn-secondary {
+  @apply bg-gray-200 text-gray-800 font-medium py-2 px-4 rounded-md hover:bg-gray-300 transition-colors;
+}
+
+.card {
+  @apply border-t border-b border-gray-300 dark:border-gray-700 overflow-hidden;
+  width: 100%; /* Ensure cards take full width */
+  background-color: transparent; /* Remove background */
+  margin-top: 0; /* Remove top margin */
+  margin-bottom: 0; /* Remove bottom margin */
+  border-radius: 0; /* Remove rounded corners */
+  border-left: none;
+  border-right: none;
+}
+
+.card-header {
+  @apply px-6 py-4 border-b border-gray-200 dark:border-gray-700;
+  background-color: transparent; /* Remove background */
+}
+
+.card-body {
+  @apply px-6 py-4;
+  background-color: transparent; /* Remove background */
+}
+
+/* Dark mode styles */
+.dark body {
+  @apply bg-gray-900 text-white;
+}
+
+/* Stats Box */
+.stats-box {
+  @apply border-r border-gray-300 dark:border-gray-600 p-5 w-full;
+  min-height: 120px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  background-color: transparent;
+  border-radius: 0; /* Remove rounded corners */
+  border-top: none;
+  border-bottom: none;
+}
+
+/* Remove right border from the last item in each row */
+.stats-box:nth-child(4n) {
+  border-right: none;
+}
+
+/* For mobile, remove right border from every 1st item and add it to every 2nd item */
+@media (max-width: 767px) {
+  .stats-box {
+    border-right: none;
+  }
+  .stats-box:nth-child(2n) {
+    border-right: 1px solid #e5e7eb;
+  }
+  .dark .stats-box:nth-child(2n) {
+    border-right-color: #4B5563;
+  }
+}
+
+/* For tablets, ensure correct borders */
+@media (min-width: 768px) and (max-width: 1023px) {
+  .stats-box {
+    border-right: none;
+  }
+  .stats-box:nth-child(2n-1) {
+    border-right: 1px solid #e5e7eb;
+  }
+  .dark .stats-box:nth-child(2n-1) {
+    border-right-color: #4B5563;
+  }
+}
+
+.stats-title {
+  @apply text-lg font-medium text-gray-700 dark:text-gray-300 mb-2;
+  font-family: 'Helvetica', Arial, sans-serif;
+}
+
+.stats-value {
+  @apply text-2xl font-bold text-gray-900 dark:text-white;
+  font-family: 'Helvetica', Arial, sans-serif;
+}
+
+.stats-container {
+  @apply grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 w-full;
+  margin: 0; /* Remove any margin */
+  max-width: 100%; /* Ensure it takes full width */
+  gap: 0; /* Remove gap between stats boxes */
+}
+
+/* Animation */
+@keyframes pulse {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.5;
+  }
+}

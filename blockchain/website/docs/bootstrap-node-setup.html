@@ -1,0 +1,478 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Setting Up a GlobalCoyn Bootstrap Node - Documentation</title>
+    <link rel="stylesheet" href="../css/enhanced-styles.css">
+    <link rel="icon" type="image/png" href="../assets/logo.png">
+    <style>
+        .doc-content {
+            padding: var(--space-xl) 0;
+        }
+        
+        .doc-content h1 {
+            margin-bottom: var(--space-lg);
+        }
+        
+        .doc-content h2 {
+            margin-top: var(--space-xl);
+            margin-bottom: var(--space-md);
+            padding-bottom: var(--space-xs);
+            border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+        }
+        
+        .doc-content h3 {
+            margin-top: var(--space-lg);
+            margin-bottom: var(--space-sm);
+            color: var(--primary-color);
+        }
+        
+        .doc-content p {
+            margin-bottom: var(--space-md);
+            line-height: 1.7;
+        }
+        
+        .doc-content ul, .doc-content ol {
+            margin-bottom: var(--space-md);
+            padding-left: var(--space-xl);
+        }
+        
+        .doc-content li {
+            margin-bottom: var(--space-xs);
+        }
+        
+        .doc-content code {
+            background-color: rgba(0, 0, 0, 0.05);
+            padding: 0.2rem 0.4rem;
+            border-radius: var(--border-radius-sm);
+            font-family: monospace;
+        }
+        
+        .doc-content pre {
+            background-color: rgba(0, 0, 0, 0.05);
+            padding: var(--space-md);
+            border-radius: var(--border-radius-md);
+            overflow-x: auto;
+            margin-bottom: var(--space-md);
+        }
+        
+        .doc-content pre code {
+            background-color: transparent;
+            padding: 0;
+        }
+        
+        .code-block {
+            background-color: #f6f8fa;
+            padding: var(--space-md);
+            border-radius: var(--border-radius-md);
+            overflow-x: auto;
+            margin-bottom: var(--space-md);
+            font-family: monospace;
+            line-height: 1.5;
+        }
+        
+        .note {
+            background-color: #f0f7ff;
+            border-left: 4px solid var(--primary-color);
+            padding: var(--space-md);
+            margin-bottom: var(--space-md);
+            border-radius: 0 var(--border-radius-md) var(--border-radius-md) 0;
+        }
+        
+        .warning {
+            background-color: #fff3e0;
+            border-left: 4px solid var(--accent-color);
+            padding: var(--space-md);
+            margin-bottom: var(--space-md);
+            border-radius: 0 var(--border-radius-md) var(--border-radius-md) 0;
+        }
+        
+        .card {
+            background-color: var(--bg-card);
+            padding: var(--space-lg);
+            border-radius: var(--border-radius-md);
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+            margin-bottom: var(--space-lg);
+        }
+        
+        .card h3 {
+            margin-top: 0;
+        }
+        
+        .table-container {
+            overflow-x: auto;
+            margin-bottom: var(--space-lg);
+        }
+        
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        
+        th, td {
+            padding: var(--space-sm);
+            text-align: left;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+        }
+        
+        th {
+            background-color: rgba(0, 0, 0, 0.03);
+            font-weight: 600;
+        }
+        
+        tr:nth-child(even) {
+            background-color: rgba(0, 0, 0, 0.02);
+        }
+        
+        .steps-container {
+            counter-reset: step-counter;
+            margin-bottom: var(--space-lg);
+        }
+        
+        .step {
+            position: relative;
+            padding-left: var(--space-xl);
+            margin-bottom: var(--space-lg);
+        }
+        
+        .step::before {
+            counter-increment: step-counter;
+            content: counter(step-counter);
+            position: absolute;
+            left: 0;
+            top: 0;
+            background-color: var(--primary-color);
+            color: white;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+        }
+        
+        .step h3 {
+            margin-top: 0;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav>
+            <div class="logo">
+                <a href="/"><img src="../assets/logo.png" alt="GlobalCoyn"></a>
+            </div>
+            <div class="nav-wrapper">
+                <ul class="nav-links">
+                    <li><a href="../index.html#about">About</a></li>
+                    <li><a href="../index.html#features">Features</a></li>
+                    <li><a href="../index.html#network">Network</a></li>
+                    <li><a href="../index.html#download">Download</a></li>
+                    <li><a href="../index.html#documentation">Documentation</a></li>
+                </ul>
+                <div class="nav-controls">
+                    <button class="theme-toggle" aria-label="Toggle dark mode">
+                        <img src="../assets/moon.svg" alt="Toggle dark mode">
+                    </button>
+                    <div class="lang-selector">
+                        <select aria-label="Select language">
+                            <option value="en">EN</option>
+                            <option value="fr">FR</option>
+                            <option value="de">DE</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+        </nav>
+    </header>
+    
+    <section class="doc-content">
+        <div class="container">
+            <h1>Setting Up a GlobalCoyn Bootstrap Node</h1>
+            
+            <div class="card">
+                <h3>Overview</h3>
+                <p>This guide explains how to set up and maintain a GlobalCoyn bootstrap node. Bootstrap nodes are essential to the network's health, providing reliable entry points for new nodes joining the network.</p>
+                <p>By running a bootstrap node, you are contributing to the decentralization and resilience of the GlobalCoyn network.</p>
+            </div>
+            
+            <h2>Prerequisites</h2>
+            <ul>
+                <li>A server with a public IP address (or domain name)</li>
+                <li>Recommended specifications:
+                    <ul>
+                        <li>2+ CPU cores</li>
+                        <li>4+ GB RAM</li>
+                        <li>100+ GB storage</li>
+                        <li>100+ Mbps internet connection</li>
+                    </ul>
+                </li>
+                <li>Python 3.8 or newer</li>
+                <li>Open ports:
+                    <ul>
+                        <li>P2P port: default 9000</li>
+                        <li>Web API port: default 8001</li>
+                    </ul>
+                </li>
+            </ul>
+            
+            <div class="note">
+                <p><strong>Note:</strong> While these are the recommended specifications, the node can run on less powerful hardware. However, performance may be affected during high network activity.</p>
+            </div>
+            
+            <h2>Installation</h2>
+            
+            <div class="steps-container">
+                <div class="step">
+                    <h3>Download the GlobalCoyn Node Software</h3>
+                    <p>Download and extract the latest node software package:</p>
+                    <div class="code-block">
+wget https://globalcoyn.com/downloads/globalcoyn-node.zip
+unzip globalcoyn-node.zip
+cd globalcoyn-node</div>
+                </div>
+                
+                <div class="step">
+                    <h3>Install Dependencies</h3>
+                    <p>Install the required Python packages:</p>
+                    <div class="code-block">
+pip install -r requirements.txt</div>
+                </div>
+                
+                <div class="step">
+                    <h3>Configure as Bootstrap Node</h3>
+                    <p>Use the bootstrap node configuration script to set up your node:</p>
+                    <div class="code-block">
+python setup_bootstrap_node.py --node-number [NODE_NUMBER] --p2p-port [P2P_PORT] --web-port [WEB_PORT]</div>
+                    <p>Replace:</p>
+                    <ul>
+                        <li><code>[NODE_NUMBER]</code>: Your assigned node number (contact the GlobalCoyn Foundation if you want to be an official bootstrap node)</li>
+                        <li><code>[P2P_PORT]</code>: The port for P2P communication (default: 9000)</li>
+                        <li><code>[WEB_PORT]</code>: The port for the Web API (default: 8001)</li>
+                    </ul>
+                    <p>Example:</p>
+                    <div class="code-block">
+python setup_bootstrap_node.py --node-number 3 --p2p-port 9000 --web-port 8001</div>
+                </div>
+                
+                <div class="step">
+                    <h3>Set Production Mode</h3>
+                    <p>For a production bootstrap node, configure the production mode:</p>
+                    <div class="code-block">
+python -c "import json; config = json.load(open('node_config.json')); config['production_mode'] = True; json.dump(config, open('node_config.json', 'w'), indent=2)"</div>
+                </div>
+                
+                <div class="step">
+                    <h3>Start the Bootstrap Node</h3>
+                    <p>Start the node using the provided script:</p>
+                    <div class="code-block">
+./start_node.sh</div>
+                    <p>For systems that don't support bash scripts, you can run:</p>
+                    <div class="code-block">
+python app.py</div>
+                </div>
+                
+                <div class="step">
+                    <h3>Register with the Network (Optional)</h3>
+                    <p>If you want your node to be listed as an official bootstrap node, contact the GlobalCoyn Foundation with your node details.</p>
+                </div>
+            </div>
+            
+            <h2>Monitoring and Maintenance</h2>
+            
+            <h3>Log Files</h3>
+            <p>The node creates several log files that you should monitor:</p>
+            <ul>
+                <li><code>blockchain.log</code>: General blockchain operations</li>
+                <li><code>node_sync.log</code>: Synchronization activities</li>
+                <li><code>bootstrap.log</code>: Bootstrap node specific logs</li>
+            </ul>
+            
+            <h3>Health Checks</h3>
+            <p>You can check the health of your bootstrap node using the API:</p>
+            <div class="code-block">
+curl http://localhost:8001/api/node/status</div>
+            
+            <h3>Automatic Startup</h3>
+            <p>To ensure your bootstrap node restarts after system reboots, consider setting up a systemd service (Linux) or launch daemon (macOS).</p>
+            
+            <h4>Example systemd service file (Linux):</h4>
+            <div class="code-block">
+# /etc/systemd/system/globalcoyn-node.service
+[Unit]
+Description=GlobalCoyn Bootstrap Node
+After=network.target
+
+[Service]
+Type=simple
+User=gcn
+WorkingDirectory=/path/to/globalcoyn-node
+ExecStart=/usr/bin/python3 app.py
+Restart=on-failure
+RestartSec=5
+StandardOutput=journal
+StandardError=journal
+
+[Install]
+WantedBy=multi-user.target</div>
+            
+            <p>Enable and start the service:</p>
+            <div class="code-block">
+sudo systemctl enable globalcoyn-node
+sudo systemctl start globalcoyn-node</div>
+            
+            <h3>Regular Updates</h3>
+            <p>It's important to keep your bootstrap node updated with the latest software version:</p>
+            <div class="code-block">
+# Stop the node
+./stop_node.sh
+
+# Backup your data
+cp -r blockchain_data.json blockchain_data.json.backup
+cp node_config.json node_config.json.backup
+
+# Download and install the latest version
+# (Follow instructions provided with each release)
+
+# Restart the node
+./start_node.sh</div>
+            
+            <div class="warning">
+                <p><strong>Warning:</strong> Always back up your node configuration and data before updating.</p>
+            </div>
+            
+            <h2>Troubleshooting</h2>
+            
+            <h3>Node Won't Start</h3>
+            <ol>
+                <li>Check logs for errors: <code>tail -n 100 blockchain.log</code></li>
+                <li>Verify port availability: <code>netstat -tuln | grep "9000\|8001"</code></li>
+                <li>Ensure proper permissions: <code>chmod +x start_node.sh</code></li>
+                <li>Check disk space: <code>df -h</code></li>
+            </ol>
+            
+            <h3>Node Not Synchronizing</h3>
+            <ol>
+                <li>Check network connectivity to other bootstrap nodes</li>
+                <li>Verify firewall settings allow incoming/outgoing connections</li>
+                <li>Check <code>node_sync.log</code> for specific errors</li>
+                <li>Try restarting the node</li>
+            </ol>
+            
+            <h3>High CPU/Memory Usage</h3>
+            <ol>
+                <li>Check for unusually high traffic (possible DoS attack)</li>
+                <li>Limit max connections in <code>node_config.json</code></li>
+                <li>Consider upgrading your hardware if consistently at capacity</li>
+            </ol>
+            
+            <h2>Performance Optimization</h2>
+            
+            <h3>Configuration Tweaks</h3>
+            <p>Edit <code>node_config.json</code> to optimize performance:</p>
+            <div class="code-block">
+{
+  "max_peers": 50,            // Limit total peer connections
+  "max_inbound": 40,          // Limit incoming connections
+  "max_outbound": 10,         // Limit outgoing connections
+  "db_cache_size": 500,       // Cache size in MB
+  "block_max_weight": 4000000 // Max block size to accept
+}</div>
+            
+            <h3>Hardware Optimization</h3>
+            <ul>
+                <li>Use SSD storage for faster database operations</li>
+                <li>Ensure sufficient RAM (8+ GB recommended for production)</li>
+                <li>Use a dedicated server rather than shared hosting</li>
+            </ul>
+            
+            <h2>Advanced Topics</h2>
+            
+            <h3>Running Behind a Reverse Proxy</h3>
+            <p>For additional security, you can run your bootstrap node behind a reverse proxy like Nginx:</p>
+            
+            <div class="code-block">
+# Nginx configuration example
+server {
+    listen 80;
+    server_name bootstrap.yourdomain.com;
+    
+    location / {
+        proxy_pass http://localhost:8001;
+        proxy_set_header Host $host;
+        proxy_set_header X-Real-IP $remote_addr;
+    }
+}
+
+# Secure with SSL
+server {
+    listen 443 ssl;
+    server_name bootstrap.yourdomain.com;
+    
+    ssl_certificate /path/to/cert.pem;
+    ssl_certificate_key /path/to/key.pem;
+    
+    location / {
+        proxy_pass http://localhost:8001;
+        proxy_set_header Host $host;
+        proxy_set_header X-Real-IP $remote_addr;
+    }
+}</div>
+            
+            <h3>Multiple Bootstrap Nodes</h3>
+            <p>For improved redundancy, consider running multiple bootstrap nodes in different geographic locations.</p>
+            
+            <h2>Getting Help</h2>
+            <p>If you encounter issues setting up or running your bootstrap node, you can get help through:</p>
+            <ul>
+                <li><a href="https://discord.gg/globalcoyn" target="_blank">GlobalCoyn Discord Server</a></li>
+                <li><a href="https://github.com/globalcoyn/issues" target="_blank">GitHub Issues</a></li>
+                <li><a href="mailto:support@globalcoyn.com">Email Support</a></li>
+            </ul>
+        </div>
+    </section>
+    
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-logo">
+                    <img src="../assets/logo.png" alt="GlobalCoyn">
+                </div>
+                <div class="footer-links">
+                    <div class="footer-column">
+                        <h4>Resources</h4>
+                        <ul>
+                            <li><a href="../docs/whitepaper.html">Whitepaper</a></li>
+                            <li><a href="../docs/faq.html">FAQ</a></li>
+                            <li><a href="../docs/glossary.html">Glossary</a></li>
+                        </ul>
+                    </div>
+                    <div class="footer-column">
+                        <h4>Community</h4>
+                        <ul>
+                            <li><a href="https://github.com/globalcoyn" target="_blank">GitHub</a></li>
+                            <li><a href="https://twitter.com/globalcoyn" target="_blank">Twitter</a></li>
+                            <li><a href="https://discord.gg/globalcoyn" target="_blank">Discord</a></li>
+                        </ul>
+                    </div>
+                    <div class="footer-column">
+                        <h4>Legal</h4>
+                        <ul>
+                            <li><a href="../legal/terms.html">Terms</a></li>
+                            <li><a href="../legal/privacy.html">Privacy</a></li>
+                            <li><a href="../legal/policy.html">Policy</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="copyright">
+                <p>&copy; 2023-2025 GlobalCoyn Project. Released under the MIT license.</p>
+            </div>
+        </div>
+    </footer>
+    
+    <script src="../js/enhanced-script.js"></script>
+</body>
+</html>

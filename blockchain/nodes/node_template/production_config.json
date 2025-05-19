@@ -1,0 +1,48 @@
+{
+  "node_settings": {
+    "domain": "globalcoyn.com",
+    "use_ssl": true,
+    "node_name": "GlobalCoyn Main Node",
+    "version": "1.0.0",
+    "environment": "production"
+  },
+  "network": {
+    "p2p_port": 9000,
+    "web_port": 8001,
+    "bootstrap_nodes": [
+      {"address": "globalcoyn.com", "p2p_port": 9000}
+    ],
+    "max_peers": 25,
+    "connection_timeout": 10,
+    "sync_interval": 300
+  },
+  "security": {
+    "cors_origins": [
+      "https://globalcoyn.com",
+      "https://www.globalcoyn.com"
+    ],
+    "rate_limit": {
+      "enabled": true,
+      "requests_per_minute": 60
+    },
+    "api_keys_enabled": false
+  },
+  "blockchain": {
+    "difficulty_adjustment_interval": 2016,
+    "target_block_time": 600,
+    "max_transactions_per_block": 1000,
+    "mempool_size_limit": 5000,
+    "min_fee": 0.00001
+  },
+  "storage": {
+    "data_file": "blockchain_data.json",
+    "backup_interval": 100,
+    "max_backups": 10
+  },
+  "logging": {
+    "level": "INFO",
+    "log_file": "blockchain.log",
+    "max_size_mb": 10,
+    "backup_count": 5
+  }
+}

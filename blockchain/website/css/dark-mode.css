@@ -1,0 +1,231 @@
+/* GlobalCoyn Dark Mode Styles */
+
+/* Dark Mode Color Variables */
+body.dark-mode {
+  /* Primary Color Palette */
+  --primary-color: #5a7fff;
+  --primary-dark: #3461ff;
+  --primary-light: #8aa3ff;
+  --secondary-color: #07d27e;
+  --accent-color: #ffcb57;
+  
+  /* Background Colors */
+  --bg-dark: #0f172a;
+  --bg-light: #1e293b;
+  --bg-gradient: linear-gradient(135deg, #0a1122 0%, #1a2638 100%);
+  --bg-card: #1a2638;
+  
+  /* Text Colors */
+  --text-dark: #e2e8f0;
+  --text-light: #f8fafc;
+  --text-muted: #94a3b8;
+  
+  /* Border Colors */
+  --border-color: #334155;
+}
+
+/* Base Elements */
+body.dark-mode {
+  background-color: var(--bg-dark);
+  color: var(--text-light);
+}
+
+body.dark-mode header {
+  background-color: var(--bg-dark);
+  border-bottom: 1px solid var(--border-color);
+}
+
+body.dark-mode .nav-links a {
+  color: var(--text-light);
+}
+
+body.dark-mode .nav-links a:hover {
+  color: var(--primary-light);
+}
+
+/* Hero Section */
+body.dark-mode .hero {
+  background: var(--bg-gradient);
+}
+
+/* Stats Cards */
+body.dark-mode .stats-section {
+  background-color: #121c2f;
+}
+
+body.dark-mode .stat-card {
+  background-color: var(--bg-card);
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+}
+
+/* About Section */
+body.dark-mode .column {
+  background-color: var(--bg-card);
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+}
+
+/* Features Section */
+body.dark-mode .feature {
+  background-color: var(--bg-card);
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+}
+
+/* Network Section */
+body.dark-mode .network-map {
+  background-color: var(--bg-card);
+}
+
+/* Download Section */
+body.dark-mode .download {
+  background-color: #121c2f;
+}
+
+body.dark-mode .download-option {
+  background-color: var(--bg-card);
+}
+
+body.dark-mode .node-download {
+  background-color: var(--bg-card);
+}
+
+body.dark-mode .node-features {
+  background-color: rgba(255, 255, 255, 0.05);
+}
+
+/* Documentation Section */
+body.dark-mode .doc-card {
+  background-color: var(--bg-card);
+}
+
+/* Forms and Inputs */
+body.dark-mode select, 
+body.dark-mode input {
+  background-color: var(--bg-card);
+  color: var(--text-light);
+  border-color: var(--border-color);
+}
+
+body.dark-mode .lang-selector::after {
+  border-top-color: var(--text-light);
+}
+
+/* Theme Toggle Button */
+body.dark-mode .theme-toggle:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+/* Dark Mode Toggle Animation */
+.theme-toggle {
+  position: relative;
+  overflow: hidden;
+}
+
+.theme-toggle:after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(255, 255, 255, 0.1);
+  border-radius: 50%;
+  transform: translate(-50%, -50%) scale(0);
+  transition: transform 0.3s ease;
+}
+
+.theme-toggle:active:after {
+  transform: translate(-50%, -50%) scale(1.5);
+}
+
+/* Improved Dark Mode Button */
+.theme-toggle-wrapper {
+  position: relative;
+  width: 36px;
+  height: 36px;
+  margin-right: var(--space-md);
+}
+
+.theme-toggle {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  background-color: transparent;
+  border: 1px solid transparent;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+body.dark-mode .theme-toggle {
+  border-color: rgba(255, 255, 255, 0.2);
+  background-color: rgba(255, 255, 255, 0.05);
+}
+
+.theme-toggle:hover {
+  transform: scale(1.1);
+}
+
+.theme-toggle img {
+  width: 20px;
+  height: 20px;
+  transition: transform 0.5s ease;
+}
+
+.theme-toggle:hover img {
+  transform: rotate(30deg);
+}
+
+/* Buttons in Dark Mode */
+body.dark-mode .primary {
+  background-color: var(--primary-color);
+}
+
+body.dark-mode .secondary {
+  border-color: var(--text-light);
+}
+
+body.dark-mode .download-btn {
+  background-color: var(--secondary-color);
+}
+
+body.dark-mode .node-btn {
+  background-color: var(--accent-color);
+  color: var(--bg-dark);
+}
+
+body.dark-mode .doc-btn {
+  background-color: var(--bg-dark);
+  color: var(--primary-light);
+  border-color: var(--primary-light);
+}
+
+body.dark-mode .doc-btn:hover {
+  background-color: var(--primary-light);
+  color: var(--bg-dark);
+}
+
+/* Dark Mode Specific Elements */
+body.dark-mode code {
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+/* Improved Scrollbar for Dark Mode */
+body.dark-mode::-webkit-scrollbar {
+  width: 14px;
+}
+
+body.dark-mode::-webkit-scrollbar-track {
+  background: var(--bg-dark);
+}
+
+body.dark-mode::-webkit-scrollbar-thumb {
+  background-color: var(--border-color);
+  border-radius: 7px;
+  border: 3px solid var(--bg-dark);
+}
+
+body.dark-mode::-webkit-scrollbar-thumb:hover {
+  background-color: var(--text-muted);
+}

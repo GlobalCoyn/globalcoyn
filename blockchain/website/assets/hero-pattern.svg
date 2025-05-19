@@ -1,0 +1,29 @@
+<svg width="1440" height="1024" viewBox="0 0 1440 1024" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <g opacity="0.15">
+    <path d="M720 -290L1440 210V1024H0V210L720 -290Z" fill="url(#paint0_linear)"/>
+    <path d="M1201 238L1202.5 240L1204 238H1201Z" stroke="white" stroke-opacity="0.2"/>
+    <path d="M1169 210L1170.5 212L1172 210H1169Z" stroke="white" stroke-opacity="0.2"/>
+    <path d="M403 380L404.5 382L406 380H403Z" stroke="white" stroke-opacity="0.2"/>
+    <path d="M371 352L372.5 354L374 352H371Z" stroke="white" stroke-opacity="0.2"/>
+    <path d="M720 -12L722 -10L724 -12H720Z" stroke="white" stroke-opacity="0.2"/>
+    <path d="M688 -40L690 -38L692 -40H688Z" stroke="white" stroke-opacity="0.2"/>
+    <circle cx="340" cy="472" r="2" stroke="white" stroke-opacity="0.3"/>
+    <circle cx="1140" cy="472" r="2" stroke="white" stroke-opacity="0.3"/>
+    <circle cx="740" cy="172" r="2" stroke="white" stroke-opacity="0.3"/>
+    <circle cx="1216" cy="292" r="3" stroke="#5A7FFF" stroke-opacity="0.4"/>
+    <circle cx="416" cy="292" r="3" stroke="#5A7FFF" stroke-opacity="0.4"/>
+    <circle cx="816" cy="-8" r="3" stroke="#5A7FFF" stroke-opacity="0.4"/>
+    <circle cx="314" cy="394" r="4" stroke="#FFB830" stroke-opacity="0.4"/>
+    <circle cx="1114" cy="394" r="4" stroke="#FFB830" stroke-opacity="0.4"/>
+    <circle cx="714" cy="94" r="4" stroke="#FFB830" stroke-opacity="0.4"/>
+    <path d="M1095 210L1045 176L995 210L945 176L895 210L845 176L795 210L745 176L695 210L645 176L595 210L545 176L495 210L445 176L395 210L345 176L295 210" stroke="#5A7FFF" stroke-opacity="0.3"/>
+    <path d="M1345 347L1295 313L1245 347L1195 313L1145 347L1095 313L1045 347L995 313L945 347L895 313L845 347L795 313L745 347L695 313L645 347L595 313L545 347L495 313L445 347L395 313L345 347L295 313L245 347L195 313L145 347L95 313L45 347" stroke="#FFB830" stroke-opacity="0.3"/>
+    <path d="M1345 457L1295 423L1245 457L1195 423L1145 457L1095 423L1045 457L995 423L945 457L895 423L845 457L795 423L745 457L695 423L645 457L595 423L545 457L495 423L445 457L395 423L345 457L295 423L245 457L195 423L145 457L95 423L45 457" stroke="#5A7FFF" stroke-opacity="0.3"/>
+  </g>
+  <defs>
+    <linearGradient id="paint0_linear" x1="720" y1="-290" x2="720" y2="1024" gradientUnits="userSpaceOnUse">
+      <stop stop-color="white" stop-opacity="0"/>
+      <stop offset="1" stop-color="white" stop-opacity="0.05"/>
+    </linearGradient>
+  </defs>
+</svg>

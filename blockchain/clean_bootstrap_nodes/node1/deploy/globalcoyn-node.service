@@ -1,0 +1,25 @@
+[Unit]
+Description=GlobalCoyn Blockchain Node
+After=network.target
+
+[Service]
+User=deploy
+Group=deploy
+WorkingDirectory=/var/www/globalcoyn/blockchain/node
+Environment="PATH=/usr/local/bin:/usr/bin:/bin"
+Environment="PYTHONPATH=/var/www/globalcoyn/blockchain"
+Environment="GCN_ENV=production"
+Environment="GCN_NODE_NUM=1"
+Environment="GCN_P2P_PORT=9000"
+Environment="GCN_WEB_PORT=8001"
+Environment="GCN_DOMAIN=globalcoyn.com"
+Environment="GCN_USE_SSL=true"
+ExecStart=/usr/bin/python3 app.py
+Restart=always
+TimeoutStartSec=30
+TimeoutStopSec=30
+StandardOutput=journal
+StandardError=journal
+
+[Install]
+WantedBy=multi-user.target

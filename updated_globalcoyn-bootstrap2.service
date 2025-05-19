@@ -1,0 +1,20 @@
+[Unit]
+Description=GlobalCoyn Bootstrap Node 2
+After=network.target
+
+[Service]
+User=ec2-user
+WorkingDirectory=/home/ec2-user/bootstrap_node_2
+Environment="PYTHONPATH=/home/ec2-user/bootstrap_node_2"
+Environment="GCN_P2P_PORT=9001"
+Environment="GCN_WEB_PORT=8002"
+Environment="GCN_NODE_NUM=2"
+Environment="GCN_DOMAIN=globalcoyn.com"
+Environment="GCN_BOOTSTRAP_MODE=true"
+Environment="GCN_ENABLE_MINING=true"
+ExecStart=/usr/bin/python3 app.py
+Restart=on-failure
+RestartSec=5s
+
+[Install]
+WantedBy=multi-user.target

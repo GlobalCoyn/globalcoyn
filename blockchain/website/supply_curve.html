@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Supply Curve</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+            background-color: white;
+        }
+        .diagram {
+            width: 800px;
+            height: 400px;
+            background-color: white;
+            border-radius: 8px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            position: relative;
+            padding: 30px;
+            box-sizing: border-box;
+        }
+        .title {
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 20px;
+            color: #000;
+        }
+        .chart {
+            width: 100%;
+            height: 250px;
+            position: relative;
+            border-left: 2px solid #000;
+            border-bottom: 2px solid #000;
+        }
+        .y-axis {
+            position: absolute;
+            left: -40px;
+            top: 0;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+        .x-axis {
+            position: absolute;
+            bottom: -30px;
+            left: 0;
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+        }
+        .curve {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
+        svg {
+            width: 100%;
+            height: 100%;
+            overflow: visible;
+        }
+        .labels {
+            margin-top: 60px;
+            display: flex;
+            width: 100%;
+            justify-content: space-between;
+        }
+    </style>
+</head>
+<body>
+    <div class="diagram">
+        <div class="chart">
+            <div class="y-axis">
+                <span>50 GCN</span>
+                <span>25 GCN</span>
+                <span>12.5 GCN</span>
+                <span>6.25 GCN</span>
+                <span>0</span>
+            </div>
+            <div class="x-axis">
+                <span>0</span>
+                <span>210k</span>
+                <span>420k</span>
+                <span>630k</span>
+                <span>Blocks</span>
+            </div>
+            <div class="curve">
+                <svg>
+                    <!-- Supply curve with halvings -->
+                    <path d="M0,0 L100,0 L100,125 L200,125 L200,187.5 L300,187.5 L300,219 L400,219 L400,250" 
+                          stroke="#0066cc" 
+                          stroke-width="3" 
+                          fill="none" />
+                    <!-- Dotted vertical lines at halving points -->
+                    <line x1="100" y1="0" x2="100" y2="250" stroke="#999" stroke-width="1" stroke-dasharray="5,5" />
+                    <line x1="200" y1="0" x2="200" y2="250" stroke="#999" stroke-width="1" stroke-dasharray="5,5" />
+                    <line x1="300" y1="0" x2="300" y2="250" stroke="#999" stroke-width="1" stroke-dasharray="5,5" />
+                </svg>
+            </div>
+        </div>
+        <div class="labels">
+            <span>Supply Curve: Block Reward vs Block Height</span>
+            <span>Halvings occur every 210,000 blocks</span>
+        </div>
+    </div>
+</body>
+</html>

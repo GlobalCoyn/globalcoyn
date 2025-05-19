@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg width="800" height="550" xmlns="http://www.w3.org/2000/svg">
+    <!-- Background -->
+    <rect width="100%" height="100%" fill="white"/>
+    
+    <!-- Title -->
+    <text x="400" y="40" font-family="Arial" font-size="24" font-weight="bold" text-anchor="middle">Core Blockchain Architecture</text>
+    
+    <!-- Main Components - Moved down to accommodate proper layering -->
+    <g transform="translate(50, 60)">
+        <!-- Blockchain Core Box -->
+        <rect x="200" y="0" width="300" height="100" rx="5" ry="5" fill="#0066cc" opacity="0.8"/>
+        <text x="350" y="55" font-family="Arial" font-size="18" font-weight="bold" fill="white" text-anchor="middle">Blockchain Core</text>
+        <text x="350" y="80" font-family="Arial" font-size="12" fill="white" text-anchor="middle">Chain Management and Validation</text>
+        
+        <!-- Transaction Mempool Box -->
+        <rect x="0" y="150" width="200" height="80" rx="5" ry="5" fill="#20a0b0" opacity="0.8"/>
+        <text x="100" y="190" font-family="Arial" font-size="16" font-weight="bold" fill="white" text-anchor="middle">Transaction Mempool</text>
+        <text x="100" y="210" font-family="Arial" font-size="12" fill="white" text-anchor="middle">Pending Transaction Management</text>
+        
+        <!-- Block Validation Box -->
+        <rect x="250" y="150" width="200" height="80" rx="5" ry="5" fill="#20a0b0" opacity="0.8"/>
+        <text x="350" y="190" font-family="Arial" font-size="16" font-weight="bold" fill="white" text-anchor="middle">Block Validation</text>
+        <text x="350" y="210" font-family="Arial" font-size="12" fill="white" text-anchor="middle">Rule Verification</text>
+        
+        <!-- Consensus Box -->
+        <rect x="500" y="150" width="200" height="80" rx="5" ry="5" fill="#20a0b0" opacity="0.8"/>
+        <text x="600" y="190" font-family="Arial" font-size="16" font-weight="bold" fill="white" text-anchor="middle">Consensus Engine</text>
+        <text x="600" y="210" font-family="Arial" font-size="12" fill="white" text-anchor="middle">Proof-of-Work</text>
+        
+        <!-- Network Layer Box - Moved higher in the visual hierarchy -->
+        <rect x="200" y="280" width="300" height="80" rx="5" ry="5" fill="#30b060" opacity="0.8"/>
+        <text x="350" y="320" font-family="Arial" font-size="16" font-weight="bold" fill="white" text-anchor="middle">Network Layer</text>
+        <text x="350" y="340" font-family="Arial" font-size="12" fill="white" text-anchor="middle">Peer Discovery and Message Propagation</text>
+        
+        <!-- Connections - Blockchain Core to Components -->
+        <line x1="350" y1="100" x2="100" y2="150" stroke="#666666" stroke-width="2"/>
+        <line x1="350" y1="100" x2="350" y2="150" stroke="#666666" stroke-width="2"/>
+        <line x1="350" y1="100" x2="600" y2="150" stroke="#666666" stroke-width="2"/>
+        
+        <!-- Connections - Components to Network Layer -->
+        <line x1="100" y1="230" x2="350" y2="280" stroke="#666666" stroke-width="2"/>
+        <line x1="350" y1="230" x2="350" y2="280" stroke="#666666" stroke-width="2"/>
+        <line x1="600" y1="230" x2="350" y2="280" stroke="#666666" stroke-width="2"/>
+    </g>
+    
+    <!-- Detailed Sub-Components - Moved further down to prevent overlap -->
+    <g transform="translate(110, 450)">
+        <!-- Block Structure Component -->
+        <rect x="0" y="0" width="150" height="60" rx="3" ry="3" fill="#e0e0e0" stroke="#888888"/>
+        <text x="75" y="25" font-family="Arial" font-size="14" font-weight="bold" text-anchor="middle">Block Structure</text>
+        <text x="75" y="45" font-family="Arial" font-size="11" text-anchor="middle">Header, Transactions, Merkle Root</text>
+        
+        <!-- Transaction Component -->
+        <rect x="170" y="0" width="150" height="60" rx="3" ry="3" fill="#e0e0e0" stroke="#888888"/>
+        <text x="245" y="25" font-family="Arial" font-size="14" font-weight="bold" text-anchor="middle">Transaction Model</text>
+        <text x="245" y="45" font-family="Arial" font-size="11" text-anchor="middle">UTXO-inspired, Signatures</text>
+        
+        <!-- Wallet Component -->
+        <rect x="340" y="0" width="150" height="60" rx="3" ry="3" fill="#e0e0e0" stroke="#888888"/>
+        <text x="415" y="25" font-family="Arial" font-size="14" font-weight="bold" text-anchor="middle">Wallet Interface</text>
+        <text x="415" y="45" font-family="Arial" font-size="11" text-anchor="middle">Key Management, Signing</text>
+        
+        <!-- API Component -->
+        <rect x="510" y="0" width="150" height="60" rx="3" ry="3" fill="#e0e0e0" stroke="#888888"/>
+        <text x="585" y="25" font-family="Arial" font-size="14" font-weight="bold" text-anchor="middle">External API</text>
+        <text x="585" y="45" font-family="Arial" font-size="11" text-anchor="middle">JSON-RPC, REST Endpoints</text>
+    </g>
+    
+    <!-- Caption -->
+    <text x="400" y="530" font-family="Arial" font-size="14" text-anchor="middle">
+        Figure 2: The modular architecture of GlobalCoyn allows for clear separation of concerns between key system components.
+    </text>
+</svg>

@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg width="800" height="600" xmlns="http://www.w3.org/2000/svg">
+    <!-- Background -->
+    <rect width="100%" height="100%" fill="white"/>
+    
+    <!-- Title -->
+    <text x="400" y="40" font-family="Arial" font-size="24" font-weight="bold" text-anchor="middle">Difficulty Adjustment Mechanism</text>
+    
+    <!-- Main Chart - Moved up to avoid overlap -->
+    <g transform="translate(50, 70)">
+        <!-- Axes -->
+        <line x1="0" y1="320" x2="700" y2="320" stroke="black" stroke-width="2"/>
+        <line x1="0" y1="0" x2="0" y2="320" stroke="black" stroke-width="2"/>
+        
+        <!-- X-axis labels -->
+        <text x="0" y="340" font-family="Arial" font-size="12" text-anchor="middle">0</text>
+        <text x="175" y="340" font-family="Arial" font-size="12" text-anchor="middle">504</text>
+        <text x="350" y="340" font-family="Arial" font-size="12" text-anchor="middle">1008</text>
+        <text x="525" y="340" font-family="Arial" font-size="12" text-anchor="middle">1512</text>
+        <text x="700" y="340" font-family="Arial" font-size="12" text-anchor="middle">2016</text>
+        <text x="350" y="370" font-family="Arial" font-size="14" font-weight="bold" text-anchor="middle">Blocks Since Last Adjustment</text>
+        
+        <!-- Y-axis labels -->
+        <text x="-10" y="320" font-family="Arial" font-size="12" text-anchor="end">0</text>
+        <text x="-10" y="240" font-family="Arial" font-size="12" text-anchor="end">4</text>
+        <text x="-10" y="160" font-family="Arial" font-size="12" text-anchor="end">8</text>
+        <text x="-10" y="80" font-family="Arial" font-size="12" text-anchor="end">12</text>
+        <text x="-10" y="0" font-family="Arial" font-size="12" text-anchor="end">16</text>
+        <text x="-40" y="160" font-family="Arial" font-size="14" font-weight="bold" text-anchor="middle" transform="rotate(-90, -40, 160)">Minutes Per Block</text>
+        
+        <!-- Target Time Line -->
+        <line x1="0" y1="200" x2="700" y2="200" stroke="#0066cc" stroke-width="2" stroke-dasharray="5,5"/>
+        <text x="710" y="200" font-family="Arial" font-size="12" fill="#0066cc" font-weight="bold">Target (10 min)</text>
+        
+        <!-- Actual Block Time Curve - Normal -->
+        <path d="M0,200 C50,180 100,230 150,210 C200,190 250,220 300,200 C350,180 400,210 450,190 C500,170 550,210 600,190 C650,170 700,200 700,200" 
+              stroke="#20a0b0" stroke-width="3" fill="none"/>
+        
+        <!-- Difficulty Adjustment Points -->
+        <line x1="350" y1="0" x2="350" y2="320" stroke="#666666" stroke-width="1" stroke-dasharray="5,5"/>
+        <line x1="700" y1="0" x2="700" y2="320" stroke="#666666" stroke-width="1" stroke-dasharray="5,5"/>
+        
+        <!-- Annotations -->
+        <circle cx="350" cy="200" r="6" fill="#ff4444"/>
+        <text x="350" y="180" font-family="Arial" font-size="12" text-anchor="middle" font-weight="bold">Half-Period Check</text>
+        
+        <circle cx="700" cy="200" r="6" fill="#ff4444"/>
+        <text x="700" y="180" font-family="Arial" font-size="12" text-anchor="middle" font-weight="bold">Difficulty Adjustment</text>
+    </g>
+    
+    <!-- Lower Section - Explanation Boxes - Moved down significantly to avoid overlap -->
+    <g transform="translate(90, 470)">
+        <text x="0" y="0" font-family="Arial" font-size="14" text-anchor="start" font-weight="bold">Adjustment Period: 2,016 blocks (approx. 2 weeks)</text>
+    </g>
+    
+    <!-- Explanation Boxes - Moved down to avoid overlap with chart -->
+    <g transform="translate(50, 490)">
+        <!-- Box 1 - Algorithm -->
+        <rect x="100" y="0" width="180" height="70" rx="5" ry="5" fill="#f0f0f0" stroke="#888888"/>
+        <text x="190" y="20" font-family="Arial" font-size="12" font-weight="bold" text-anchor="middle">Adjustment Algorithm</text>
+        <text x="190" y="40" font-family="Arial" font-size="11" text-anchor="middle">New Difficulty = Old Difficulty ×</text>
+        <text x="190" y="55" font-family="Arial" font-size="11" text-anchor="middle">(Actual Time / Target Time)</text>
+        
+        <!-- Box 2 - Limits -->
+        <rect x="320" y="0" width="180" height="70" rx="5" ry="5" fill="#f0f0f0" stroke="#888888"/>
+        <text x="410" y="20" font-family="Arial" font-size="12" font-weight="bold" text-anchor="middle">Adjustment Limits</text>
+        <text x="410" y="40" font-family="Arial" font-size="11" text-anchor="middle">Maximum change of 4x</text>
+        <text x="410" y="55" font-family="Arial" font-size="11" text-anchor="middle">in any direction</text>
+        
+        <!-- Box 3 - Purpose -->
+        <rect x="540" y="0" width="180" height="70" rx="5" ry="5" fill="#f0f0f0" stroke="#888888"/>
+        <text x="630" y="20" font-family="Arial" font-size="12" font-weight="bold" text-anchor="middle">Purpose</text>
+        <text x="630" y="40" font-family="Arial" font-size="11" text-anchor="middle">Maintains stable block times</text>
+        <text x="630" y="55" font-family="Arial" font-size="11" text-anchor="middle">despite network hash power changes</text>
+    </g>
+    
+    <!-- Caption - Moved to bottom -->
+    <text x="400" y="580" font-family="Arial" font-size="14" text-anchor="middle">
+        Figure 3: The difficulty adjustment mechanism ensures stable block times by dynamically adjusting the mining target.
+    </text>
+</svg>

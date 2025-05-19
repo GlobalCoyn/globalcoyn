@@ -1,0 +1,192 @@
+/* Additional Enhanced Styles for GlobalCoyn Website */
+
+/* About Section Image */
+.about-image-container {
+  margin: var(--space-xl) 0;
+  text-align: center;
+}
+
+.about-image {
+  max-width: 100%;
+  height: auto;
+  border-radius: var(--border-radius-lg);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+}
+
+.image-caption {
+  font-size: 0.9rem;
+  color: var(--text-muted);
+  margin-top: var(--space-sm);
+}
+
+/* Network Image */
+.network-image-container {
+  margin: var(--space-lg) 0;
+  text-align: center;
+}
+
+.network-image {
+  max-width: 100%;
+  height: auto;
+  border-radius: var(--border-radius-lg);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+}
+
+/* Network Links */
+.network-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-md);
+  margin-top: var(--space-md);
+}
+
+/* Guide Cards Section */
+.guides-section {
+  margin-top: var(--space-xl);
+}
+
+.guide-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: var(--space-md);
+  margin-top: var(--space-md);
+}
+
+.guide-card {
+  background-color: var(--bg-card);
+  padding: var(--space-md);
+  border-radius: var(--border-radius-md);
+  text-align: center;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+  text-decoration: none;
+  color: var(--text-dark);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.guide-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1);
+}
+
+.guide-card img {
+  width: 64px;
+  height: 64px;
+  margin-bottom: var(--space-sm);
+}
+
+.guide-card h4 {
+  margin: 0;
+  font-size: 1.1rem;
+  color: var(--primary-color);
+}
+
+/* Footer Logo Description */
+.footer-logo p {
+  margin-top: var(--space-sm);
+  color: var(--text-muted);
+  font-size: 0.9rem;
+  max-width: 250px;
+}
+
+/* Dark Mode Adjustments for New Elements */
+body.dark-mode .about-image,
+body.dark-mode .network-image {
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+}
+
+body.dark-mode .guide-card {
+  background-color: var(--bg-card);
+  color: var(--text-light);
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+}
+
+body.dark-mode .guide-card:hover {
+  box-shadow: 0 10px 15px rgba(0, 0, 0, 0.3);
+}
+
+body.dark-mode .guide-card h4 {
+  color: var(--primary-light);
+}
+
+/* Active Link Styling */
+.nav-links a.active {
+  color: var(--primary-color);
+  font-weight: 600;
+}
+
+body.dark-mode .nav-links a.active {
+  color: var(--primary-light);
+}
+
+/* Wallet Button in Navigation */
+.wallet-button {
+    background-color: #36b07e;
+    color: white;
+    padding: 8px 16px;
+    border-radius: 20px;
+    font-weight: 600;
+    text-decoration: none;
+    transition: background-color 0.3s ease;
+    display: inline-block;
+    margin-right: 15px;
+}
+
+.wallet-button:hover {
+    background-color: #2d8e69;
+}
+
+body.dark-mode .wallet-button {
+    background-color: #44c892;
+}
+
+body.dark-mode .wallet-button:hover {
+    background-color: #36b07e;
+}
+
+/* Responsive adjustments for new elements */
+@media (max-width: 768px) {
+  .guide-cards {
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  }
+  
+  .guide-card img {
+    width: 48px;
+    height: 48px;
+  }
+  
+  .network-links {
+    justify-content: center;
+  }
+  
+  .network-links .btn {
+    width: 100%;
+    text-align: center;
+    margin-bottom: var(--space-xs);
+  }
+  
+  .wallet-button {
+    padding: 6px 12px;
+    font-size: 14px;
+    margin-right: 10px;
+  }
+}
+
+@media (max-width: 480px) {
+  .guide-cards {
+    grid-template-columns: 1fr 1fr;
+  }
+  
+  .about-image-container,
+  .network-image-container {
+    margin: var(--space-md) 0;
+  }
+  
+  .wallet-button {
+    padding: 5px 10px;
+    font-size: 12px;
+    margin-right: 8px;
+  }
+}

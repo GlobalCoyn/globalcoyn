@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="800px" height="400px" viewBox="0 0 800 400" version="1.1" xmlns="http://www.w3.org/2000/svg">
+    <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <!-- Background -->
+        <rect fill="#F6F9FC" x="0" y="0" width="800" height="400" rx="12"></rect>
+        
+        <!-- Central Node (Bootstrap Node 1) -->
+        <circle fill="#3461FF" cx="400" cy="200" r="30"></circle>
+        <text font-family="Arial" font-size="12" fill="#FFFFFF" x="400" y="204" text-anchor="middle">Bootstrap 1</text>
+        
+        <!-- Bootstrap Node 2 -->
+        <circle fill="#3461FF" cx="550" cy="200" r="30"></circle>
+        <text font-family="Arial" font-size="12" fill="#FFFFFF" x="550" y="204" text-anchor="middle">Bootstrap 2</text>
+        
+        <!-- Regular Nodes -->
+        <circle fill="#05B169" cx="200" cy="120" r="20"></circle>
+        <text font-family="Arial" font-size="10" fill="#FFFFFF" x="200" y="123" text-anchor="middle">Node 1</text>
+        
+        <circle fill="#05B169" cx="300" cy="80" r="20"></circle>
+        <text font-family="Arial" font-size="10" fill="#FFFFFF" x="300" y="83" text-anchor="middle">Node 2</text>
+        
+        <circle fill="#05B169" cx="150" cy="250" r="20"></circle>
+        <text font-family="Arial" font-size="10" fill="#FFFFFF" x="150" y="253" text-anchor="middle">Node 3</text>
+        
+        <circle fill="#05B169" cx="320" cy="320" r="20"></circle>
+        <text font-family="Arial" font-size="10" fill="#FFFFFF" x="320" y="323" text-anchor="middle">Node 4</text>
+        
+        <circle fill="#05B169" cx="480" cy="100" r="20"></circle>
+        <text font-family="Arial" font-size="10" fill="#FFFFFF" x="480" y="103" text-anchor="middle">Node 5</text>
+        
+        <circle fill="#05B169" cx="600" cy="120" r="20"></circle>
+        <text font-family="Arial" font-size="10" fill="#FFFFFF" x="600" y="123" text-anchor="middle">Node 6</text>
+        
+        <circle fill="#05B169" cx="650" cy="280" r="20"></circle>
+        <text font-family="Arial" font-size="10" fill="#FFFFFF" x="650" y="283" text-anchor="middle">Node 7</text>
+        
+        <circle fill="#05B169" cx="500" cy="300" r="20"></circle>
+        <text font-family="Arial" font-size="10" fill="#FFFFFF" x="500" y="303" text-anchor="middle">Node 8</text>
+        
+        <!-- New Node (Highlighted) -->
+        <circle fill="#FFB830" cx="100" cy="180" r="22"></circle>
+        <text font-family="Arial" font-size="10" fill="#FFFFFF" x="100" y="183" text-anchor="middle">New Node</text>
+        
+        <!-- Connection Lines -->
+        <!-- Bootstrap Node Connections -->
+        <line stroke="#3461FF" stroke-width="2" x1="400" y1="200" x2="550" y2="200"></line>
+        
+        <!-- Regular Node to Bootstrap Connections -->
+        <line stroke="#3461FF" stroke-width="1.5" stroke-dasharray="5,3" x1="400" y1="200" x2="200" y2="120"></line>
+        <line stroke="#3461FF" stroke-width="1.5" stroke-dasharray="5,3" x1="400" y1="200" x2="300" y2="80"></line>
+        <line stroke="#3461FF" stroke-width="1.5" stroke-dasharray="5,3" x1="400" y1="200" x2="150" y2="250"></line>
+        <line stroke="#3461FF" stroke-width="1.5" stroke-dasharray="5,3" x1="400" y1="200" x2="320" y2="320"></line>
+        <line stroke="#3461FF" stroke-width="1.5" stroke-dasharray="5,3" x1="400" y1="200" x2="480" y2="100"></line>
+        
+        <line stroke="#3461FF" stroke-width="1.5" stroke-dasharray="5,3" x1="550" y1="200" x2="600" y2="120"></line>
+        <line stroke="#3461FF" stroke-width="1.5" stroke-dasharray="5,3" x1="550" y1="200" x2="650" y2="280"></line>
+        <line stroke="#3461FF" stroke-width="1.5" stroke-dasharray="5,3" x1="550" y1="200" x2="500" y2="300"></line>
+        
+        <!-- Peer to Peer Connections -->
+        <line stroke="#05B169" stroke-width="1" x1="200" y1="120" x2="300" y2="80"></line>
+        <line stroke="#05B169" stroke-width="1" x1="200" y1="120" x2="150" y2="250"></line>
+        <line stroke="#05B169" stroke-width="1" x1="150" y1="250" x2="320" y2="320"></line>
+        <line stroke="#05B169" stroke-width="1" x1="480" y1="100" x2="600" y2="120"></line>
+        <line stroke="#05B169" stroke-width="1" x1="600" y1="120" x2="650" y2="280"></line>
+        <line stroke="#05B169" stroke-width="1" x1="650" y1="280" x2="500" y2="300"></line>
+        <line stroke="#05B169" stroke-width="1" x1="500" y1="300" x2="320" y2="320"></line>
+        
+        <!-- New Node Connection (Highlighted) -->
+        <line stroke="#FFB830" stroke-width="2" stroke-dasharray="5,3" x1="100" y1="180" x2="400" y2="200"></line>
+        
+        <!-- DNS Seed Server -->
+        <rect fill="#9333EA" x="700" y="160" width="60" height="40" rx="6"></rect>
+        <text font-family="Arial" font-size="10" fill="#FFFFFF" x="730" y="183" text-anchor="middle">DNS Seed</text>
+        
+        <!-- Seed Connection -->
+        <line stroke="#9333EA" stroke-width="1.5" stroke-dasharray="7,3" x1="100" y1="180" x2="700" y2="180"></line>
+        
+        <!-- Legend -->
+        <rect fill="#FFFFFF" x="50" y="340" width="700" height="40" rx="6"></rect>
+        
+        <circle fill="#3461FF" cx="80" cy="360" r="6"></circle>
+        <text font-family="Arial" font-size="12" fill="#333333" x="95" y="364">Bootstrap Nodes</text>
+        
+        <circle fill="#05B169" cx="220" cy="360" r="6"></circle>
+        <text font-family="Arial" font-size="12" fill="#333333" x="235" y="364">Regular Nodes</text>
+        
+        <circle fill="#FFB830" cx="350" cy="360" r="6"></circle>
+        <text font-family="Arial" font-size="12" fill="#333333" x="365" y="364">New Node</text>
+        
+        <rect fill="#9333EA" x="460" y="354" width="12" height="12" rx="2"></rect>
+        <text font-family="Arial" font-size="12" fill="#333333" x="480" y="364">DNS Seed</text>
+        
+        <line stroke="#3461FF" stroke-width="1.5" stroke-dasharray="5,3" x1="560" y1="360" x2="590" y2="360"></line>
+        <text font-family="Arial" font-size="12" fill="#333333" x="630" y="364">Bootstrap Connection</text>
+    </g>
+</svg>

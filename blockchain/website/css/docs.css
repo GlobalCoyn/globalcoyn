@@ -1,0 +1,335 @@
+/* GlobalCoyn Documentation Styles */
+
+:root {
+  /* Documentation specific colors */
+  --sidebar-bg: #f8fafc;
+  --sidebar-active: #e0e7ff;
+  --code-bg: #1e293b;
+  --info-bg: rgba(52, 97, 255, 0.1);
+  --warning-bg: rgba(255, 184, 48, 0.1);
+  --border-color: #e2e8f0;
+}
+
+body.dark-mode {
+  --sidebar-bg: #1e1e2d;
+  --sidebar-active: #2d2d42;
+  --code-bg: #0f172a;
+  --info-bg: rgba(52, 97, 255, 0.2);
+  --warning-bg: rgba(255, 184, 48, 0.2);
+  --border-color: #2d3748;
+}
+
+/* Layout */
+.docs-page {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+.docs-container {
+  display: flex;
+  flex: 1;
+  padding: var(--space-md) 0;
+  max-width: 1200px;
+  margin: 0 auto;
+  width: 100%;
+}
+
+/* Sidebar */
+.docs-sidebar {
+  width: 250px;
+  padding: var(--space-md);
+  background-color: var(--sidebar-bg);
+  border-radius: var(--border-radius-md);
+  margin-right: var(--space-md);
+  position: sticky;
+  top: 80px;
+  height: calc(100vh - 100px);
+  overflow-y: auto;
+  flex-shrink: 0;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+.docs-sidebar h3 {
+  margin-bottom: var(--space-md);
+  padding-bottom: var(--space-sm);
+  border-bottom: 1px solid var(--border-color);
+  font-size: 1.25rem;
+}
+
+.docs-sidebar ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.docs-sidebar li {
+  margin-bottom: var(--space-xs);
+  padding: var(--space-xs) 0;
+  border-radius: var(--border-radius-sm);
+}
+
+.docs-sidebar li.active {
+  background-color: var(--sidebar-active);
+  padding-left: var(--space-sm);
+}
+
+.docs-sidebar a {
+  text-decoration: none;
+  color: var(--text-dark);
+  display: block;
+  padding: var(--space-xs) 0;
+  transition: color 0.2s ease;
+  font-size: 0.95rem;
+}
+
+.docs-sidebar a:hover {
+  color: var(--primary-color);
+}
+
+.docs-sidebar li.active a {
+  color: var(--primary-color);
+  font-weight: 600;
+}
+
+.docs-sidebar li.section-title {
+  margin-top: var(--space-md);
+  font-weight: 600;
+  color: var(--text-muted);
+  font-size: 0.85rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+/* Main Content */
+.docs-content {
+  flex-grow: 1;
+  padding: var(--space-md);
+  background-color: var(--bg-light);
+  border-radius: var(--border-radius-md);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+  max-width: 850px;
+}
+
+.docs-content h1 {
+  margin-bottom: var(--space-lg);
+  padding-bottom: var(--space-md);
+  border-bottom: 1px solid var(--border-color);
+}
+
+.docs-content h2 {
+  margin-top: var(--space-xl);
+  margin-bottom: var(--space-md);
+  font-size: 1.75rem;
+  color: var(--primary-color);
+  padding-bottom: var(--space-xs);
+  border-bottom: 1px solid var(--border-color);
+}
+
+.docs-content h3 {
+  margin-top: var(--space-lg);
+  margin-bottom: var(--space-sm);
+  font-size: 1.35rem;
+  color: var(--text-dark);
+}
+
+.docs-content p {
+  margin-bottom: var(--space-md);
+  line-height: 1.7;
+}
+
+.docs-content .lead {
+  font-size: 1.1rem;
+  color: var(--text-muted);
+  margin-bottom: var(--space-lg);
+  line-height: 1.6;
+}
+
+.docs-content ul, .docs-content ol {
+  margin-bottom: var(--space-md);
+  padding-left: var(--space-lg);
+}
+
+.docs-content li {
+  margin-bottom: var(--space-xs);
+  line-height: 1.7;
+}
+
+.docs-content a {
+  color: var(--primary-color);
+  text-decoration: none;
+  border-bottom: 1px dotted var(--primary-color);
+  transition: border-bottom 0.2s ease;
+}
+
+.docs-content a:hover {
+  border-bottom: 1px solid var(--primary-color);
+}
+
+/* Info and Warning Boxes */
+.info-box, .warning-box {
+  margin: var(--space-md) 0;
+  padding: var(--space-md);
+  border-radius: var(--border-radius-md);
+  border-left: 4px solid;
+}
+
+.info-box {
+  background-color: var(--info-bg);
+  border-left-color: var(--primary-color);
+}
+
+.warning-box {
+  background-color: var(--warning-bg);
+  border-left-color: var(--accent-color);
+}
+
+.info-box h3, .warning-box h3 {
+  margin-top: 0;
+  margin-bottom: var(--space-sm);
+  font-size: 1.1rem;
+}
+
+.info-box p, .warning-box p {
+  margin-bottom: 0;
+}
+
+/* Code Blocks */
+pre {
+  background-color: var(--code-bg);
+  color: var(--text-light);
+  padding: var(--space-md);
+  border-radius: var(--border-radius-md);
+  overflow-x: auto;
+  margin: var(--space-md) 0;
+  font-family: 'Courier New', Courier, monospace;
+  font-size: 0.9rem;
+  line-height: 1.5;
+}
+
+code {
+  font-family: 'Courier New', Courier, monospace;
+  background-color: rgba(0, 0, 0, 0.05);
+  padding: 2px 4px;
+  border-radius: 3px;
+  font-size: 0.9em;
+}
+
+pre code {
+  background-color: transparent;
+  padding: 0;
+  border-radius: 0;
+}
+
+/* Doc Sections */
+.doc-section {
+  margin-bottom: var(--space-xl);
+}
+
+.doc-section:last-child {
+  margin-bottom: 0;
+}
+
+/* Tables */
+.docs-content table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: var(--space-md) 0;
+}
+
+.docs-content th, .docs-content td {
+  border: 1px solid var(--border-color);
+  padding: var(--space-sm);
+  text-align: left;
+}
+
+.docs-content th {
+  background-color: var(--sidebar-bg);
+  font-weight: 600;
+}
+
+.docs-content tr:nth-child(even) {
+  background-color: var(--sidebar-bg);
+}
+
+/* Images */
+.docs-content img {
+  max-width: 100%;
+  border-radius: var(--border-radius-md);
+  margin: var(--space-md) 0;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.image-caption {
+  text-align: center;
+  font-size: 0.9rem;
+  color: var(--text-muted);
+  margin-top: var(--space-xs);
+  margin-bottom: var(--space-md);
+}
+
+/* Responsive */
+@media (max-width: 960px) {
+  .docs-container {
+    flex-direction: column;
+    padding: var(--space-md);
+  }
+  
+  .docs-sidebar {
+    width: 100%;
+    height: auto;
+    position: static;
+    margin-right: 0;
+    margin-bottom: var(--space-md);
+  }
+  
+  .docs-content {
+    max-width: 100%;
+  }
+}
+
+/* Dark Mode Specific */
+body.dark-mode .docs-content {
+  background-color: var(--bg-dark);
+}
+
+body.dark-mode .docs-content h1,
+body.dark-mode .docs-content h2,
+body.dark-mode .docs-content h3 {
+  color: var(--primary-light);
+}
+
+body.dark-mode .docs-content code {
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+/* Print Styles */
+@media print {
+  .docs-sidebar, header, footer {
+    display: none;
+  }
+  
+  .docs-container {
+    display: block;
+  }
+  
+  .docs-content {
+    max-width: 100%;
+    box-shadow: none;
+  }
+  
+  body {
+    font-size: 12pt;
+  }
+  
+  a {
+    text-decoration: none;
+    color: #000;
+  }
+  
+  .info-box, .warning-box {
+    border: 1px solid #ddd;
+    padding: 10pt;
+    margin: 15pt 0;
+  }
+}

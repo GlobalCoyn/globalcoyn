@@ -1,0 +1,11 @@
+{
+  "is_bootstrap_node": false,
+  "node_number": 2,
+  "production_mode": false,
+  "p2p_port": 9002,
+  "web_port": 8002,
+  "max_peers": 10,
+  "max_inbound": 8,
+  "max_outbound": 4,
+  "db_cache_size": 50
+}

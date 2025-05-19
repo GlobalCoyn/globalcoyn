@@ -1,0 +1,10 @@
+{
+    "node_id": 2,
+    "p2p_port": 9001,
+    "web_port": 8002,
+    "environment": "production",
+    "seed_nodes": ["127.0.0.1:9000"],
+    "enable_mining": true,
+    "max_peers": 20,
+    "bootstrap_mode": true
+  }

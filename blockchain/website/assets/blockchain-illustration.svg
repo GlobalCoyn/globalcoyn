@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="800px" height="400px" viewBox="0 0 800 400" version="1.1" xmlns="http://www.w3.org/2000/svg">
+    <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <!-- Background -->
+        <rect fill="#F6F9FC" x="0" y="0" width="800" height="400" rx="12"></rect>
+        
+        <!-- Blockchain Title -->
+        <text font-family="Arial" font-size="24" font-weight="bold" fill="#3461FF" x="400" y="50" text-anchor="middle">GlobalCoyn Blockchain</text>
+        
+        <!-- Blocks -->
+        <rect fill="#05B169" x="100" y="120" width="80" height="160" rx="4"></rect>
+        <text font-family="Arial" font-size="14" fill="#FFFFFF" x="140" y="185" text-anchor="middle">Genesis</text>
+        <text font-family="Arial" font-size="14" fill="#FFFFFF" x="140" y="205" text-anchor="middle">Block</text>
+        
+        <rect fill="#05B169" x="220" y="120" width="80" height="160" rx="4"></rect>
+        <text font-family="Arial" font-size="14" fill="#FFFFFF" x="260" y="185" text-anchor="middle">Block</text>
+        <text font-family="Arial" font-size="14" fill="#FFFFFF" x="260" y="205" text-anchor="middle">#1</text>
+        
+        <rect fill="#05B169" x="340" y="120" width="80" height="160" rx="4"></rect>
+        <text font-family="Arial" font-size="14" fill="#FFFFFF" x="380" y="185" text-anchor="middle">Block</text>
+        <text font-family="Arial" font-size="14" fill="#FFFFFF" x="380" y="205" text-anchor="middle">#2</text>
+        
+        <rect fill="#05B169" x="460" y="120" width="80" height="160" rx="4"></rect>
+        <text font-family="Arial" font-size="14" fill="#FFFFFF" x="500" y="185" text-anchor="middle">Block</text>
+        <text font-family="Arial" font-size="14" fill="#FFFFFF" x="500" y="205" text-anchor="middle">#3</text>
+        
+        <rect fill="#05B169" x="580" y="120" width="80" height="160" rx="4"></rect>
+        <text font-family="Arial" font-size="14" fill="#FFFFFF" x="620" y="185" text-anchor="middle">Block</text>
+        <text font-family="Arial" font-size="14" fill="#FFFFFF" x="620" y="205" text-anchor="middle">#4</text>
+        
+        <!-- Connections -->
+        <line stroke="#FFB830" stroke-width="4" x1="180" y1="200" x2="220" y2="200"></line>
+        <line stroke="#FFB830" stroke-width="4" x1="300" y1="200" x2="340" y2="200"></line>
+        <line stroke="#FFB830" stroke-width="4" x1="420" y1="200" x2="460" y2="200"></line>
+        <line stroke="#FFB830" stroke-width="4" x1="540" y1="200" x2="580" y2="200"></line>
+        
+        <!-- Block Details -->
+        <rect fill="#FFFFFF" x="100" y="300" width="600" height="60" rx="4"></rect>
+        <text font-family="Arial" font-size="14" fill="#3461FF" x="400" y="330" text-anchor="middle">Each block contains transaction data secured by cryptographic hashing</text>
+        <text font-family="Arial" font-size="14" fill="#3461FF" x="400" y="350" text-anchor="middle">for a transparent, immutable ledger</text>
+        
+        <!-- Blockchain Properties -->
+        <text font-family="Arial" font-size="12" fill="#05B169" x="120" y="100" text-anchor="middle">Timestamp</text>
+        <text font-family="Arial" font-size="12" fill="#05B169" x="260" y="100" text-anchor="middle">Transactions</text>
+        <text font-family="Arial" font-size="12" fill="#05B169" x="380" y="100" text-anchor="middle">Hash</text>
+        <text font-family="Arial" font-size="12" fill="#05B169" x="500" y="100" text-anchor="middle">Previous Hash</text>
+        <text font-family="Arial" font-size="12" fill="#05B169" x="620" y="100" text-anchor="middle">Nonce</text>
+    </g>
+</svg>

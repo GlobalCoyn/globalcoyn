@@ -1,0 +1,520 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GlobalCoyn Whitepaper</title>
+    <link rel="stylesheet" href="../css/enhanced-styles.css">
+    <link rel="stylesheet" href="../css/docs.css">
+    <link rel="stylesheet" href="../css/dark-mode.css">
+    <link rel="icon" type="image/png" href="../assets/logo.png">
+    <style>
+        /* Whitepaper specific styles */
+        .whitepaper-content {
+            line-height: 1.7;
+        }
+        
+        .whitepaper-content h1 {
+            text-align: center;
+            font-size: 2.2em;
+            margin-bottom: 0.5em;
+        }
+        
+        .whitepaper-content h2 {
+            font-size: 1.8em;
+            margin-top: 2em;
+            padding-bottom: 0.5em;
+            border-bottom: 1px solid var(--border-color);
+        }
+        
+        .whitepaper-content h3 {
+            font-size: 1.4em;
+            margin-top: 1.5em;
+        }
+        
+        .whitepaper-meta {
+            text-align: center;
+            font-style: italic;
+            margin-bottom: 2em;
+            color: var(--text-muted);
+        }
+        
+        .whitepaper-abstract {
+            font-style: italic;
+            background-color: var(--card-bg);
+            padding: 2em;
+            border-radius: 10px;
+            margin: 2em 0;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        }
+        
+        .whitepaper-diagram {
+            max-width: 100%;
+            margin: 2em auto;
+            display: block;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            border-radius: 5px;
+            background: var(--card-bg);
+            padding: 15px;
+        }
+        
+        .whitepaper-formula {
+            background-color: var(--card-bg);
+            padding: 15px;
+            border-radius: 5px;
+            overflow-x: auto;
+            margin: 1.5em 0;
+            font-family: "Courier New", monospace;
+        }
+        
+        .whitepaper-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 2em 0;
+        }
+        
+        .whitepaper-table th {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 10px 15px;
+            text-align: left;
+        }
+        
+        .whitepaper-table td {
+            padding: 10px 15px;
+            border-bottom: 1px solid var(--border-color);
+        }
+        
+        .whitepaper-table tr:nth-child(even) {
+            background-color: var(--card-bg);
+        }
+        
+        .whitepaper-reference {
+            font-size: 0.9em;
+            padding-left: 2em;
+            text-indent: -2em;
+            margin-bottom: 1em;
+        }
+        
+        .pdf-download {
+            text-align: center;
+            margin: 2em 0;
+        }
+        
+        .pdf-button {
+            display: inline-flex;
+            align-items: center;
+            background-color: var(--primary-color);
+            color: white;
+            padding: 12px 25px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+        }
+        
+        .pdf-button:hover {
+            background-color: var(--primary-color-dark);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15);
+        }
+        
+        .pdf-button svg {
+            margin-right: 8px;
+            width: 20px;
+            height: 20px;
+        }
+    </style>
+</head>
+<body class="docs-page">
+    <header>
+        <nav>
+            <div class="logo">
+                <a href="../index.html"><img src="../assets/logo.png" alt="GlobalCoyn"></a>
+            </div>
+            <div class="nav-wrapper">
+                <ul class="nav-links">
+                    <li><a href="../index.html#about">About</a></li>
+                    <li><a href="../index.html#features">Features</a></li>
+                    <li><a href="../index.html#network">Network</a></li>
+                    <li><a href="../index.html#download">Download</a></li>
+                    <li><a href="../index.html#documentation" class="active">Documentation</a></li>
+                </ul>
+                <div class="nav-controls">
+                    <button class="theme-toggle" aria-label="Toggle dark mode">
+                        <img src="../assets/moon.svg" alt="Toggle dark mode">
+                    </button>
+                    <div class="lang-selector">
+                        <select aria-label="Select language">
+                            <option value="en">EN</option>
+                            <option value="fr">FR</option>
+                            <option value="de">DE</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <div class="docs-container">
+        <aside class="docs-sidebar">
+            <h3>Documentation</h3>
+            <ul>
+                <li><a href="getting-started.html">Getting Started</a></li>
+                <li><a href="developer-guide.html">Developer Guide</a></li>
+                <li><a href="node-setup.html">Running a Node</a></li>
+                <li><a href="bootstrap-node-setup.html">Bootstrap Node Setup</a></li>
+                <li><a href="network-infrastructure.html">Network Infrastructure</a></li>
+                <li class="active"><a href="whitepaper.html">Whitepaper</a></li>
+                <li><a href="faq.html">FAQ</a></li>
+                <li><a href="glossary.html">Glossary</a></li>
+            </ul>
+        </aside>
+
+        <main class="docs-content whitepaper-content">
+            <h1>GlobalCoyn: A Decentralized Digital Currency</h1>
+            
+            <div class="whitepaper-meta">
+                <p>Version 2.0 - May 2025</p>
+                <p>GlobalCoyn Foundation</p>
+            </div>
+            
+            <div class="pdf-download">
+                <a href="#" class="pdf-button">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                        <polyline points="7 10 12 15 17 10"></polyline>
+                        <line x1="12" y1="15" x2="12" y2="3"></line>
+                    </svg>
+                    Download PDF Version
+                </a>
+            </div>
+
+            <div class="whitepaper-abstract">
+                <h3>Abstract</h3>
+                <p>
+                    GlobalCoyn (GCN) is a peer-to-peer electronic cash system that enables instant payments to anyone, anywhere in the world. 
+                    Unlike traditional financial systems, GlobalCoyn operates without a central authority, with transaction management and 
+                    money issuance carried out collectively by the network. This white paper outlines the technical architecture of GlobalCoyn, 
+                    including its consensus mechanism, network infrastructure, and security features. We introduce several innovations 
+                    that enhance the resilience, scalability, and security of the network, including an improved node discovery system, 
+                    adaptive difficulty adjustment, and enhanced transaction validation.
+                </p>
+            </div>
+
+            <section>
+                <h2>1. Introduction</h2>
+                <p>
+                    The modern financial system relies heavily on trusted third parties to process electronic payments. While this system works well 
+                    for most transactions, it suffers from inherent weaknesses of the trust-based model. Completely non-reversible transactions are not 
+                    possible, as financial institutions cannot avoid mediating disputes. The cost of mediation increases transaction costs, limiting 
+                    the minimum practical transaction size and cutting off the possibility for small casual transactions.
+                </p>
+                <p>
+                    GlobalCoyn addresses these issues by creating a peer-to-peer electronic payment system based on cryptographic proof instead of trust. 
+                    This allows willing parties to transact directly with each other without the need for a trusted third party. The system is designed to 
+                    be secure as long as honest nodes collectively control more CPU power than any cooperating group of attacker nodes.
+                </p>
+            </section>
+
+            <section>
+                <h2>2. Transactions</h2>
+                <p>
+                    We define an electronic coin as a chain of digital signatures. Each owner transfers the coin to the next by digitally 
+                    signing a hash of the previous transaction and the public key of the next owner and adding these to the end of the coin. 
+                    A payee can verify the signatures to verify the chain of ownership.
+                </p>
+                <p>
+                    The traditional problem is that the payee can't verify that the owner didn't double-spend the coin. GlobalCoyn solves this by implementing a 
+                    distributed timestamp server to generate computational proof of the chronological order of transactions. The system is secure as long 
+                    as honest nodes collectively control more CPU power than any cooperating group of attacker nodes.
+                </p>
+                
+                <img src="images/transactions.png" alt="GlobalCoyn Transaction Flow" class="whitepaper-diagram">
+            </section>
+
+            <section>
+                <h2>3. Network Architecture</h2>
+                <p>
+                    The GlobalCoyn network uses a multi-tiered approach to peer discovery and network resilience:
+                </p>
+                
+                <h3>3.1 Bootstrap Nodes</h3>
+                <p>
+                    Bootstrap nodes serve as stable entry points for new nodes joining the network. These are dedicated, high-availability 
+                    servers maintained to ensure consistent access to the GlobalCoyn network. New nodes connect to these bootstrap nodes 
+                    initially to discover other peers.
+                </p>
+                
+                <h3>3.2 DNS Seeds</h3>
+                <p>
+                    DNS seeding provides a dynamic method of peer discovery. DNS seeds maintain updated lists of active and reliable nodes 
+                    in the network. New nodes can query these DNS seeders to obtain a list of potential peers.
+                </p>
+                
+                <h3>3.3 Peer Exchange (PEX)</h3>
+                <p>
+                    Once connected to the network, nodes participate in peer exchange, sharing information about other known peers. 
+                    This creates a self-maintaining web of connections that enhances network resilience.
+                </p>
+                
+                <h3>3.4 Connection Backoff Strategy</h3>
+                <p>
+                    GlobalCoyn implements an exponential backoff strategy for connection attempts, reducing network congestion 
+                    during reconnection events and preventing excessive connection attempts to unreachable nodes.
+                </p>
+                
+                <img src="images/network-architecture.png" alt="GlobalCoyn Network Architecture" class="whitepaper-diagram">
+            </section>
+
+            <section>
+                <h2>4. Consensus Mechanism</h2>
+                <p>
+                    GlobalCoyn uses a Proof-of-Work (PoW) consensus mechanism similar to many other cryptocurrencies, but with several 
+                    important optimizations:
+                </p>
+                
+                <h3>4.1 Adaptive Difficulty Adjustment</h3>
+                <p>
+                    The difficulty target for mining blocks is adjusted dynamically based on the recent block generation rate. 
+                    This ensures consistent block times even as network hash power fluctuates.
+                </p>
+                
+                <div class="whitepaper-formula">
+                    new_difficulty = current_difficulty * (actual_time_span / target_time_span)
+                </div>
+                
+                <h3>4.2 Mining Algorithm</h3>
+                <p>
+                    GlobalCoyn uses a modified Hashcash proof-of-work function with the following properties:
+                </p>
+                <ul>
+                    <li>CPU-friendly hashing to promote decentralized mining</li>
+                    <li>Memory-hard components to resist ASIC specialization</li>
+                    <li>Verification efficiency to allow rapid block validation</li>
+                </ul>
+                
+                <h3>4.3 Orphaned Block Handling</h3>
+                <p>
+                    The network includes mechanisms for handling orphaned blocks (valid blocks that are not part of the main chain). 
+                    These mechanisms minimize wasted mining work and ensure fair rewards for miners who produce valid blocks that 
+                    are later orphaned due to network propagation delays.
+                </p>
+            </section>
+
+            <section>
+                <h2>5. Blockchain Data Structure</h2>
+                <p>
+                    The GlobalCoyn blockchain is a series of blocks containing transaction data. Each block includes:
+                </p>
+                
+                <ul>
+                    <li>Block header with metadata (version, previous block hash, timestamp, etc.)</li>
+                    <li>Merkle root of all transactions in the block</li>
+                    <li>Proof-of-work solution (nonce and resulting hash)</li>
+                    <li>List of transactions</li>
+                </ul>
+                
+                <h3>5.1 Block Generation</h3>
+                <p>
+                    New blocks are generated approximately every 150 seconds. This time was chosen as a balance between 
+                    transaction confirmation speed and network stability.
+                </p>
+                
+                <h3>5.2 Block Rewards</h3>
+                <p>
+                    Miners who successfully generate a block receive a reward of newly created GlobalCoyn plus any transaction 
+                    fees from transactions included in the block. The block reward follows a predetermined issuance schedule:
+                </p>
+                
+                <table class="whitepaper-table">
+                    <thead>
+                        <tr>
+                            <th>Block Height Range</th>
+                            <th>Reward per Block (GCN)</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>1 - 2,100,000</td>
+                            <td>50</td>
+                        </tr>
+                        <tr>
+                            <td>2,100,001 - 4,200,000</td>
+                            <td>25</td>
+                        </tr>
+                        <tr>
+                            <td>4,200,001 - 6,300,000</td>
+                            <td>12.5</td>
+                        </tr>
+                        <tr>
+                            <td>6,300,001 - 8,400,000</td>
+                            <td>6.25</td>
+                        </tr>
+                        <tr>
+                            <td>8,400,001+</td>
+                            <td>3.125</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </section>
+
+            <section>
+                <h2>6. Security Considerations</h2>
+                <p>
+                    GlobalCoyn's security model is based on several fundamental principles:
+                </p>
+                
+                <h3>6.1 51% Attack Resistance</h3>
+                <p>
+                    As with any proof-of-work cryptocurrency, GlobalCoyn is resistant to attacks as long as honest nodes control 
+                    the majority of the network's hash power. The network becomes more secure as it grows and hash power becomes 
+                    more distributed among independent miners.
+                </p>
+                
+                <h3>6.2 Transaction Security</h3>
+                <p>
+                    All transactions are cryptographically signed with ECDSA (Elliptic Curve Digital Signature Algorithm) using 
+                    the secp256k1 curve. This ensures that only the rightful owner of funds can spend them.
+                </p>
+                
+                <h3>6.3 Network Security</h3>
+                <p>
+                    The GlobalCoyn network includes several features to enhance security:
+                </p>
+                <ul>
+                    <li>Peer reputation systems to identify and isolate misbehaving nodes</li>
+                    <li>Connection authentication to prevent man-in-the-middle attacks</li>
+                    <li>Transaction propagation verification to prevent eclipse attacks</li>
+                    <li>Robust checkpoint system to protect against chain reorganization attacks</li>
+                </ul>
+            </section>
+
+            <section>
+                <h2>7. Future Developments</h2>
+                <p>
+                    The GlobalCoyn project has an active development roadmap with several planned enhancements:
+                </p>
+                
+                <h3>7.1 Scalability Improvements</h3>
+                <p>
+                    Future versions will include optimizations to enhance transaction throughput and reduce blockchain size:
+                </p>
+                <ul>
+                    <li>Segregated Witness implementation to increase effective block size</li>
+                    <li>Layer-2 scaling solutions for microtransactions</li>
+                    <li>Block pruning options for lightweight nodes</li>
+                </ul>
+                
+                <h3>7.2 Privacy Enhancements</h3>
+                <p>
+                    While maintaining the public transaction ledger, future updates will offer optional privacy features:
+                </p>
+                <ul>
+                    <li>Confidential Transactions to hide transaction amounts</li>
+                    <li>Stealth Addresses for enhanced recipient privacy</li>
+                    <li>Zero-knowledge proof implementations for selective disclosure</li>
+                </ul>
+                
+                <h3>7.3 Smart Contract Functionality</h3>
+                <p>
+                    The GlobalCoyn roadmap includes plans for limited smart contract functionality:
+                </p>
+                <ul>
+                    <li>Time-locked transactions</li>
+                    <li>Multi-signature contracts</li>
+                    <li>Atomic swaps with other cryptocurrencies</li>
+                </ul>
+            </section>
+
+            <section>
+                <h2>8. Conclusion</h2>
+                <p>
+                    GlobalCoyn represents a significant evolution in digital currency design, focusing on security, 
+                    decentralization, and usability. By combining proven blockchain technologies with innovations in 
+                    network architecture and consensus mechanisms, GlobalCoyn offers a robust platform for peer-to-peer 
+                    electronic transactions.
+                </p>
+                <p>
+                    The GlobalCoyn network is designed to be accessible to all, from individual users to enterprise adopters. 
+                    With its emphasis on decentralized governance and open-source development, GlobalCoyn aims to provide a 
+                    truly global currency system that is resilient, fair, and independent of centralized control.
+                </p>
+            </section>
+
+            <section>
+                <h2>9. References</h2>
+                <div class="whitepaper-reference">
+                    [1] Nakamoto, S. (2008). "Bitcoin: A Peer-to-Peer Electronic Cash System." <a href="https://bitcoin.org/bitcoin.pdf" target="_blank">https://bitcoin.org/bitcoin.pdf</a>
+                </div>
+                <div class="whitepaper-reference">
+                    [2] Buterin, V. (2014). "Ethereum: A Next-Generation Smart Contract and Decentralized Application Platform." <a href="https://ethereum.org/en/whitepaper/" target="_blank">https://ethereum.org/en/whitepaper/</a>
+                </div>
+                <div class="whitepaper-reference">
+                    [3] Back, A. (2002). "Hashcash - A Denial of Service Counter-Measure." <a href="http://www.hashcash.org/papers/hashcash.pdf" target="_blank">http://www.hashcash.org/papers/hashcash.pdf</a>
+                </div>
+                <div class="whitepaper-reference">
+                    [4] Dwork, C., & Naor, M. (1992). "Pricing via Processing or Combatting Junk Mail." In Annual International Cryptology Conference (pp. 139-147). Springer.
+                </div>
+                <div class="whitepaper-reference">
+                    [5] Maymounkov, P., & Mazières, D. (2002). "Kademlia: A Peer-to-peer Information System Based on the XOR Metric." In International Workshop on Peer-to-Peer Systems (pp. 53-65). Springer.
+                </div>
+            </section>
+            
+            <div class="pdf-download">
+                <a href="#" class="pdf-button">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                        <polyline points="7 10 12 15 17 10"></polyline>
+                        <line x1="12" y1="15" x2="12" y2="3"></line>
+                    </svg>
+                    Download PDF Version
+                </a>
+            </div>
+        </main>
+    </div>
+
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-logo">
+                    <img src="../assets/logo.png" alt="GlobalCoyn">
+                </div>
+                <div class="footer-links">
+                    <div class="footer-column">
+                        <h4>Resources</h4>
+                        <ul>
+                            <li><a href="whitepaper.html">Whitepaper</a></li>
+                            <li><a href="faq.html">FAQ</a></li>
+                            <li><a href="glossary.html">Glossary</a></li>
+                        </ul>
+                    </div>
+                    <div class="footer-column">
+                        <h4>Community</h4>
+                        <ul>
+                            <li><a href="https://github.com/globalcoyn" target="_blank">GitHub</a></li>
+                            <li><a href="https://twitter.com/globalcoyn" target="_blank">Twitter</a></li>
+                            <li><a href="https://discord.gg/globalcoyn" target="_blank">Discord</a></li>
+                        </ul>
+                    </div>
+                    <div class="footer-column">
+                        <h4>Legal</h4>
+                        <ul>
+                            <li><a href="../legal/terms.html">Terms</a></li>
+                            <li><a href="../legal/privacy.html">Privacy</a></li>
+                            <li><a href="../legal/policy.html">Policy</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="copyright">
+                <p>&copy; 2023-2025 GlobalCoyn Project. Released under the MIT license.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="../js/enhanced-script.js"></script>
+    <script src="../js/docs.js"></script>
+</body>
+</html>

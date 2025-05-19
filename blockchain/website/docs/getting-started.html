@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Getting Started with GlobalCoyn</title>
+    <link rel="stylesheet" href="../css/enhanced-styles.css">
+    <link rel="stylesheet" href="../css/docs.css">
+    <link rel="icon" type="image/png" href="../assets/logo.png">
+</head>
+<body class="docs-page">
+    <header>
+        <nav>
+            <div class="logo">
+                <a href="../index.html"><img src="../assets/logo.png" alt="GlobalCoyn"></a>
+            </div>
+            <div class="nav-wrapper">
+                <ul class="nav-links">
+                    <li><a href="../index.html#about">About</a></li>
+                    <li><a href="../index.html#features">Features</a></li>
+                    <li><a href="../index.html#network">Network</a></li>
+                    <li><a href="../index.html#download">Download</a></li>
+                    <li><a href="../index.html#documentation" class="active">Documentation</a></li>
+                </ul>
+                <div class="nav-controls">
+                    <button class="theme-toggle" aria-label="Toggle dark mode">
+                        <img src="../assets/moon.svg" alt="Toggle dark mode">
+                    </button>
+                    <div class="lang-selector">
+                        <select aria-label="Select language">
+                            <option value="en">EN</option>
+                            <option value="fr">FR</option>
+                            <option value="de">DE</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <div class="docs-container">
+        <aside class="docs-sidebar">
+            <h3>Documentation</h3>
+            <ul>
+                <li class="active"><a href="getting-started.html">Getting Started</a></li>
+                <li><a href="developer-guide.html">Developer Guide</a></li>
+                <li><a href="node-setup.html">Running a Node</a></li>
+                <li><a href="bootstrap-node-setup.html">Bootstrap Node Setup</a></li>
+                <li><a href="network-infrastructure.html">Network Infrastructure</a></li>
+                <li><a href="whitepaper.html">Whitepaper</a></li>
+                <li><a href="faq.html">FAQ</a></li>
+                <li><a href="glossary.html">Glossary</a></li>
+            </ul>
+        </aside>
+
+        <main class="docs-content">
+            <h1>Getting Started with GlobalCoyn</h1>
+            
+            <p class="lead">This guide will help you get started with GlobalCoyn, including setting up your wallet, receiving your first coins, and making transactions.</p>
+
+            <section class="doc-section">
+                <h2>Introduction to GlobalCoyn</h2>
+                <p>GlobalCoyn (GCN) is a decentralized digital currency that enables instant payments to anyone, anywhere in the world. GlobalCoyn uses peer-to-peer technology to operate with no central authority: transaction management and money issuance are carried out collectively by the network.</p>
+                
+                <div class="info-box">
+                    <h3>Quick Start</h3>
+                    <ol>
+                        <li>Download the <a href="../index.html#download">GlobalCoyn wallet</a> for your platform</li>
+                        <li>Create a new wallet or import an existing one</li>
+                        <li>Connect to the GlobalCoyn network</li>
+                        <li>Receive or mine your first coins</li>
+                    </ol>
+                </div>
+            </section>
+
+            <section class="doc-section">
+                <h2>Installing the GlobalCoyn Wallet</h2>
+                <p>To get started with GlobalCoyn, you'll need to install the official wallet on your computer.</p>
+                
+                <h3>System Requirements</h3>
+                <ul>
+                    <li><strong>macOS:</strong> macOS 10.15 (Catalina) or newer</li>
+                    <li><strong>Windows:</strong> Windows 10 or newer (coming soon)</li>
+                    <li><strong>Linux:</strong> Ubuntu 20.04 or newer (coming soon)</li>
+                    <li><strong>Storage:</strong> At least 2GB of free disk space</li>
+                    <li><strong>Memory:</strong> At least 2GB of RAM</li>
+                    <li><strong>Internet:</strong> Broadband internet connection</li>
+                </ul>
+                
+                <h3>Download and Installation</h3>
+                <p>Follow these steps to install the GlobalCoyn wallet:</p>
+                <ol>
+                    <li>Visit the <a href="../index.html#download">Download section</a> of the GlobalCoyn website</li>
+                    <li>Download the appropriate version for your operating system</li>
+                    <li>For macOS:
+                        <ul>
+                            <li>Open the downloaded DMG file</li>
+                            <li>Drag the GlobalCoyn folder to your Applications folder</li>
+                            <li>Double-click GlobalCoyn.command to start the application</li>
+                        </ul>
+                    </li>
+                </ol>
+            </section>
+
+            <section id="wallet-guide" class="doc-section">
+                <h2>Creating Your First Wallet</h2>
+                <p>When you first launch the GlobalCoyn wallet, you'll be prompted to create a new wallet or import an existing one.</p>
+                
+                <h3>Creating a New Wallet</h3>
+                <ol>
+                    <li>Launch the GlobalCoyn application</li>
+                    <li>Click on "Create New Wallet"</li>
+                    <li>A new wallet will be generated with a unique address</li>
+                    <li>Save your private key or seed phrase in a secure location</li>
+                </ol>
+                
+                <div class="warning-box">
+                    <h3>Important Security Note</h3>
+                    <p>Never share your private key or seed phrase with anyone. Anyone with access to these can control your funds. Store backup copies in secure locations. If you lose your private key, you will permanently lose access to your funds.</p>
+                </div>
+                
+                <h3>Importing an Existing Wallet</h3>
+                <ol>
+                    <li>Launch the GlobalCoyn application</li>
+                    <li>Click on "Import Wallet"</li>
+                    <li>Enter your private key or seed phrase</li>
+                    <li>Your wallet will be restored with all your coins and transaction history</li>
+                </ol>
+            </section>
+
+            <section class="doc-section">
+                <h2>Connecting to the GlobalCoyn Network</h2>
+                <p>After creating your wallet, the application will automatically connect to the GlobalCoyn network. You can see your connection status in the bottom status bar of the application.</p>
+                
+                <h3>Network Status</h3>
+                <p>The GlobalCoyn wallet displays important network information:</p>
+                <ul>
+                    <li><strong>Connected Nodes:</strong> Number of peers you're connected to</li>
+                    <li><strong>Blockchain Height:</strong> Current number of blocks in the blockchain</li>
+                    <li><strong>Sync Status:</strong> Progress of blockchain synchronization</li>
+                </ul>
+                
+                <p>If you have connection issues, you can try:</p>
+                <ul>
+                    <li>Checking your internet connection</li>
+                    <li>Restarting the application</li>
+                    <li>Configuring your firewall to allow GlobalCoyn connections</li>
+                    <li>Using the bootstrap nodes option in the settings</li>
+                </ul>
+            </section>
+
+            <section id="mining-guide" class="doc-section">
+                <h2>Receiving Your First Coins</h2>
+                <p>There are several ways to receive GlobalCoyn:</p>
+                
+                <h3>Receiving from Another User</h3>
+                <ol>
+                    <li>Click on the "Receive" tab in your wallet</li>
+                    <li>Copy your wallet address</li>
+                    <li>Share this address with the sender</li>
+                    <li>Wait for the transaction to be confirmed on the blockchain</li>
+                </ol>
+                
+                <h3>Mining GlobalCoyn</h3>
+                <p>You can earn GlobalCoyn by participating in the network's mining process:</p>
+                <ol>
+                    <li>Go to the "Mining" tab in your wallet</li>
+                    <li>Click "Start Mining"</li>
+                    <li>Your computer will start working to verify transactions and create new blocks</li>
+                    <li>When you successfully mine a block, you'll receive newly created GlobalCoyn as a reward</li>
+                </ol>
+                
+                <p>The mining difficulty adjusts automatically to maintain consistent block times. The more miners on the network, the more difficult it becomes to mine a block.</p>
+            </section>
+
+            <section id="transaction-guide" class="doc-section">
+                <h2>Sending GlobalCoyn</h2>
+                <p>To send GlobalCoyn to another address:</p>
+                
+                <ol>
+                    <li>Click on the "Send" tab in your wallet</li>
+                    <li>Enter the recipient's wallet address</li>
+                    <li>Enter the amount to send</li>
+                    <li>Review the transaction fee</li>
+                    <li>Click "Send" to confirm the transaction</li>
+                </ol>
+                
+                <p>Transactions typically confirm within minutes, depending on network activity.</p>
+                
+                <div class="info-box">
+                    <h3>Transaction Fees</h3>
+                    <p>Transaction fees are used to prioritize your transaction and prevent spam on the network. Higher fees can lead to faster confirmation times during periods of high network activity.</p>
+                </div>
+            </section>
+
+            <section class="doc-section">
+                <h2>Exploring the Blockchain</h2>
+                <p>The GlobalCoyn wallet includes a built-in block explorer that allows you to:</p>
+                
+                <ul>
+                    <li>View recent blocks and transactions</li>
+                    <li>Search for specific transactions by ID</li>
+                    <li>Check address balances and transaction histories</li>
+                    <li>Monitor network statistics</li>
+                </ul>
+                
+                <p>To access the block explorer, click on the "Explorer" tab in your wallet.</p>
+            </section>
+
+            <section class="doc-section">
+                <h2>Wallet Backup and Security</h2>
+                <p>It's crucial to secure your GlobalCoyn wallet properly:</p>
+                
+                <h3>Backing Up Your Wallet</h3>
+                <ol>
+                    <li>Go to "Settings" > "Wallet" > "Backup"</li>
+                    <li>Choose to backup your private key or seed phrase</li>
+                    <li>Store the backup securely in multiple physical locations</li>
+                    <li>Consider using hardware storage solutions for maximum security</li>
+                </ol>
+                
+                <h3>Security Best Practices</h3>
+                <ul>
+                    <li>Use strong, unique passwords for your wallet</li>
+                    <li>Enable two-factor authentication if available</li>
+                    <li>Keep your operating system and wallet software updated</li>
+                    <li>Be cautious of phishing attempts and only download the wallet from official sources</li>
+                    <li>Consider using a hardware wallet for large amounts</li>
+                </ul>
+            </section>
+
+            <section id="troubleshooting" class="doc-section">
+                <h2>Troubleshooting Common Issues</h2>
+                <p>If you encounter problems with your GlobalCoyn wallet:</p>
+                
+                <h3>Connection Issues</h3>
+                <ul>
+                    <li>Check your internet connection</li>
+                    <li>Ensure your firewall isn't blocking the application</li>
+                    <li>Try restarting the wallet</li>
+                    <li>Check if the GlobalCoyn network is experiencing issues</li>
+                </ul>
+                
+                <h3>Synchronization Problems</h3>
+                <ul>
+                    <li>The initial blockchain sync may take time, especially on slower connections</li>
+                    <li>Ensure you have enough disk space</li>
+                    <li>Try connecting to bootstrap nodes in the settings</li>
+                </ul>
+                
+                <h3>Transaction Issues</h3>
+                <ul>
+                    <li>If your transaction is not confirming, it may need a higher fee</li>
+                    <li>Check your connection to the network</li>
+                    <li>Verify the recipient address is correct</li>
+                </ul>
+            </section>
+
+            <section class="doc-section">
+                <h2>Next Steps</h2>
+                <p>Now that you have the basics of GlobalCoyn, here are some next steps to explore:</p>
+                
+                <ul>
+                    <li>Learn about <a href="developer-guide.html">developing applications</a> on the GlobalCoyn network</li>
+                    <li>Set up your own <a href="node-setup.html">GlobalCoyn node</a> to contribute to the network</li>
+                    <li>Explore the <a href="network-infrastructure.html">technical infrastructure</a> behind GlobalCoyn</li>
+                    <li>Join the GlobalCoyn community on Discord or GitHub</li>
+                </ul>
+            </section>
+        </main>
+    </div>
+
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-logo">
+                    <img src="../assets/logo.png" alt="GlobalCoyn">
+                </div>
+                <div class="footer-links">
+                    <div class="footer-column">
+                        <h4>Resources</h4>
+                        <ul>
+                            <li><a href="whitepaper.html">Whitepaper</a></li>
+                            <li><a href="faq.html">FAQ</a></li>
+                            <li><a href="glossary.html">Glossary</a></li>
+                        </ul>
+                    </div>
+                    <div class="footer-column">
+                        <h4>Community</h4>
+                        <ul>
+                            <li><a href="https://github.com/globalcoyn" target="_blank">GitHub</a></li>
+                            <li><a href="https://twitter.com/globalcoyn" target="_blank">Twitter</a></li>
+                            <li><a href="https://discord.gg/globalcoyn" target="_blank">Discord</a></li>
+                        </ul>
+                    </div>
+                    <div class="footer-column">
+                        <h4>Legal</h4>
+                        <ul>
+                            <li><a href="../legal/terms.html">Terms</a></li>
+                            <li><a href="../legal/privacy.html">Privacy</a></li>
+                            <li><a href="../legal/policy.html">Policy</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="copyright">
+                <p>&copy; 2023-2025 GlobalCoyn Project. Released under the MIT license.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="../js/enhanced-script.js"></script>
+    <script src="../js/docs.js"></script>
+</body>
+</html>
