@@ -148,7 +148,7 @@ const HomePage = () => {
       <section className="hero">
         <div className="container">
           <h1>GlobalCoyn</h1>
-          <h2>A Neutral Global Trade Currency</h2>
+          <h2>A Decentralized Digital Currency for the Modern World</h2>
           <p>
             A blockchain-based solution for international trade, independent from any nation's
             domestic monetary policy. GlobalCoyn creates a decentralized currency that reflects
