@@ -5,10 +5,10 @@
 set -e
 
 # Config
-WEBSITE_DIR="/Users/adamneto/Desktop/blockchain/blockchain/website/app"
-EC2_USER="ec2-user"
-EC2_HOST="13.61.79.186"  # IP address instead of domain name
-SSH_KEY_PATH="~/Downloads/globalcoyn.pem"
+WEBSITE_DIR="${WEBSITE_DIR:-/Users/adamneto/Desktop/blockchain/blockchain/website/app}"
+EC2_USER="${EC2_USER:-ec2-user}"
+EC2_HOST="${EC2_HOST:-13.61.79.186}"  # IP address instead of domain name
+SSH_KEY_PATH="${SSH_KEY_PATH:-~/Downloads/globalcoyn.pem}"
 
 # Colors for output
 GREEN='\033[0;32m'
@@ -37,7 +37,8 @@ fi
 
 # Build the application
 echo "Creating production build..."
-npm run build
+# Set CI=false to prevent ESLint warnings from failing the build
+CI=false npm run build
 
 if [ ! -d "build" ]; then
   echo -e "${RED}Error: Build failed, no build directory found${NC}"

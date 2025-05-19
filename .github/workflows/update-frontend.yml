@@ -12,20 +12,42 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       
-      - name: Build website
+      - name: Build and package website
         run: |
-          cd blockchain/website/app
-          chmod +x build_frontend.sh
-          ./build_frontend.sh
+          chmod +x deploy_frontend.sh
+          # Only build the frontend without deploying (as deployment is handled separately)
+          WEBSITE_DIR="$GITHUB_WORKSPACE/blockchain/website/app" bash -c '
+            set -e
+            cd "$WEBSITE_DIR"
+            # Install dependencies if needed
+            if [ ! -d "node_modules" ]; then
+              echo "Installing dependencies..."
+              npm install
+            fi
+            # Build the application
+            echo "Creating production build..."
+            CI=false npm run build
+            if [ ! -d "build" ]; then
+              echo "Error: Build failed, no build directory found"
+              exit 1
+            fi
+            # Package the build
+            echo "Packaging build for deployment..."
+            rm -f frontend-build.zip
+            zip -r frontend-build.zip build
+            echo "Package created: frontend-build.zip"
+          '
           
-      - name: Create deployment package
-        run: |
-          mkdir -p deployment
-          # Create website package
-          cp -r blockchain/website/app/build deployment/frontend-build
-          cd deployment
-          zip -r frontend-build.zip frontend-build
-          cd ..
+      # Upload the frontend package to the server
+      - name: Upload build to EC2
+        uses: appleboy/scp-action@master
+        with:
+          host: ${{ secrets.EC2_HOST }}
+          username: ${{ secrets.EC2_USERNAME }}
+          key: ${{ secrets.DEPLOY_KEY }}
+          source: "blockchain/website/app/frontend-build.zip"
+          target: "~"
+          strip_components: 3
       
       - name: Deploy to EC2
         uses: appleboy/ssh-action@master
@@ -34,32 +56,34 @@ jobs:
           username: ${{ secrets.EC2_USERNAME }}
           key: ${{ secrets.DEPLOY_KEY }}
           script: |
-            # Create deployment directory
-            mkdir -p ~/deployment
-            cd ~/deployment
-            
-            # Download deployment packages
-            curl -o frontend-build.zip ${{ secrets.DOWNLOAD_URL }}/frontend-build.zip
+            # Create deployment directory if it doesn't exist
+            sudo mkdir -p /var/www/globalcoyn/html
             
             # Backup current frontend
             timestamp=$(date +%Y%m%d%H%M%S)
             mkdir -p ~/backups/$timestamp
-            cp -r /var/www/globalcoyn/website ~/backups/$timestamp/ || true
+            cp -r /var/www/globalcoyn/html ~/backups/$timestamp/ || true
             
-            # Deploy frontend (without affecting bootstrap nodes)
-            sudo rm -rf /var/www/globalcoyn/website
-            sudo mkdir -p /var/www/globalcoyn/website
-            sudo chown $USER:$USER /var/www/globalcoyn/website
-            unzip -o frontend-build.zip -d /var/www/globalcoyn/website
+            # Unzip the build package
+            echo "Extracting frontend build..."
+            unzip -q ~/frontend-build.zip -d ~/frontend-temp
             
-            # Update Nginx configuration if needed
-            sudo cp /var/www/globalcoyn/globalcoyn_nginx_amazonlinux.conf /etc/nginx/conf.d/globalcoyn.conf
+            # Deploy the new build
+            echo "Deploying new frontend..."
+            sudo rm -rf /var/www/globalcoyn/html/*
+            sudo cp -r ~/frontend-temp/build/* /var/www/globalcoyn/html/
             
-            # Reload Nginx without downtime
-            sudo nginx -t && sudo nginx -s reload
+            # Set proper permissions
+            sudo chown -R ec2-user:ec2-user /var/www/globalcoyn/html
+            sudo chmod -R 755 /var/www/globalcoyn/html
             
             # Clean up
-            rm -rf frontend-build
-            rm frontend-build.zip
+            echo "Cleaning up temporary files..."
+            rm -rf ~/frontend-temp
+            rm ~/frontend-build.zip
+            
+            # Restart Nginx
+            echo "Restarting Nginx..."
+            sudo systemctl restart nginx
             
             echo "Frontend deployment completed at $(date)"
