@@ -89,16 +89,16 @@ jobs:
             
             # Download deployment packages
             if [ "${{ github.event.inputs.deploy_frontend }}" == "true" ]; then
-              curl -o frontend-build.zip ${{ secrets.GITHUB_DOWNLOAD_URL }}/frontend-build.zip
+              curl -o frontend-build.zip ${{ secrets.DOWNLOAD_URL }}/frontend-build.zip
             fi
             
             if [ "${{ github.event.inputs.deploy_core }}" == "true" ]; then
-              curl -o core-updates.zip ${{ secrets.GITHUB_DOWNLOAD_URL }}/core-updates.zip
+              curl -o core-updates.zip ${{ secrets.DOWNLOAD_URL }}/core-updates.zip
             fi
             
             if [ "${{ github.event.inputs.restart_nodes }}" == "true" ]; then
-              curl -o full-deployment.zip ${{ secrets.GITHUB_DOWNLOAD_URL }}/full-deployment.zip
-              curl -o globalcoyn_nginx_amazonlinux.conf ${{ secrets.GITHUB_DOWNLOAD_URL }}/globalcoyn_nginx_amazonlinux.conf
+              curl -o full-deployment.zip ${{ secrets.DOWNLOAD_URL }}/full-deployment.zip
+              curl -o globalcoyn_nginx_amazonlinux.conf ${{ secrets.DOWNLOAD_URL }}/globalcoyn_nginx_amazonlinux.conf
             fi
             
             # Create backups

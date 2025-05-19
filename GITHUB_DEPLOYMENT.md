@@ -83,7 +83,7 @@ For the deployment workflows to function, the following secrets must be set up i
 - `EC2_HOST`: The IP address or hostname of your EC2 server
 - `EC2_USERNAME`: The SSH username (usually `ec2-user` for Amazon Linux)
 - `DEPLOY_KEY`: The SSH private key that has access to your EC2 server
-- `GITHUB_DOWNLOAD_URL`: The base URL for downloading artifacts from GitHub Actions
+- `DOWNLOAD_URL`: The base URL for downloading artifacts from GitHub Actions
 
 ## Setting Up a New EC2 Server
 

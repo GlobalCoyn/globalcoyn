@@ -46,7 +46,7 @@ jobs:
             cd ~/deployment
             
             # Download deployment packages
-            curl -o core-updates.zip ${{ secrets.GITHUB_DOWNLOAD_URL }}/core-updates.zip
+            curl -o core-updates.zip ${{ secrets.DOWNLOAD_URL }}/core-updates.zip
             
             # Backup current core files
             timestamp=$(date +%Y%m%d%H%M%S)

@@ -39,7 +39,7 @@ jobs:
             cd ~/deployment
             
             # Download deployment packages
-            curl -o frontend-build.zip ${{ secrets.GITHUB_DOWNLOAD_URL }}/frontend-build.zip
+            curl -o frontend-build.zip ${{ secrets.DOWNLOAD_URL }}/frontend-build.zip
             
             # Backup current frontend
             timestamp=$(date +%Y%m%d%H%M%S)
