@@ -1,0 +1,184 @@
+name: Full Deployment
+
+on:
+  workflow_dispatch:
+    inputs:
+      restart_nodes:
+        description: 'Restart bootstrap nodes (dangerous - may lose data)'
+        required: true
+        default: 'false'
+      deploy_frontend:
+        description: 'Deploy frontend'
+        required: true
+        default: 'true'
+      deploy_core:
+        description: 'Deploy core blockchain code'
+        required: true
+        default: 'true'
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      
+      - name: Set up Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: '3.9'
+      
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          if [ -f blockchain/clean_bootstrap_nodes/node1/requirements.txt ]; then
+            pip install -r blockchain/clean_bootstrap_nodes/node1/requirements.txt
+          fi
+      
+      - name: Build website
+        if: ${{ github.event.inputs.deploy_frontend == 'true' }}
+        run: |
+          cd blockchain/website/app
+          chmod +x build_frontend.sh
+          ./build_frontend.sh
+          
+      - name: Create deployment packages
+        run: |
+          mkdir -p deployment
+          
+          # Create website package if needed
+          if [ "${{ github.event.inputs.deploy_frontend }}" == "true" ]; then
+            cp -r blockchain/website/app/build deployment/frontend-build
+            cd deployment
+            zip -r frontend-build.zip frontend-build
+            cd ..
+          fi
+          
+          # Create core package if needed
+          if [ "${{ github.event.inputs.deploy_core }}" == "true" ]; then
+            mkdir -p deployment/core-updates
+            cp -r blockchain/core deployment/core-updates/
+            cp -r blockchain/api deployment/core-updates/
+            cd deployment
+            zip -r core-updates.zip core-updates
+            cd ..
+          fi
+          
+          # Create full package if restarting nodes
+          if [ "${{ github.event.inputs.restart_nodes }}" == "true" ]; then
+            mkdir -p deployment/full-deployment
+            cp -r blockchain/clean_bootstrap_nodes deployment/full-deployment/
+            cp -r blockchain/core deployment/full-deployment/
+            cp -r blockchain/api deployment/full-deployment/
+            cp -r blockchain/scripts deployment/full-deployment/
+            cp globalcoyn_nginx_amazonlinux.conf deployment/
+            cd deployment
+            zip -r full-deployment.zip full-deployment
+            cd ..
+          fi
+      
+      - name: Deploy to EC2
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.EC2_HOST }}
+          username: ${{ secrets.EC2_USERNAME }}
+          key: ${{ secrets.DEPLOY_KEY }}
+          script: |
+            # Create deployment directory
+            mkdir -p ~/deployment
+            cd ~/deployment
+            
+            # Download deployment packages
+            if [ "${{ github.event.inputs.deploy_frontend }}" == "true" ]; then
+              curl -o frontend-build.zip ${{ secrets.GITHUB_DOWNLOAD_URL }}/frontend-build.zip
+            fi
+            
+            if [ "${{ github.event.inputs.deploy_core }}" == "true" ]; then
+              curl -o core-updates.zip ${{ secrets.GITHUB_DOWNLOAD_URL }}/core-updates.zip
+            fi
+            
+            if [ "${{ github.event.inputs.restart_nodes }}" == "true" ]; then
+              curl -o full-deployment.zip ${{ secrets.GITHUB_DOWNLOAD_URL }}/full-deployment.zip
+              curl -o globalcoyn_nginx_amazonlinux.conf ${{ secrets.GITHUB_DOWNLOAD_URL }}/globalcoyn_nginx_amazonlinux.conf
+            fi
+            
+            # Create backups
+            timestamp=$(date +%Y%m%d%H%M%S)
+            mkdir -p ~/backups/$timestamp
+            
+            # If doing a full deployment with node restart
+            if [ "${{ github.event.inputs.restart_nodes }}" == "true" ]; then
+              # Backup critical files first
+              cp -r /var/www/globalcoyn/clean_bootstrap_nodes/node1/blockchain_data.json ~/backups/$timestamp/ || true
+              cp -r /var/www/globalcoyn/clean_bootstrap_nodes/node1/wallet.key ~/backups/$timestamp/ || true
+              cp -r /var/www/globalcoyn/clean_bootstrap_nodes/node1/wallet.enc ~/backups/$timestamp/ || true
+              cp -r /var/www/globalcoyn/clean_bootstrap_nodes/node2/blockchain_data.json ~/backups/$timestamp/blockchain_data_node2.json || true
+              
+              # Stop services
+              sudo systemctl stop globalcoyn-node.service || true
+              sudo systemctl stop globalcoyn-bootstrap1.service || true
+              sudo systemctl stop globalcoyn-bootstrap2.service || true
+              
+              # Full deployment
+              sudo rm -rf /var/www/globalcoyn
+              sudo mkdir -p /var/www/globalcoyn
+              sudo chown $USER:$USER /var/www/globalcoyn
+              
+              # Extract full deployment
+              unzip -o full-deployment.zip -d /var/www/globalcoyn
+              
+              # Restore critical files
+              cp ~/backups/$timestamp/blockchain_data.json /var/www/globalcoyn/clean_bootstrap_nodes/node1/ || true
+              cp ~/backups/$timestamp/wallet.key /var/www/globalcoyn/clean_bootstrap_nodes/node1/ || true
+              cp ~/backups/$timestamp/wallet.enc /var/www/globalcoyn/clean_bootstrap_nodes/node1/ || true
+              cp ~/backups/$timestamp/blockchain_data_node2.json /var/www/globalcoyn/clean_bootstrap_nodes/node2/blockchain_data.json || true
+              
+              # Update system services
+              sudo cp /var/www/globalcoyn/updated_globalcoyn-bootstrap1.service /etc/systemd/system/globalcoyn-bootstrap1.service || true
+              sudo cp /var/www/globalcoyn/updated_globalcoyn-bootstrap2.service /etc/systemd/system/globalcoyn-bootstrap2.service || true
+              
+              # Update Nginx configuration
+              sudo cp /var/www/globalcoyn/globalcoyn_nginx_amazonlinux.conf /etc/nginx/conf.d/globalcoyn.conf
+              
+              # Reload systemd and restart services
+              sudo systemctl daemon-reload
+              sudo systemctl start globalcoyn-bootstrap1.service || true
+              sudo systemctl start globalcoyn-bootstrap2.service || true
+            else
+              # Deploy frontend if specified
+              if [ "${{ github.event.inputs.deploy_frontend }}" == "true" ]; then
+                cp -r /var/www/globalcoyn/website ~/backups/$timestamp/ || true
+                
+                sudo rm -rf /var/www/globalcoyn/website
+                sudo mkdir -p /var/www/globalcoyn/website
+                sudo chown $USER:$USER /var/www/globalcoyn/website
+                unzip -o frontend-build.zip -d /var/www/globalcoyn/website
+              fi
+              
+              # Deploy core updates if specified
+              if [ "${{ github.event.inputs.deploy_core }}" == "true" ]; then
+                mkdir -p ~/backups/$timestamp/core
+                mkdir -p ~/backups/$timestamp/api
+                cp -r /var/www/globalcoyn/clean_bootstrap_nodes/node1/core/* ~/backups/$timestamp/core/ || true
+                cp -r /var/www/globalcoyn/clean_bootstrap_nodes/node1/api/* ~/backups/$timestamp/api/ || true
+                
+                # Extract updates
+                unzip -o core-updates.zip
+                
+                # Copy core updates to bootstrap nodes without affecting data
+                cp -r core-updates/core/* /var/www/globalcoyn/clean_bootstrap_nodes/node1/core/
+                cp -r core-updates/core/* /var/www/globalcoyn/clean_bootstrap_nodes/node2/core/
+                
+                # Update API routes without affecting configuration
+                cp -r core-updates/api/routes/* /var/www/globalcoyn/clean_bootstrap_nodes/node1/routes/
+                cp -r core-updates/api/routes/* /var/www/globalcoyn/clean_bootstrap_nodes/node2/routes/
+              fi
+            fi
+            
+            # Reload Nginx without downtime
+            sudo nginx -t && sudo nginx -s reload
+            
+            # Clean up
+            rm -rf core-updates frontend-build full-deployment
+            rm -f core-updates.zip frontend-build.zip full-deployment.zip globalcoyn_nginx_amazonlinux.conf
+            
+            echo "Deployment completed at $(date)"

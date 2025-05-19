@@ -1,0 +1,65 @@
+name: Update Frontend
+
+on:
+  push:
+    branches: [ main ]
+    paths:
+      - 'blockchain/website/**'
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      
+      - name: Build website
+        run: |
+          cd blockchain/website/app
+          chmod +x build_frontend.sh
+          ./build_frontend.sh
+          
+      - name: Create deployment package
+        run: |
+          mkdir -p deployment
+          # Create website package
+          cp -r blockchain/website/app/build deployment/frontend-build
+          cd deployment
+          zip -r frontend-build.zip frontend-build
+          cd ..
+      
+      - name: Deploy to EC2
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.EC2_HOST }}
+          username: ${{ secrets.EC2_USERNAME }}
+          key: ${{ secrets.DEPLOY_KEY }}
+          script: |
+            # Create deployment directory
+            mkdir -p ~/deployment
+            cd ~/deployment
+            
+            # Download deployment packages
+            curl -o frontend-build.zip ${{ secrets.GITHUB_DOWNLOAD_URL }}/frontend-build.zip
+            
+            # Backup current frontend
+            timestamp=$(date +%Y%m%d%H%M%S)
+            mkdir -p ~/backups/$timestamp
+            cp -r /var/www/globalcoyn/website ~/backups/$timestamp/ || true
+            
+            # Deploy frontend (without affecting bootstrap nodes)
+            sudo rm -rf /var/www/globalcoyn/website
+            sudo mkdir -p /var/www/globalcoyn/website
+            sudo chown $USER:$USER /var/www/globalcoyn/website
+            unzip -o frontend-build.zip -d /var/www/globalcoyn/website
+            
+            # Update Nginx configuration if needed
+            sudo cp /var/www/globalcoyn/globalcoyn_nginx_amazonlinux.conf /etc/nginx/conf.d/globalcoyn.conf
+            
+            # Reload Nginx without downtime
+            sudo nginx -t && sudo nginx -s reload
+            
+            # Clean up
+            rm -rf frontend-build
+            rm frontend-build.zip
+            
+            echo "Frontend deployment completed at $(date)"

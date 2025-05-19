@@ -1,0 +1,73 @@
+name: Update Core Blockchain
+
+on:
+  push:
+    branches: [ main ]
+    paths:
+      - 'blockchain/core/**'
+      - 'blockchain/api/**'
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      
+      - name: Set up Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: '3.9'
+      
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          if [ -f blockchain/clean_bootstrap_nodes/node1/requirements.txt ]; then
+            pip install -r blockchain/clean_bootstrap_nodes/node1/requirements.txt
+          fi
+          
+      - name: Create deployment package
+        run: |
+          mkdir -p deployment/core-updates
+          cp -r blockchain/core deployment/core-updates/
+          cp -r blockchain/api deployment/core-updates/
+          cd deployment
+          zip -r core-updates.zip core-updates
+          cd ..
+      
+      - name: Deploy to EC2
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.EC2_HOST }}
+          username: ${{ secrets.EC2_USERNAME }}
+          key: ${{ secrets.DEPLOY_KEY }}
+          script: |
+            # Create deployment directory
+            mkdir -p ~/deployment
+            cd ~/deployment
+            
+            # Download deployment packages
+            curl -o core-updates.zip ${{ secrets.GITHUB_DOWNLOAD_URL }}/core-updates.zip
+            
+            # Backup current core files
+            timestamp=$(date +%Y%m%d%H%M%S)
+            mkdir -p ~/backups/$timestamp/core
+            mkdir -p ~/backups/$timestamp/api
+            cp -r /var/www/globalcoyn/clean_bootstrap_nodes/node1/core/* ~/backups/$timestamp/core/ || true
+            cp -r /var/www/globalcoyn/clean_bootstrap_nodes/node1/api/* ~/backups/$timestamp/api/ || true
+            
+            # Extract updates
+            unzip -o core-updates.zip
+            
+            # Copy core updates to bootstrap nodes without affecting data
+            cp -r core-updates/core/* /var/www/globalcoyn/clean_bootstrap_nodes/node1/core/
+            cp -r core-updates/core/* /var/www/globalcoyn/clean_bootstrap_nodes/node2/core/
+            
+            # Update API routes without affecting configuration
+            cp -r core-updates/api/routes/* /var/www/globalcoyn/clean_bootstrap_nodes/node1/routes/
+            cp -r core-updates/api/routes/* /var/www/globalcoyn/clean_bootstrap_nodes/node2/routes/
+            
+            # Clean up
+            rm -rf core-updates
+            rm core-updates.zip
+            
+            echo "Core blockchain update completed at $(date)"
