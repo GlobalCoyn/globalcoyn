@@ -156,7 +156,10 @@ const HomePage = () => {
           </p>
           <div className="cta-buttons">
             <Link to="/app/wallet" className="btn primary">Access Web Wallet</Link>
-            <Link to="/app/explorer" className="btn secondary">Explore Blockchain</Link>
+            <Link to="/app/explorer" className="btn secondary">View Block Explorer</Link>
+          </div>
+          <div className="version-info">
+            <span>GitHub Deployment Test - May 2025</span>
           </div>
         </div>
       </section>
