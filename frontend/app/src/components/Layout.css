@@ -1,0 +1,249 @@
+/* Layout.css - Styles for the app layout */
+
+/* Reset any homepage styles that might interfere */
+.app-layout * {
+  box-sizing: border-box;
+}
+
+/* Ensure the sidebar takes full height */
+.app-layout {
+  min-height: 100vh;
+  display: flex;
+  position: relative;
+  z-index: 20; /* Higher than any homepage elements */
+}
+
+/* Sidebar container */
+.sidebar {
+  width: 240px; /* Set a consistent width */
+  background-color: white;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  z-index: 30; /* Higher z-index to ensure visibility */
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  position: sticky;
+  top: 0;
+  overflow-x: hidden; /* Prevent horizontal overflow */
+  overflow-y: auto; /* Allow vertical scrolling if needed */
+  justify-content: flex-start; /* Start content from the top */
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif; /* Match homepage font */
+  border-right: 1px solid #e5e7eb; /* Add right border */
+  /* Ensure sidebar items are clickable by isolating from homepage styles */
+  isolation: isolate;
+}
+
+/* Dark mode for sidebar */
+.dark .sidebar {
+  background-color: #1f2937;
+  border-right-color: #374151; /* Darker border for dark mode */
+}
+
+/* Logo section */
+.logo-section {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px 16px;
+  border-bottom: 1px solid #e5e7eb;
+  background-color: #f9fafb;
+}
+
+.dark .logo-section {
+  border-color: #374151;
+  background-color: #111827;
+}
+
+.logo-link {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  text-decoration: none;
+  padding: 4px;
+  border-radius: 8px;
+  transition: transform 0.2s ease;
+}
+
+.logo-link:hover {
+  transform: scale(1.05);
+}
+
+.logo {
+  height: 36px;
+  width: auto;
+  object-fit: contain;
+}
+
+.logo-text {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: #059669;
+  font-family: "Helvetica", Arial, sans-serif;
+}
+
+.dark .logo-text {
+  color: #10b981;
+}
+
+/* Back to website link */
+.back-link {
+  display: flex;
+  align-items: center;
+  padding: 8px 16px;
+  width: 100%;
+  color: #4b5563;
+  text-decoration: none;
+  transition: background-color 0.2s;
+  box-sizing: border-box;
+  border-bottom: 1px solid #e5e7eb;
+  margin-bottom: 0; /* Remove margin */
+}
+
+.back-link:hover {
+  background-color: #f3f4f6;
+}
+
+.dark .back-link {
+  color: #d1d5db;
+  border-bottom-color: #374151; /* Update border color for dark mode */
+}
+
+.dark .back-link:hover {
+  background-color: #374151;
+}
+
+.back-icon {
+  height: 20px;
+  width: 20px;
+  margin-right: 12px;
+}
+
+/* Navigation */
+.sidebar-nav {
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0; /* No gap between items */
+  width: 100%;
+  align-items: flex-start;
+  justify-content: flex-start; /* Start from the top */
+  flex-grow: 0; /* Don't grow to fill space */
+}
+
+/* Nav item */
+.nav-item {
+  display: flex;
+  align-items: center;
+  padding: 8px 16px;
+  width: 100%; /* Make items take full width */
+  color: #4b5563;
+  text-decoration: none;
+  transition: background-color 0.2s;
+  box-sizing: border-box;
+  margin: 0; /* Remove any margins */
+  border-radius: 0; /* Remove any border radius */
+  border-bottom: 1px solid #f3f4f6; /* Add subtle separator */
+  font-weight: 400; /* Normal weight for Helvetica */
+  letter-spacing: 0.01em; /* Slight letter spacing for better readability */
+  position: relative; /* Create stacking context */
+  z-index: 35; /* Higher than sidebar z-index */
+  cursor: pointer; /* Ensure cursor changes to pointer */
+  pointer-events: auto !important; /* Force pointer events */
+}
+
+.nav-item:hover {
+  background-color: #f3f4f6;
+}
+
+.dark .nav-item {
+  color: #d1d5db;
+  border-bottom: 1px solid #1f2937; /* Darker separator for dark mode */
+}
+
+.dark .nav-item:hover {
+  background-color: #374151;
+}
+
+.nav-item.active {
+  background-color: #ecfdf5;
+  color: #059669;
+  border-left: 3px solid #059669;
+  padding-left: 13px; /* Compensate for the 3px border */
+  font-weight: 500; /* Slightly bolder for active items */
+}
+
+.dark .nav-item.active {
+  background-color: #064e3b;
+  color: #34d399;
+  border-left: 3px solid #34d399;
+  padding-left: 13px; /* Compensate for the 3px border */
+  border-bottom: 1px solid #064e3b; /* Match background for cleaner look */
+  font-weight: 500; /* Slightly bolder for active items */
+}
+
+.nav-icon {
+  height: 20px;
+  width: 20px;
+  margin-right: 12px;
+}
+
+/* Spacer */
+.sidebar-spacer {
+  flex-grow: 1; /* This will push the theme toggle to the bottom */
+}
+
+/* Dark mode toggle */
+.theme-section {
+  padding: 16px;
+  border-top: 1px solid #e5e7eb;
+}
+
+.dark .theme-section {
+  border-color: #374151;
+}
+
+.theme-toggle {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  padding: 8px 16px;
+  border-radius: 6px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: #4b5563;
+  transition: background-color 0.2s;
+}
+
+.theme-toggle:hover {
+  background-color: #f3f4f6;
+}
+
+.dark .theme-toggle {
+  color: #d1d5db;
+}
+
+.dark .theme-toggle:hover {
+  background-color: #374151;
+}
+
+.theme-icon {
+  height: 20px;
+  width: 20px;
+  margin-right: 12px;
+}
+
+/* Main content */
+.main-content {
+  flex: 1;
+  overflow: auto;
+  background-color: #f9fafb;
+}
+
+.dark .main-content {
+  background-color: #111827;
+}
+
+.content-area {
+  padding: 24px 0; /* Remove horizontal padding, keep vertical padding */
+}

@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg width="800" height="620" xmlns="http://www.w3.org/2000/svg">
+    <!-- Background -->
+    <rect width="100%" height="100%" fill="white"/>
+    
+    <!-- Title -->
+    <text x="400" y="40" font-family="Arial" font-size="24" font-weight="bold" text-anchor="middle">Wallet Architecture</text>
+    
+    <!-- Main Architecture Diagram -->
+    <g transform="translate(50, 80)">
+        <!-- Security Layer Box - Lowest Level -->
+        <rect x="125" y="290" width="450" height="80" rx="5" ry="5" fill="#0066cc" opacity="0.9"/>
+        <text x="350" y="325" font-family="Arial" font-size="18" font-weight="bold" fill="white" text-anchor="middle">Security Layer</text>
+        <text x="350" y="350" font-family="Arial" font-size="12" fill="white" text-anchor="middle">Encryption, Secure Storage, Key Management</text>
+        
+        <!-- Core Wallet Box - Middle Level - Moved up to create more space -->
+        <rect x="125" y="170" width="450" height="80" rx="5" ry="5" fill="#20a0b0" opacity="0.9"/>
+        <text x="350" y="205" font-family="Arial" font-size="18" font-weight="bold" fill="white" text-anchor="middle">Core Wallet Engine</text>
+        <text x="350" y="230" font-family="Arial" font-size="12" fill="white" text-anchor="middle">Address Generation, Transaction Signing, Balance Tracking</text>
+        
+        <!-- Interface Layer - Top Level - Moved up to create more space -->
+        <rect x="50" y="50" width="600" height="80" rx="5" ry="5" fill="#30b060" opacity="0.9"/>
+        <text x="350" y="85" font-family="Arial" font-size="18" font-weight="bold" fill="white" text-anchor="middle">Interface Layer</text>
+        <text x="350" y="110" font-family="Arial" font-size="12" fill="white" text-anchor="middle">User Interfaces, APIs, Application Logic</text>
+        
+        <!-- Interface Components - Moved higher up to avoid crowding -->
+        <rect x="80" y="-30" width="120" height="50" rx="5" ry="5" fill="#f0f0f0" stroke="#888888"/>
+        <text x="140" y="-10" font-family="Arial" font-size="14" font-weight="bold" text-anchor="middle">Web UI</text>
+        <text x="140" y="5" font-family="Arial" font-size="10" text-anchor="middle">Browser Interface</text>
+        
+        <rect x="220" y="-30" width="120" height="50" rx="5" ry="5" fill="#f0f0f0" stroke="#888888"/>
+        <text x="280" y="-10" font-family="Arial" font-size="14" font-weight="bold" text-anchor="middle">Command Line</text>
+        <text x="280" y="5" font-family="Arial" font-size="10" text-anchor="middle">Terminal Access</text>
+        
+        <rect x="360" y="-30" width="120" height="50" rx="5" ry="5" fill="#f0f0f0" stroke="#888888"/>
+        <text x="420" y="-10" font-family="Arial" font-size="14" font-weight="bold" text-anchor="middle">REST API</text>
+        <text x="420" y="5" font-family="Arial" font-size="10" text-anchor="middle">HTTP Endpoints</text>
+        
+        <rect x="500" y="-30" width="120" height="50" rx="5" ry="5" fill="#f0f0f0" stroke="#888888"/>
+        <text x="560" y="-10" font-family="Arial" font-size="14" font-weight="bold" text-anchor="middle">Mobile Apps</text>
+        <text x="560" y="5" font-family="Arial" font-size="10" text-anchor="middle">Native Applications</text>
+        
+        <!-- Connectors -->
+        <line x1="140" y1="20" x2="140" y2="50" stroke="#666666" stroke-width="2"/>
+        <line x1="280" y1="20" x2="280" y2="50" stroke="#666666" stroke-width="2"/>
+        <line x1="420" y1="20" x2="420" y2="50" stroke="#666666" stroke-width="2"/>
+        <line x1="560" y1="20" x2="560" y2="50" stroke="#666666" stroke-width="2"/>
+        
+        <line x1="350" y1="130" x2="350" y2="170" stroke="#666666" stroke-width="2"/>
+        <line x1="350" y1="250" x2="350" y2="290" stroke="#666666" stroke-width="2"/>
+    </g>
+    
+    <!-- Security Components - Moved much lower to create clear separation -->
+    <g transform="translate(80, 520)">
+        <!-- Key Management Box -->
+        <rect x="0" y="0" width="150" height="60" rx="3" ry="3" fill="#e0e0e0" stroke="#888888"/>
+        <text x="75" y="25" font-family="Arial" font-size="14" font-weight="bold" text-anchor="middle">Key Management</text>
+        <text x="75" y="45" font-family="Arial" font-size="10" text-anchor="middle">ECDSA with secp256k1</text>
+        
+        <!-- Address Encoding Box -->
+        <rect x="170" y="0" width="150" height="60" rx="3" ry="3" fill="#e0e0e0" stroke="#888888"/>
+        <text x="245" y="25" font-family="Arial" font-size="14" font-weight="bold" text-anchor="middle">Address Format</text>
+        <text x="245" y="45" font-family="Arial" font-size="10" text-anchor="middle">Base58 with Checksum</text>
+        
+        <!-- Seed Backup Box -->
+        <rect x="340" y="0" width="150" height="60" rx="3" ry="3" fill="#e0e0e0" stroke="#888888"/>
+        <text x="415" y="25" font-family="Arial" font-size="14" font-weight="bold" text-anchor="middle">Seed Backup</text>
+        <text x="415" y="45" font-family="Arial" font-size="10" text-anchor="middle">BIP-39 Mnemonics</text>
+        
+        <!-- Encryption Box -->
+        <rect x="510" y="0" width="150" height="60" rx="3" ry="3" fill="#e0e0e0" stroke="#888888"/>
+        <text x="585" y="25" font-family="Arial" font-size="14" font-weight="bold" text-anchor="middle">Encryption</text>
+        <text x="585" y="45" font-family="Arial" font-size="10" text-anchor="middle">AES-256</text>
+    </g>
+    
+    <!-- Connecting lines to show relationship between security layer and components -->
+    <g>
+        <line x1="175" y1="450" x2="130" y2="520" stroke="#666666" stroke-width="1.5" stroke-dasharray="5,3"/>
+        <line x1="260" y1="450" x2="245" y2="520" stroke="#666666" stroke-width="1.5" stroke-dasharray="5,3"/>
+        <line x1="350" y1="450" x2="415" y2="520" stroke="#666666" stroke-width="1.5" stroke-dasharray="5,3"/>
+        <line x1="440" y1="450" x2="585" y2="520" stroke="#666666" stroke-width="1.5" stroke-dasharray="5,3"/>
+    </g>
+    
+    <!-- Caption -->
+    <text x="400" y="600" font-family="Arial" font-size="14" text-anchor="middle">
+        Figure 5: The wallet architecture provides secure key management while enabling various user interfaces.
+    </text>
+</svg>

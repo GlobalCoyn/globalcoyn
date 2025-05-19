@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg width="800" height="550" xmlns="http://www.w3.org/2000/svg">
+    <!-- Background -->
+    <rect width="100%" height="100%" fill="white"/>
+    
+    <!-- Title - Moved higher up -->
+    <text x="400" y="30" font-family="Arial" font-size="24" font-weight="bold" text-anchor="middle">Supply Emission Schedule</text>
+    
+    <!-- Chart area - Moved down to create more space between title and chart -->
+    <g transform="translate(100, 120)">
+        <!-- Axes -->
+        <line x1="0" y1="250" x2="600" y2="250" stroke="black" stroke-width="2"/>
+        <line x1="0" y1="0" x2="0" y2="250" stroke="black" stroke-width="2"/>
+        
+        <!-- X-axis labels -->
+        <text x="0" y="285" font-family="Arial" font-size="14" text-anchor="middle">0</text>
+        <text x="150" y="285" font-family="Arial" font-size="14" text-anchor="middle">210k</text>
+        <text x="300" y="285" font-family="Arial" font-size="14" text-anchor="middle">420k</text>
+        <text x="450" y="285" font-family="Arial" font-size="14" text-anchor="middle">630k</text>
+        <text x="600" y="285" font-family="Arial" font-size="14" text-anchor="middle">840k</text>
+        <text x="300" y="320" font-family="Arial" font-size="16" font-weight="bold" text-anchor="middle">Block Height</text>
+        
+        <!-- Y-axis labels -->
+        <text x="-20" y="250" font-family="Arial" font-size="14" text-anchor="end">0</text>
+        <text x="-20" y="187.5" font-family="Arial" font-size="14" text-anchor="end">12.5</text>
+        <text x="-20" y="125" font-family="Arial" font-size="14" text-anchor="end">25</text>
+        <text x="-20" y="62.5" font-family="Arial" font-size="14" text-anchor="end">37.5</text>
+        <text x="-20" y="0" font-family="Arial" font-size="14" text-anchor="end">50</text>
+        <text x="-60" y="125" font-family="Arial" font-size="16" font-weight="bold" text-anchor="middle" transform="rotate(-90, -60, 125)">Reward (GCN)</text>
+        
+        <!-- Vertical grid lines at halving points -->
+        <line x1="150" y1="0" x2="150" y2="250" stroke="#dddddd" stroke-width="1" stroke-dasharray="5,5"/>
+        <line x1="300" y1="0" x2="300" y2="250" stroke="#dddddd" stroke-width="1" stroke-dasharray="5,5"/>
+        <line x1="450" y1="0" x2="450" y2="250" stroke="#dddddd" stroke-width="1" stroke-dasharray="5,5"/>
+        
+        <!-- Horizontal grid lines -->
+        <line x1="0" y1="62.5" x2="600" y2="62.5" stroke="#dddddd" stroke-width="1" stroke-dasharray="5,5"/>
+        <line x1="0" y1="125" x2="600" y2="125" stroke="#dddddd" stroke-width="1" stroke-dasharray="5,5"/>
+        <line x1="0" y1="187.5" x2="600" y2="187.5" stroke="#dddddd" stroke-width="1" stroke-dasharray="5,5"/>
+        
+        <!-- Supply curve with halvings -->
+        <path d="M0,0 L150,0 L150,125 L300,125 L300,187.5 L450,187.5 L450,218.75 L600,218.75" 
+              stroke="#0066cc" 
+              stroke-width="3" 
+              fill="none"/>
+              
+        <!-- Annotation for first halving -->
+        <text x="150" y="-25" font-family="Arial" font-size="12" text-anchor="middle">First Halving</text>
+        <text x="150" y="-45" font-family="Arial" font-size="12" text-anchor="middle">50 → 25 GCN</text>
+        
+        <!-- Annotation for second halving -->
+        <text x="300" y="-25" font-family="Arial" font-size="12" text-anchor="middle">Second Halving</text>
+        <text x="300" y="-45" font-family="Arial" font-size="12" text-anchor="middle">25 → 12.5 GCN</text>
+        
+        <!-- Annotation for third halving -->
+        <text x="450" y="-25" font-family="Arial" font-size="12" text-anchor="middle">Third Halving</text>
+        <text x="450" y="-45" font-family="Arial" font-size="12" text-anchor="middle">12.5 → 6.25 GCN</text>
+    </g>
+    
+    <!-- Additional information -->
+    <g transform="translate(400, 470)">
+        <text x="0" y="0" font-family="Arial" font-size="14" font-weight="bold" text-anchor="middle">
+            Halvings occur every 210,000 blocks (approximately 4 years)
+        </text>
+        <text x="0" y="25" font-family="Arial" font-size="14" text-anchor="middle">
+            Maximum supply: 21,000,000 GCN
+        </text>
+    </g>
+    
+    <!-- Caption -->
+    <text x="400" y="520" font-family="Arial" font-size="14" text-anchor="middle">
+        Figure 1: GlobalCoyn's supply follows a deterministic emission schedule with halvings every 210,000 blocks.
+    </text>
+</svg>

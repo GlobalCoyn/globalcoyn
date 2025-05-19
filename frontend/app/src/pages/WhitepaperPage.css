@@ -1,0 +1,681 @@
+/* WhitepaperPage.css */
+
+/* Base styling */
+.whitepaper-container {
+  max-width: 100%;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background-color: var(--bg-color, #f9f9f9);
+  color: var(--text-color, #333);
+  font-family: 'Helvetica', Arial, sans-serif;
+}
+
+.dark-mode .whitepaper-container {
+  background-color: #121212;
+  color: #ffffff;
+}
+
+.whitepaper-content {
+  flex: 1;
+  width: 100%;
+  max-width: 1000px;
+  margin: 2rem auto; /* Adjusted for new header */
+  padding: 0 1.5rem;
+}
+
+/* Document Controls */
+.whitepaper-actions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  padding: 1rem 1.5rem;
+  background-color: var(--light-bg-color, #f0f0f0);
+  border-bottom: 1px solid var(--border-color, #ddd);
+  /* Removed sticky positioning */
+  z-index: 100;
+}
+
+/* Style for document buttons below title */
+.document-buttons {
+  justify-content: center;
+  margin: 1rem auto 2rem;
+  background-color: transparent;
+  border-bottom: none;
+  padding: 0.5rem;
+}
+
+/* Logo and back button styles */
+.whitepaper-header {
+  padding: 1rem 2rem;
+  background-color: var(--bg-main, #ffffff);
+  border-bottom: 1px solid var(--border-color, #ddd);
+}
+
+.dark-mode .whitepaper-header {
+  background-color: #121212;
+  border-color: #333;
+}
+
+.back-to-home {
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+  color: var(--text-color, #333);
+  font-weight: 500;
+  transition: color 0.2s ease;
+  width: fit-content;
+}
+
+.dark-mode .back-to-home {
+  color: #ffffff;
+}
+
+.back-to-home:hover {
+  color: var(--primary-color, #0066cc);
+}
+
+.whitepaper-logo {
+  height: 30px;
+  margin-right: 0.5rem;
+}
+
+.back-arrow {
+  margin-right: 0.5rem;
+  font-size: 1.2rem;
+}
+
+.dark-mode .whitepaper-actions {
+  background-color: #1a1a1a;
+  border-color: #333;
+}
+
+.print-button, .download-button {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem 1rem;
+  border-radius: 4px;
+  font-weight: 600;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  margin-left: 0.8rem;
+  text-decoration: none;
+}
+
+.print-button {
+  background-color: var(--light-bg-color, #f0f0f0);
+  color: var(--text-color, #333);
+  border: 1px solid var(--border-color, #ddd);
+}
+
+.download-button {
+  background-color: var(--primary-color, #0066cc);
+  color: white;
+  border: none;
+}
+
+.button-text {
+  color: white;
+}
+
+.dark-mode .print-button {
+  background-color: #2a2a2a;
+  color: #e0e0e0;
+  border-color: #444;
+}
+
+.dark-mode .download-button {
+  background-color: #3b82f6;
+}
+
+.print-button:hover {
+  background-color: var(--border-color, #ddd);
+}
+
+.download-button:hover {
+  background-color: var(--primary-hover-color, #0055aa);
+}
+
+.dark-mode .print-button:hover {
+  background-color: #333;
+}
+
+.dark-mode .download-button:hover {
+  background-color: #2563eb;
+}
+
+/* Whitepaper Typography */
+.whitepaper {
+  font-family: 'Helvetica', Arial, sans-serif;
+  line-height: 1.6;
+  font-size: 1rem;
+}
+
+.whitepaper h1 {
+  font-size: 2.5rem;
+  margin-bottom: 2rem;
+  color: var(--text-color, #333); /* Changed from blue to text color */
+  text-align: center;
+  font-weight: bold;
+}
+
+.whitepaper h2 {
+  font-size: 1.8rem;
+  margin-top: 3rem;
+  margin-bottom: 1.5rem;
+  color: var(--text-color, #333); /* Changed from blue to text color */
+  padding-bottom: 0.5rem;
+  border-bottom: 1px solid var(--border-color, #ddd);
+  font-weight: bold;
+}
+
+.whitepaper h3 {
+  font-size: 1.4rem;
+  margin-top: 2rem;
+  margin-bottom: 1rem;
+  color: var(--text-color, #333); /* Changed from blue to text color */
+  font-weight: bold;
+}
+
+.whitepaper h4 {
+  font-size: 1.2rem;
+  margin-top: 1.5rem;
+  margin-bottom: 0.75rem;
+  color: var(--text-color, #333); /* Changed from blue to text color */
+  font-weight: bold;
+}
+
+.dark-mode .whitepaper h1,
+.dark-mode .whitepaper h2,
+.dark-mode .whitepaper h3,
+.dark-mode .whitepaper h4 {
+  color: #ffffff; /* Changed from blue to white text color */
+}
+
+.dark-mode .whitepaper h2 {
+  border-color: #333;
+}
+
+.whitepaper p {
+  margin-bottom: 1rem;
+}
+
+.whitepaper a {
+  color: var(--primary-color, #0066cc);
+  text-decoration: none;
+}
+
+.dark-mode .whitepaper a {
+  color: #60a5fa;
+}
+
+.whitepaper a:hover {
+  text-decoration: underline;
+}
+
+.whitepaper ul,
+.whitepaper ol {
+  margin-bottom: 1.5rem;
+  padding-left: 1.5rem;
+}
+
+.whitepaper li {
+  margin-bottom: 0.5rem;
+}
+
+/* Special sections */
+.whitepaper-section {
+  margin-bottom: 3rem;
+}
+
+.abstract {
+  font-style: italic;
+  padding: 1.5rem;
+  background-color: var(--light-bg-color, #f0f0f0);
+  border-radius: 8px;
+  margin-bottom: 3rem;
+}
+
+.dark-mode .abstract {
+  background-color: #1a1a1a;
+}
+
+.abstract p {
+  margin-bottom: 0;
+}
+
+.toc {
+  background-color: var(--light-bg-color, #f0f0f0);
+  padding: 1.5rem;
+  border-radius: 8px;
+  margin-bottom: 3rem;
+}
+
+.dark-mode .toc {
+  background-color: #1a1a1a;
+}
+
+.toc ul {
+  list-style-type: none;
+  padding-left: 0;
+}
+
+.toc li {
+  margin-bottom: 0.75rem;
+}
+
+.toc a {
+  display: block;
+  padding: 0.4rem 0;
+  border-bottom: 1px solid var(--border-color-light, #eee);
+  transition: background-color 0.2s ease;
+}
+
+.dark-mode .toc a {
+  border-color: #333;
+}
+
+.toc a:hover {
+  background-color: rgba(0, 0, 0, 0.05);
+  text-decoration: none;
+}
+
+.dark-mode .toc a:hover {
+  background-color: rgba(255, 255, 255, 0.05);
+}
+
+/* Code blocks with syntax highlighting */
+.code-block {
+  background-color: var(--code-bg, #f5f5f5);
+  border-radius: 4px;
+  padding: 1rem;
+  font-family: 'Courier New', monospace;
+  font-size: 0.85rem;
+  overflow-x: auto;
+  margin: 1.5rem 0;
+  color: var(--code-text, #333);
+  line-height: 1.5;
+  white-space: pre-wrap;
+  display: block;
+  position: relative;
+}
+
+/* Fix for code block line breaks */
+.code-block br {
+  display: block;
+  content: '';
+  margin-top: 0.5em;
+}
+
+/* Ensure line breaks are preserved */
+.code-block span {
+  display: inline;
+  white-space: pre-wrap;
+}
+
+.dark-mode .code-block {
+  background-color: #2d2d2d;
+  color: #e0e0e0;
+}
+
+/* Syntax highlighting */
+.code-keyword {
+  color: #0000ff; /* Blue */
+  font-weight: bold;
+  white-space: pre-wrap;
+}
+
+.code-string {
+  color: #a31515; /* Dark red */
+  white-space: pre-wrap;
+}
+
+.code-comment {
+  color: #008000; /* Green */
+  font-style: italic;
+  white-space: pre-wrap;
+}
+
+.code-function {
+  color: #795e26; /* Dark yellow */
+  white-space: pre-wrap;
+}
+
+.code-class {
+  color: #267f99; /* Teal */
+  font-weight: bold;
+  white-space: pre-wrap;
+}
+
+.code-variable {
+  color: #001080; /* Dark blue */
+  white-space: pre-wrap;
+}
+
+.code-operator {
+  color: #000000; /* Black */
+  white-space: pre-wrap;
+}
+
+.code-number {
+  color: #098658; /* Green */
+  white-space: pre-wrap;
+}
+
+.code-builtin {
+  color: #af00db; /* Purple */
+  white-space: pre-wrap;
+}
+
+/* Dark mode syntax highlighting */
+.dark-mode .code-keyword {
+  color: #569cd6; /* Light blue */
+}
+
+.dark-mode .code-string {
+  color: #ce9178; /* Light orange */
+}
+
+.dark-mode .code-comment {
+  color: #6a9955; /* Light green */
+}
+
+.dark-mode .code-function {
+  color: #dcdcaa; /* Light yellow */
+}
+
+.dark-mode .code-class {
+  color: #4ec9b0; /* Light teal */
+}
+
+.dark-mode .code-variable {
+  color: #9cdcfe; /* Light blue */
+}
+
+.dark-mode .code-operator {
+  color: #d4d4d4; /* Light gray */
+}
+
+.dark-mode .code-number {
+  color: #b5cea8; /* Light green */
+}
+
+.dark-mode .code-builtin {
+  color: #c586c0; /* Light purple */
+}
+
+/* Component descriptions */
+.component-description {
+  background-color: var(--light-bg-color, #f0f0f0);
+  border-radius: 8px;
+  padding: 1.5rem;
+  margin-bottom: 1.5rem;
+  border-left: 4px solid var(--primary-color, #0066cc);
+}
+
+.dark-mode .component-description {
+  background-color: #1a1a1a;
+  border-left-color: #3b82f6;
+}
+
+/* Tables */
+.table-container {
+  overflow-x: auto;
+  margin: 2rem 0;
+}
+
+.comparison-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.9rem;
+}
+
+.comparison-table th {
+  background-color: var(--primary-color, #0066cc);
+  color: white;
+  padding: 0.75rem;
+  text-align: left;
+}
+
+.comparison-table td {
+  padding: 0.75rem;
+  border-bottom: 1px solid var(--border-color, #ddd);
+}
+
+.dark-mode .comparison-table td {
+  border-color: #444;
+}
+
+.comparison-table tr:nth-child(even) {
+  background-color: var(--light-bg-color, #f0f0f0);
+}
+
+.dark-mode .comparison-table tr:nth-child(even) {
+  background-color: #1a1a1a;
+}
+
+/* Diagrams */
+.whitepaper-diagram {
+  margin: 3rem 0;
+  text-align: center;
+}
+
+.diagram-container {
+  display: inline-block;
+  max-width: 100%;
+  background-color: var(--light-bg-color, #f0f0f0);
+  padding: 1.5rem;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Ensure diagrams are visible in dark mode with proper inversion */
+.dark-mode .diagram {
+  filter: invert(0.85) hue-rotate(180deg);
+  background-color: transparent !important;
+}
+
+.dark-mode .diagram-container {
+  background-color: #1a1a1a;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+}
+
+.diagram {
+  max-width: 100%;
+  height: auto;
+  margin-bottom: 1rem;
+  border-radius: 4px;
+  display: block;
+  margin: 0 auto 1rem;
+}
+
+.diagram-caption {
+  font-size: 0.9rem;
+  color: var(--secondary-text, #666);
+  margin-bottom: 0;
+}
+
+.dark-mode .diagram-caption {
+  color: #aaa;
+}
+
+/* Technical specifications */
+.technical-specs {
+  columns: 1;
+  column-gap: 2.5rem;
+  margin-bottom: 2rem;
+}
+
+.technical-specs h3 {
+  margin-top: 1.5rem;
+  break-after: avoid;
+}
+
+.technical-specs ul {
+  break-inside: avoid;
+}
+
+/* References */
+.reference-list {
+  font-size: 0.9rem;
+  padding-left: 1.5rem;
+}
+
+.reference-list li {
+  margin-bottom: 0.75rem;
+}
+
+/* Print styles */
+@media print {
+  .whitepaper-header,
+  .compact-header,
+  .modern-footer,
+  .slim-footer,
+  .whitepaper-actions {
+    display: none !important;
+  }
+  
+  .whitepaper-container {
+    margin: 0;
+    padding: 0;
+    background-color: white !important;
+  }
+  
+  .whitepaper-content {
+    padding: 0;
+    margin: 0;
+    max-width: none;
+  }
+  
+  .whitepaper {
+    font-size: 12pt;
+    color: black !important;
+  }
+  
+  .whitepaper h1 {
+    font-size: 24pt;
+    color: black !important;
+  }
+  
+  .whitepaper h2 {
+    font-size: 18pt;
+    break-after: avoid;
+    color: black !important;
+    border-color: #ddd !important;
+  }
+  
+  .whitepaper h3 {
+    font-size: 14pt;
+    break-after: avoid;
+    color: black !important;
+  }
+  
+  .whitepaper h4 {
+    font-size: 12pt;
+    break-after: avoid;
+    color: black !important;
+  }
+  
+  .whitepaper ul,
+  .whitepaper ol {
+    page-break-inside: avoid;
+  }
+  
+  .whitepaper a {
+    text-decoration: none;
+    color: black !important;
+  }
+  
+  .whitepaper a::after {
+    content: " (" attr(href) ")";
+    font-size: 10pt;
+    color: #666;
+  }
+  
+  .code-block {
+    white-space: pre-wrap;
+    font-size: 9pt;
+    border: 1px solid #ddd;
+    page-break-inside: avoid;
+    background-color: #f9f9f9 !important;
+    color: black !important;
+  }
+  
+  .whitepaper-diagram,
+  .table-container,
+  .component-description {
+    page-break-inside: avoid;
+  }
+  
+  .abstract,
+  .toc,
+  .component-description,
+  .diagram-container {
+    background-color: #f9f9f9 !important;
+    border-color: #ddd !important;
+  }
+  
+  .comparison-table th {
+    background-color: #eee !important;
+    color: black !important;
+  }
+  
+  .comparison-table tr:nth-child(even) {
+    background-color: #f9f9f9 !important;
+  }
+  
+  .comparison-table td {
+    border-color: #ddd !important;
+  }
+  
+  .diagram-caption {
+    color: #666 !important;
+  }
+}
+
+/* Media queries */
+@media (min-width: 768px) {
+  .technical-specs {
+    columns: 2;
+  }
+}
+
+@media (max-width: 767px) {
+  .whitepaper-content {
+    margin-top: 2rem;
+    padding: 0 1rem;
+  }
+  
+  .whitepaper h1 {
+    font-size: 2rem;
+  }
+  
+  .whitepaper h2 {
+    font-size: 1.5rem;
+  }
+  
+  .whitepaper h3 {
+    font-size: 1.3rem;
+  }
+  
+  .whitepaper-actions {
+    flex-direction: column;
+    align-items: stretch;
+    padding: 0.75rem;
+  }
+  
+  .print-button, .download-button {
+    margin: 0.3rem 0;
+    justify-content: center;
+  }
+  
+  .abstract, .toc, .component-description {
+    padding: 1rem;
+  }
+  
+  .diagram-container {
+    padding: 1rem;
+  }
+}
