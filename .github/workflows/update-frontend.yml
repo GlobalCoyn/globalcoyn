@@ -24,9 +24,15 @@ jobs:
               echo "Installing dependencies..."
               npm install
             fi
+            
+            # Ensure .env.production exists
+            if [ ! -f ".env.production" ]; then
+              echo "Creating .env.production from template..."
+              cp ../.env.production.example .env.production || cp .env.production.example .env.production || echo "REACT_APP_ENV=production" > .env.production
+            fi
             # Build the application
             echo "Creating production build..."
-            CI=false npm run build
+            CI=false NODE_ENV=production npm run build
             if [ ! -d "build" ]; then
               echo "Error: Build failed, no build directory found"
               exit 1
