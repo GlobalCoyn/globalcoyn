@@ -159,7 +159,7 @@ const HomePage = () => {
             <Link to="/app/explorer" className="btn secondary">View Block Explorer</Link>
           </div>
           <div className="version-info">
-            <span>GitHub Deployment Test - May 2025</span>
+            <span>GitHub Deployment Test - May 2025 - Open Source Release</span>
           </div>
         </div>
       </section>
