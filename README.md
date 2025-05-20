@@ -168,3 +168,4 @@ This project is licensed under the MIT License - see the LICENSE file for detail
 
 - All contributors who have helped build and improve GlobalCoyn
 - The blockchain community for inspiration and knowledge sharing
+- Anthropic Claude for AI-assisted development and issue resolution
