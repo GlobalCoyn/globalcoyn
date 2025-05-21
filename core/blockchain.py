@@ -1,6 +1,6 @@
 """
 Main blockchain implementation for GlobalCoyn.
-This is the central module that integrates transactions, blocks, mining and consensus.
+This is the central module that integrates transactions, blocks, mining, consensus, and smart contracts.
 """
 import hashlib
 import time
@@ -16,6 +16,7 @@ from block import Block
 from mempool import Mempool
 from mining import Miner
 from utils import bits_to_target, target_to_bits, validate_address_format
+from contract import Contract, ContractManager, ContractError
 
 class Blockchain:
     """
@@ -33,6 +34,7 @@ class Blockchain:
         self.mempool = Mempool()
         self.miner = Miner()
         self.data_file = data_file
+        self.contracts = ContractManager()
         
         # Initialize logger
         self.logger = logging.getLogger("blockchain")
@@ -269,6 +271,7 @@ class Blockchain:
             "blocks": len(self.chain),
             "total_supply": self.calculate_total_supply(),
             "total_transactions": total_transactions,
+            "total_contracts": len(self.contracts.contracts),
             "difficulty": self.miner.get_mining_info(),
             "pending_transactions": self.mempool.size(),
             "avg_block_time": avg_block_time,
@@ -321,7 +324,8 @@ class Blockchain:
             data = {
                 "chain": [block.to_dict() for block in self.chain],
                 "bits": self.miner.bits,
-                "target": self.miner.target
+                "target": self.miner.target,
+                "contracts": self.contracts.to_dict()
             }
             
             # Create backup of existing file
@@ -393,9 +397,229 @@ class Blockchain:
                 # Add to chain
                 self.chain.append(block)
             
+            # Load contracts if they exist
+            contracts_data = data.get("contracts", {})
+            if contracts_data:
+                self.contracts = ContractManager.from_dict(contracts_data)
+                self.logger.info(f"Loaded {len(self.contracts.contracts)} contracts from blockchain data")
+            
             self.logger.info(f"Loaded blockchain with {len(self.chain)} blocks from {self.data_file}")
             return True
             
         except Exception as e:
             self.logger.error(f"Failed to load blockchain: {str(e)}")
             return False
+            
+    # Smart Contract Methods
+    
+    def deploy_contract(self, contract_data: Dict[str, Any], creator: str) -> str:
+        """
+        Deploy a new smart contract to the blockchain.
+        
+        Args:
+            contract_data: Contract data including code, type, name, etc.
+            creator: Address of the contract creator
+            
+        Returns:
+            Address of the deployed contract
+            
+        Raises:
+            ContractError: If contract deployment fails
+        """
+        try:
+            # Extract contract parameters
+            code = contract_data.get("code", {})
+            contract_type = contract_data.get("type", Contract.TYPE_GENERAL)
+            name = contract_data.get("name", "")
+            symbol = contract_data.get("symbol", "")
+            init_data = contract_data.get("init_data", {})
+            
+            # Validate creator address
+            if not validate_address_format(creator):
+                raise ContractError(f"Invalid creator address format: {creator}")
+            
+            # Check if creator has sufficient balance for deployment (minimum 1 GCN)
+            min_balance = 1.0
+            creator_balance = self.get_balance(creator)
+            if creator_balance < min_balance:
+                raise ContractError(f"Insufficient balance for contract deployment. Required: {min_balance} GCN, Available: {creator_balance} GCN")
+            
+            # Create the contract
+            if contract_type == Contract.TYPE_TOKEN:
+                # Token-specific parameters
+                initial_supply = float(contract_data.get("initial_supply", 1000000))
+                max_supply = float(contract_data.get("max_supply", 0)) if contract_data.get("max_supply") else None
+                decimals = int(contract_data.get("decimals", 8))
+                
+                # Create token contract
+                contract = Contract.create_token_contract(
+                    creator=creator,
+                    name=name,
+                    symbol=symbol,
+                    initial_supply=initial_supply,
+                    max_supply=max_supply,
+                    decimals=decimals
+                )
+            elif contract_type == Contract.TYPE_CROWDFUND:
+                # Crowdfunding-specific parameters
+                goal = float(contract_data.get("goal", 1000))
+                deadline = float(contract_data.get("deadline", time.time() + 30*24*60*60))  # Default: 30 days
+                description = contract_data.get("description", "")
+                
+                # Create crowdfunding contract
+                contract = Contract.create_crowdfunding_contract(
+                    creator=creator,
+                    name=name,
+                    goal=goal,
+                    deadline=deadline,
+                    description=description
+                )
+            elif contract_type == Contract.TYPE_VOTING:
+                # Voting-specific parameters
+                options = contract_data.get("options", [])
+                start_time = float(contract_data.get("start_time", time.time()))
+                end_time = float(contract_data.get("end_time", time.time() + 7*24*60*60))  # Default: 7 days
+                description = contract_data.get("description", "")
+                
+                # Create voting contract
+                contract = Contract.create_voting_contract(
+                    creator=creator,
+                    name=name,
+                    options=options,
+                    start_time=start_time,
+                    end_time=end_time,
+                    description=description
+                )
+            else:
+                # Generic contract
+                contract = Contract(
+                    code=code,
+                    creator=creator,
+                    contract_type=contract_type,
+                    name=name,
+                    symbol=symbol,
+                    init_data=init_data
+                )
+            
+            # Add contract to manager
+            contract_address = self.contracts.add_contract(contract)
+            
+            # Save blockchain state to persist contract
+            self.save_chain_to_disk()
+            
+            self.logger.info(f"Deployed contract {name} with address {contract_address}")
+            return contract_address
+            
+        except Exception as e:
+            self.logger.error(f"Contract deployment error: {str(e)}")
+            raise ContractError(f"Failed to deploy contract: {str(e)}")
+    
+    def execute_contract(self, contract_address: str, function: str, args: Dict[str, Any], caller: str) -> Dict[str, Any]:
+        """
+        Execute a function on a smart contract.
+        
+        Args:
+            contract_address: Address of the contract
+            function: Name of the function to execute
+            args: Arguments to pass to the function
+            caller: Address of the function caller
+            
+        Returns:
+            Result of the function execution
+            
+        Raises:
+            ContractError: If execution fails
+        """
+        try:
+            # Validate caller address
+            if not validate_address_format(caller):
+                raise ContractError(f"Invalid caller address format: {caller}")
+            
+            # Check if caller has sufficient balance for execution (minimum 0.01 GCN)
+            min_balance = 0.01
+            caller_balance = self.get_balance(caller)
+            if caller_balance < min_balance:
+                raise ContractError(f"Insufficient balance for contract execution. Required: {min_balance} GCN, Available: {caller_balance} GCN")
+            
+            # Execute the contract function
+            result = self.contracts.execute_contract(contract_address, function, args, caller)
+            
+            # Save blockchain state to persist contract state changes
+            self.save_chain_to_disk()
+            
+            self.logger.info(f"Executed function {function} on contract {contract_address}")
+            return result
+            
+        except Exception as e:
+            self.logger.error(f"Contract execution error: {str(e)}")
+            raise ContractError(f"Failed to execute contract: {str(e)}")
+    
+    def get_contract(self, address: str) -> Optional[Dict[str, Any]]:
+        """
+        Get a contract by its address.
+        
+        Args:
+            address: Address of the contract
+            
+        Returns:
+            Contract data if found, None otherwise
+        """
+        contract = self.contracts.get_contract(address)
+        if contract:
+            return contract.to_dict()
+        return None
+    
+    def get_contract_state(self, address: str, key: str = None) -> Any:
+        """
+        Get the state of a contract.
+        
+        Args:
+            address: Address of the contract
+            key: Optional specific state key to retrieve
+            
+        Returns:
+            Contract state or specific key value
+            
+        Raises:
+            ContractError: If contract not found
+        """
+        contract = self.contracts.get_contract(address)
+        if not contract:
+            raise ContractError(f"Contract not found: {address}")
+        
+        return contract.get_state(key)
+    
+    def get_all_contracts(self) -> List[Dict[str, Any]]:
+        """
+        Get all deployed contracts.
+        
+        Returns:
+            List of contract data
+        """
+        return [c.to_dict() for c in self.contracts.contracts.values()]
+    
+    def get_contracts_by_creator(self, creator: str) -> List[Dict[str, Any]]:
+        """
+        Get all contracts created by an address.
+        
+        Args:
+            creator: Address of the creator
+            
+        Returns:
+            List of contract data
+        """
+        contracts = self.contracts.get_contracts_by_creator(creator)
+        return [c.to_dict() for c in contracts]
+    
+    def get_contracts_by_type(self, contract_type: str) -> List[Dict[str, Any]]:
+        """
+        Get all contracts of a specific type.
+        
+        Args:
+            contract_type: Type of contracts to retrieve
+            
+        Returns:
+            List of contract data
+        """
+        contracts = self.contracts.get_contracts_by_type(contract_type)
+        return [c.to_dict() for c in contracts]
