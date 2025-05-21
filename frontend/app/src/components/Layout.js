@@ -9,7 +9,8 @@ import {
   Cog6ToothIcon,
   MoonIcon,
   SunIcon,
-  ArrowLeftIcon
+  ArrowLeftIcon,
+  DocumentTextIcon
 } from '@heroicons/react/24/outline';
 import './Layout.css';
 
@@ -44,6 +45,7 @@ const Layout = () => {
     { name: 'Dashboard', path: '/app', icon: HomeIcon },
     { name: 'Wallet', path: '/app/wallet', icon: WalletIcon },
     { name: 'Explorer', path: '/app/explorer', icon: CubeTransparentIcon },
+    { name: 'Contracts', path: '/app/contracts', icon: DocumentTextIcon },
     { name: 'Mining', path: '/app/mining', icon: CpuChipIcon },
     { name: 'Network', path: '/app/network', icon: GlobeAltIcon },
     { name: 'Settings', path: '/app/settings', icon: Cog6ToothIcon },
