@@ -110,6 +110,7 @@ const HomePage = () => {
               <li><a href="#about">About</a></li>
               <li><a href="#features">Features</a></li>
               <li><a href="#documentation">Documentation</a></li>
+              <li><a href="#contracts">Contracts</a></li>
               <li><a href="#explorer">Explorer</a></li>
               <li><a href="#network">Network</a></li>
             </ul>
@@ -137,6 +138,7 @@ const HomePage = () => {
             <li><a href="#about" onClick={() => setMobileMenuOpen(false)}>About</a></li>
             <li><a href="#features" onClick={() => setMobileMenuOpen(false)}>Features</a></li>
             <li><a href="#documentation" onClick={() => setMobileMenuOpen(false)}>Documentation</a></li>
+            <li><a href="#contracts" onClick={() => setMobileMenuOpen(false)}>Contracts</a></li>
             <li><a href="#explorer" onClick={() => setMobileMenuOpen(false)}>Explorer</a></li>
             <li><a href="#network" onClick={() => setMobileMenuOpen(false)}>Network</a></li>
             <li><Link to="/app/wallet" onClick={() => setMobileMenuOpen(false)}>Wallet</Link></li>
@@ -157,6 +159,7 @@ const HomePage = () => {
           <div className="cta-buttons">
             <Link to="/app/wallet" className="btn primary">Access Web Wallet</Link>
             <Link to="/app/explorer" className="btn secondary">View Block Explorer</Link>
+            <Link to="/app/contracts" className="btn secondary">Smart Contracts</Link>
           </div>
           <div className="version-info">
             <span>GitHub Deployment Test - May 2025</span>
@@ -280,6 +283,44 @@ const HomePage = () => {
                 while improving energy efficiency and transaction throughput.
               </p>
             </div>
+          </div>
+        </div>
+      </section>
+      
+      {/* Smart Contracts Section */}
+      <section id="contracts" className="explorer">
+        <div className="container">
+          <h2>Smart Contracts</h2>
+          <div className="content-block">
+            <p className="intro-text">
+              The GlobalCoyn platform supports powerful smart contracts that enable automated, 
+              trustless agreements on the blockchain. Create and manage tokens, crowdfunding campaigns, 
+              and voting systems with our intuitive contract templates.
+            </p>
+          </div>
+          
+          <div className="explorer-features">
+            <div className="explorer-feature">
+              <h3>All Contracts</h3>
+              <p>Browse all smart contracts deployed on the GlobalCoyn network, including tokens, crowdfunding campaigns, and voting systems.</p>
+              <Link to="/app/contracts" className="feature-link">View All Contracts</Link>
+            </div>
+            
+            <div className="explorer-feature">
+              <h3>Token Contracts</h3>
+              <p>Create your own tokens on the GlobalCoyn blockchain with customizable properties like supply, decimals, and transfer rules.</p>
+              <Link to="/app/contracts?filter=tokens" className="feature-link">Explore Tokens</Link>
+            </div>
+            
+            <div className="explorer-feature">
+              <h3>Create Contract</h3>
+              <p>Deploy your own smart contracts using our easy-to-use templates for tokens, crowdfunding campaigns, and voting systems.</p>
+              <Link to="/app/contracts/create" className="feature-link">Deploy New Contract</Link>
+            </div>
+          </div>
+          
+          <div className="cta-container">
+            <Link to="/app/contracts" className="btn primary">Open Contracts</Link>
           </div>
         </div>
       </section>
