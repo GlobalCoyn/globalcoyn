@@ -14,6 +14,9 @@ import Network from './pages/Network';
 import Settings from './pages/Settings';
 import Whitepaper from './pages/Whitepaper';
 import ApiReference from './pages/ApiReference';
+import Contracts from './pages/Contracts';
+import ContractDetails from './pages/ContractDetails';
+import CreateContract from './pages/CreateContract';
 
 // Import components
 import Layout from './components/Layout';
@@ -39,6 +42,9 @@ function App() {
           <Route path="explorer/block/:blockHash" element={<BlockDetails />} />
           <Route path="explorer/address/:walletAddress" element={<WalletDetails />} />
           <Route path="explorer/transaction/:transactionId" element={<TransactionDetails />} />
+          <Route path="contracts" element={<Contracts />} />
+          <Route path="contracts/create" element={<CreateContract />} />
+          <Route path="contracts/:contractAddress" element={<ContractDetails />} />
           <Route path="mining" element={<Mining />} />
           <Route path="network" element={<Network />} />
           <Route path="settings" element={<Settings />} />
