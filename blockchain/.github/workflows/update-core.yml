@@ -1,0 +1,116 @@
+name: Update Core Blockchain
+
+on:
+  push:
+    branches: [ main ]
+    paths:
+      - 'core/**'
+      - 'api/**'
+      - 'node/**'
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      
+      - name: Set up Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: '3.9'
+      
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          if [ -f node/requirements.txt ]; then
+            pip install -r node/requirements.txt
+          fi
+          
+      - name: Create deployment package
+        run: |
+          mkdir -p deployment/core-updates
+          cp -r core deployment/core-updates/
+          cp -r api deployment/core-updates/
+          cp -r node/routes deployment/core-updates/routes
+          cd deployment
+          zip -r core-updates.zip core-updates
+          cd ..
+      
+      - name: Deploy to EC2
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.EC2_HOST }}
+          username: ${{ secrets.EC2_USERNAME }}
+          key: ${{ secrets.DEPLOY_KEY }}
+          script: |
+            # Create deployment directory
+            mkdir -p ~/deployment
+            cd ~/deployment
+            
+            # Download deployment packages
+            curl -o core-updates.zip ${{ secrets.DOWNLOAD_URL }}/core-updates.zip
+            
+            # Backup current core files
+            timestamp=$(date +%Y%m%d%H%M%S)
+            mkdir -p ~/backups/$timestamp/core
+            mkdir -p ~/backups/$timestamp/api
+            mkdir -p ~/backups/$timestamp/routes
+            cp -r /var/www/globalcoyn/node1/core/* ~/backups/$timestamp/core/ || true
+            cp -r /var/www/globalcoyn/node1/api/* ~/backups/$timestamp/api/ || true
+            cp -r /var/www/globalcoyn/node1/routes/* ~/backups/$timestamp/routes/ || true
+            
+            # Extract updates
+            unzip -o core-updates.zip
+            
+            # Make backup of blockchain data from bootstrap nodes
+            mkdir -p ~/backups/$timestamp/blockchain_data
+            cp -r /var/www/globalcoyn/bootstrap-node1/globalcoyn_blockchain_data.json ~/backups/$timestamp/blockchain_data/ || true
+            cp -r /var/www/globalcoyn/bootstrap-node2/globalcoyn_blockchain_data.json ~/backups/$timestamp/blockchain_data/node2_data.json || true
+            
+            # Try alternative bootstrap node paths if the above fails
+            if [ ! -f ~/backups/$timestamp/blockchain_data/globalcoyn_blockchain_data.json ]; then
+              cp -r /var/www/globalcoyn/clean_bootstrap_nodes/node1/globalcoyn_blockchain_data.json ~/backups/$timestamp/blockchain_data/ || true
+              cp -r /var/www/globalcoyn/clean_bootstrap_nodes/node2/globalcoyn_blockchain_data.json ~/backups/$timestamp/blockchain_data/node2_data.json || true
+            fi
+            
+            # Copy core updates to bootstrap nodes - try multiple possible paths
+            # Path 1: bootstrap-nodeX directory
+            if [ -d "/var/www/globalcoyn/bootstrap-node1" ]; then
+              cp -r core-updates/core/* /var/www/globalcoyn/bootstrap-node1/core/ || true
+              cp -r core-updates/core/* /var/www/globalcoyn/bootstrap-node2/core/ || true
+              
+              # Update API routes
+              cp -r core-updates/api/routes/* /var/www/globalcoyn/bootstrap-node1/routes/ || true
+              cp -r core-updates/api/routes/* /var/www/globalcoyn/bootstrap-node2/routes/ || true
+              
+              # Update node routes
+              cp -r core-updates/routes/* /var/www/globalcoyn/bootstrap-node1/routes/ || true
+              cp -r core-updates/routes/* /var/www/globalcoyn/bootstrap-node2/routes/ || true
+            fi
+            
+            # Path 2: clean_bootstrap_nodes/nodeX directory
+            if [ -d "/var/www/globalcoyn/clean_bootstrap_nodes/node1" ]; then
+              cp -r core-updates/core/* /var/www/globalcoyn/clean_bootstrap_nodes/node1/core/ || true
+              cp -r core-updates/core/* /var/www/globalcoyn/clean_bootstrap_nodes/node2/core/ || true
+              
+              # Update API routes
+              cp -r core-updates/api/routes/* /var/www/globalcoyn/clean_bootstrap_nodes/node1/routes/ || true
+              cp -r core-updates/api/routes/* /var/www/globalcoyn/clean_bootstrap_nodes/node2/routes/ || true
+              
+              # Update node routes
+              cp -r core-updates/routes/* /var/www/globalcoyn/clean_bootstrap_nodes/node1/routes/ || true
+              cp -r core-updates/routes/* /var/www/globalcoyn/clean_bootstrap_nodes/node2/routes/ || true
+            fi
+            
+            # Clean up
+            rm -rf core-updates
+            rm core-updates.zip
+            
+            # Restart the bootstrap nodes to apply changes
+            echo "Restarting bootstrap node services..."
+            sudo systemctl restart globalcoyn-bootstrap1.service || true
+            sudo systemctl restart globalcoyn-bootstrap2.service || true
+            sudo systemctl restart bootstrap-node1.service || true
+            sudo systemctl restart bootstrap-node2.service || true
+            
+            echo "Core blockchain update completed at $(date)"
