@@ -16,6 +16,9 @@ const API_BASE_URL = ENV_OVERRIDE === 'development' ? DEV_API_URL :
                     process.env.REACT_APP_API_URL || 
                     (isProduction ? PROD_API_URL : DEV_API_URL);
 
+// Export API_URL for other components to use
+export const API_URL = API_BASE_URL;
+
 // Fallback URL - use the opposite environment for maximum availability
 const FALLBACK_API_URL = isProduction ? 'http://localhost:8001/api' : 'https://globalcoyn.com/api';
 
