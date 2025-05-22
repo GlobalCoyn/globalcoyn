@@ -27,12 +27,14 @@ from routes.blockchain_routes import blockchain_bp
 from routes.transaction_routes import transaction_bp
 from routes.network_routes import network_bp
 from routes.wallet_routes import wallet_bp
+from routes.contract_routes import contract_bp
 
 # Register blueprints
 app.register_blueprint(blockchain_bp, url_prefix='/api/blockchain')
 app.register_blueprint(transaction_bp, url_prefix='/api/transactions')
 app.register_blueprint(network_bp, url_prefix='/api/network')
 app.register_blueprint(wallet_bp, url_prefix='/api/wallet')
+app.register_blueprint(contract_bp, url_prefix='/api/contracts')
 
 @app.route('/api/health', methods=['GET'])
 def health_check():

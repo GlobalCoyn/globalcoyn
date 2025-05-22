@@ -849,7 +849,7 @@ builtins.Coin = Coin
 builtins.CoinManager = CoinManager
 
 # Import route blueprints
-from routes import network_bp, transactions_bp, blockchain_bp, wallet_bp, mining_bp
+from routes import network_bp, transactions_bp, blockchain_bp, wallet_bp, mining_bp, contract_bp
 
 # Configure Flask to not redirect to trailing slashes
 app.url_map.strict_slashes = False
@@ -860,6 +860,7 @@ app.register_blueprint(transactions_bp, url_prefix='/api/transactions')
 app.register_blueprint(blockchain_bp, url_prefix='/api/blockchain')
 app.register_blueprint(wallet_bp, url_prefix='/api/wallet')
 app.register_blueprint(mining_bp, url_prefix='/api/mining')
+app.register_blueprint(contract_bp, url_prefix='/api/contracts')
 
 # Validator decorator for JSON request data
 def validate_json(*required_fields: str):
