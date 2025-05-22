@@ -30,16 +30,16 @@ jobs:
       - name: Install dependencies
         run: |
           python -m pip install --upgrade pip
-          if [ -f blockchain/clean_bootstrap_nodes/node1/requirements.txt ]; then
-            pip install -r blockchain/clean_bootstrap_nodes/node1/requirements.txt
+          if [ -f node/requirements.txt ]; then
+            pip install -r node/requirements.txt
           fi
       
       - name: Build website
         if: ${{ github.event.inputs.deploy_frontend == 'true' }}
         run: |
-          cd blockchain/website/app
-          chmod +x build_frontend.sh
-          ./build_frontend.sh
+          cd frontend/app
+          npm install
+          CI=false npm run build
           
       - name: Create deployment packages
         run: |
@@ -47,7 +47,7 @@ jobs:
           
           # Create website package if needed
           if [ "${{ github.event.inputs.deploy_frontend }}" == "true" ]; then
-            cp -r blockchain/website/app/build deployment/frontend-build
+            cp -r frontend/app/build deployment/frontend-build
             cd deployment
             zip -r frontend-build.zip frontend-build
             cd ..
@@ -56,8 +56,9 @@ jobs:
           # Create core package if needed
           if [ "${{ github.event.inputs.deploy_core }}" == "true" ]; then
             mkdir -p deployment/core-updates
-            cp -r blockchain/core deployment/core-updates/
-            cp -r blockchain/api deployment/core-updates/
+            cp -r core deployment/core-updates/
+            cp -r api deployment/core-updates/
+            cp -r node/routes deployment/core-updates/routes
             cd deployment
             zip -r core-updates.zip core-updates
             cd ..
@@ -66,11 +67,11 @@ jobs:
           # Create full package if restarting nodes
           if [ "${{ github.event.inputs.restart_nodes }}" == "true" ]; then
             mkdir -p deployment/full-deployment
-            cp -r blockchain/clean_bootstrap_nodes deployment/full-deployment/
-            cp -r blockchain/core deployment/full-deployment/
-            cp -r blockchain/api deployment/full-deployment/
-            cp -r blockchain/scripts deployment/full-deployment/
-            cp globalcoyn_nginx_amazonlinux.conf deployment/
+            cp -r node deployment/full-deployment/
+            cp -r core deployment/full-deployment/
+            cp -r api deployment/full-deployment/
+            cp -r scripts deployment/full-deployment/
+            cp docs/globalcoyn_nginx.conf deployment/
             cd deployment
             zip -r full-deployment.zip full-deployment
             cd ..
@@ -108,15 +109,15 @@ jobs:
             # If doing a full deployment with node restart
             if [ "${{ github.event.inputs.restart_nodes }}" == "true" ]; then
               # Backup critical files first
-              cp -r /var/www/globalcoyn/clean_bootstrap_nodes/node1/blockchain_data.json ~/backups/$timestamp/ || true
-              cp -r /var/www/globalcoyn/clean_bootstrap_nodes/node1/wallet.key ~/backups/$timestamp/ || true
-              cp -r /var/www/globalcoyn/clean_bootstrap_nodes/node1/wallet.enc ~/backups/$timestamp/ || true
-              cp -r /var/www/globalcoyn/clean_bootstrap_nodes/node2/blockchain_data.json ~/backups/$timestamp/blockchain_data_node2.json || true
+              cp -r /var/www/globalcoyn/node1/globalcoyn_blockchain_data.json ~/backups/$timestamp/ || true
+              cp -r /var/www/globalcoyn/node1/wallet.key ~/backups/$timestamp/ || true
+              cp -r /var/www/globalcoyn/node1/wallet.enc ~/backups/$timestamp/ || true
+              cp -r /var/www/globalcoyn/node2/globalcoyn_blockchain_data.json ~/backups/$timestamp/blockchain_data_node2.json || true
               
               # Stop services
               sudo systemctl stop globalcoyn-node.service || true
-              sudo systemctl stop globalcoyn-bootstrap1.service || true
-              sudo systemctl stop globalcoyn-bootstrap2.service || true
+              sudo systemctl stop globalcoyn-node1.service || true
+              sudo systemctl stop globalcoyn-node2.service || true
               
               # Full deployment
               sudo rm -rf /var/www/globalcoyn
@@ -126,51 +127,72 @@ jobs:
               # Extract full deployment
               unzip -o full-deployment.zip -d /var/www/globalcoyn
               
+              # Create node directories
+              sudo mkdir -p /var/www/globalcoyn/node1
+              sudo mkdir -p /var/www/globalcoyn/node2
+              
+              # Copy node files to each node directory
+              cp -r /var/www/globalcoyn/node/* /var/www/globalcoyn/node1/
+              cp -r /var/www/globalcoyn/node/* /var/www/globalcoyn/node2/
+              
+              # Copy core and API files
+              cp -r /var/www/globalcoyn/core /var/www/globalcoyn/node1/
+              cp -r /var/www/globalcoyn/core /var/www/globalcoyn/node2/
+              cp -r /var/www/globalcoyn/api /var/www/globalcoyn/node1/
+              cp -r /var/www/globalcoyn/api /var/www/globalcoyn/node2/
+              
               # Restore critical files
-              cp ~/backups/$timestamp/blockchain_data.json /var/www/globalcoyn/clean_bootstrap_nodes/node1/ || true
-              cp ~/backups/$timestamp/wallet.key /var/www/globalcoyn/clean_bootstrap_nodes/node1/ || true
-              cp ~/backups/$timestamp/wallet.enc /var/www/globalcoyn/clean_bootstrap_nodes/node1/ || true
-              cp ~/backups/$timestamp/blockchain_data_node2.json /var/www/globalcoyn/clean_bootstrap_nodes/node2/blockchain_data.json || true
+              cp ~/backups/$timestamp/globalcoyn_blockchain_data.json /var/www/globalcoyn/node1/ || true
+              cp ~/backups/$timestamp/wallet.key /var/www/globalcoyn/node1/ || true
+              cp ~/backups/$timestamp/wallet.enc /var/www/globalcoyn/node1/ || true
+              cp ~/backups/$timestamp/blockchain_data_node2.json /var/www/globalcoyn/node2/globalcoyn_blockchain_data.json || true
               
               # Update system services
-              sudo cp /var/www/globalcoyn/updated_globalcoyn-bootstrap1.service /etc/systemd/system/globalcoyn-bootstrap1.service || true
-              sudo cp /var/www/globalcoyn/updated_globalcoyn-bootstrap2.service /etc/systemd/system/globalcoyn-bootstrap2.service || true
+              sudo cp /var/www/globalcoyn/node/deploy/globalcoyn-node.service /etc/systemd/system/globalcoyn-node1.service || true
+              sudo sed -i 's/GCN_NODE_NUM=1/GCN_NODE_NUM=2/g' /etc/systemd/system/globalcoyn-node2.service || true
               
               # Update Nginx configuration
-              sudo cp /var/www/globalcoyn/globalcoyn_nginx_amazonlinux.conf /etc/nginx/conf.d/globalcoyn.conf
+              sudo cp /var/www/globalcoyn/deploy/globalcoyn_nginx.conf /etc/nginx/conf.d/globalcoyn.conf
               
               # Reload systemd and restart services
               sudo systemctl daemon-reload
-              sudo systemctl start globalcoyn-bootstrap1.service || true
-              sudo systemctl start globalcoyn-bootstrap2.service || true
+              sudo systemctl start globalcoyn-node1.service || true
+              sudo systemctl start globalcoyn-node2.service || true
             else
               # Deploy frontend if specified
               if [ "${{ github.event.inputs.deploy_frontend }}" == "true" ]; then
-                cp -r /var/www/globalcoyn/website ~/backups/$timestamp/ || true
+                cp -r /var/www/globalcoyn/html ~/backups/$timestamp/ || true
                 
-                sudo rm -rf /var/www/globalcoyn/website
-                sudo mkdir -p /var/www/globalcoyn/website
-                sudo chown $USER:$USER /var/www/globalcoyn/website
-                unzip -o frontend-build.zip -d /var/www/globalcoyn/website
+                sudo mkdir -p /var/www/globalcoyn/html
+                sudo chown -R $USER:$USER /var/www/globalcoyn/html
+                unzip -o frontend-build.zip -d ~/frontend-temp
+                sudo cp -r ~/frontend-temp/build/* /var/www/globalcoyn/html/
+                rm -rf ~/frontend-temp
               fi
               
               # Deploy core updates if specified
               if [ "${{ github.event.inputs.deploy_core }}" == "true" ]; then
                 mkdir -p ~/backups/$timestamp/core
                 mkdir -p ~/backups/$timestamp/api
-                cp -r /var/www/globalcoyn/clean_bootstrap_nodes/node1/core/* ~/backups/$timestamp/core/ || true
-                cp -r /var/www/globalcoyn/clean_bootstrap_nodes/node1/api/* ~/backups/$timestamp/api/ || true
+                mkdir -p ~/backups/$timestamp/routes
+                cp -r /var/www/globalcoyn/node1/core/* ~/backups/$timestamp/core/ || true
+                cp -r /var/www/globalcoyn/node1/api/* ~/backups/$timestamp/api/ || true
+                cp -r /var/www/globalcoyn/node1/routes/* ~/backups/$timestamp/routes/ || true
                 
                 # Extract updates
                 unzip -o core-updates.zip
                 
-                # Copy core updates to bootstrap nodes without affecting data
-                cp -r core-updates/core/* /var/www/globalcoyn/clean_bootstrap_nodes/node1/core/
-                cp -r core-updates/core/* /var/www/globalcoyn/clean_bootstrap_nodes/node2/core/
+                # Copy core updates to nodes without affecting data
+                cp -r core-updates/core/* /var/www/globalcoyn/node1/core/
+                cp -r core-updates/core/* /var/www/globalcoyn/node2/core/
                 
                 # Update API routes without affecting configuration
-                cp -r core-updates/api/routes/* /var/www/globalcoyn/clean_bootstrap_nodes/node1/routes/
-                cp -r core-updates/api/routes/* /var/www/globalcoyn/clean_bootstrap_nodes/node2/routes/
+                cp -r core-updates/api/routes/* /var/www/globalcoyn/node1/api/routes/ || true
+                cp -r core-updates/api/routes/* /var/www/globalcoyn/node2/api/routes/ || true
+                
+                # Update node routes
+                cp -r core-updates/routes/* /var/www/globalcoyn/node1/routes/
+                cp -r core-updates/routes/* /var/www/globalcoyn/node2/routes/
               fi
             fi
             
