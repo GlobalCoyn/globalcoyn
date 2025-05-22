@@ -56,6 +56,21 @@ jobs:
             mkdir -p ~/deployment
             cd ~/deployment
             
+            # Check what's in the directory
+            ls -la
+            
+            # Extract updates (check both possible locations)
+            if [ -f deployment/core-updates.zip ]; then
+              unzip -o deployment/core-updates.zip -d .
+              echo "Extracted from deployment/core-updates.zip"
+            elif [ -f core-updates.zip ]; then
+              unzip -o core-updates.zip
+              echo "Extracted from core-updates.zip"
+            else
+              echo "ERROR: Cannot find core-updates.zip in any location!"
+              find ~/ -name "core-updates.zip" -type f
+            fi
+            
             # Backup current core files
             timestamp=$(date +%Y%m%d%H%M%S)
             mkdir -p ~/backups/$timestamp/core
@@ -95,16 +110,16 @@ jobs:
               mkdir -p /var/www/globalcoyn/bootstrap-node2/routes
               
               # Copy core files
-              cp -r core-updates/core/* /var/www/globalcoyn/bootstrap-node1/core/ || true
-              cp -r core-updates/core/* /var/www/globalcoyn/bootstrap-node2/core/ || true
+              cp -r $CORE_DIR/core/* /var/www/globalcoyn/bootstrap-node1/core/ || true
+              cp -r $CORE_DIR/core/* /var/www/globalcoyn/bootstrap-node2/core/ || true
               
               # Copy API files
-              cp -r core-updates/api/* /var/www/globalcoyn/bootstrap-node1/api/ || true
-              cp -r core-updates/api/* /var/www/globalcoyn/bootstrap-node2/api/ || true
+              cp -r $CORE_DIR/api/* /var/www/globalcoyn/bootstrap-node1/api/ || true
+              cp -r $CORE_DIR/api/* /var/www/globalcoyn/bootstrap-node2/api/ || true
               
               # Copy routes files
-              cp -r core-updates/routes/* /var/www/globalcoyn/bootstrap-node1/routes/ || true
-              cp -r core-updates/routes/* /var/www/globalcoyn/bootstrap-node2/routes/ || true
+              cp -r $CORE_DIR/routes/* /var/www/globalcoyn/bootstrap-node1/routes/ || true
+              cp -r $CORE_DIR/routes/* /var/www/globalcoyn/bootstrap-node2/routes/ || true
             fi
             
             # Path 2: clean_bootstrap_nodes/nodeX directory
@@ -120,16 +135,16 @@ jobs:
               mkdir -p /var/www/globalcoyn/clean_bootstrap_nodes/node2/routes
               
               # Copy core files
-              cp -r core-updates/core/* /var/www/globalcoyn/clean_bootstrap_nodes/node1/core/ || true
-              cp -r core-updates/core/* /var/www/globalcoyn/clean_bootstrap_nodes/node2/core/ || true
+              cp -r $CORE_DIR/core/* /var/www/globalcoyn/clean_bootstrap_nodes/node1/core/ || true
+              cp -r $CORE_DIR/core/* /var/www/globalcoyn/clean_bootstrap_nodes/node2/core/ || true
               
               # Copy API files
-              cp -r core-updates/api/* /var/www/globalcoyn/clean_bootstrap_nodes/node1/api/ || true
-              cp -r core-updates/api/* /var/www/globalcoyn/clean_bootstrap_nodes/node2/api/ || true
+              cp -r $CORE_DIR/api/* /var/www/globalcoyn/clean_bootstrap_nodes/node1/api/ || true
+              cp -r $CORE_DIR/api/* /var/www/globalcoyn/clean_bootstrap_nodes/node2/api/ || true
               
               # Copy routes files 
-              cp -r core-updates/routes/* /var/www/globalcoyn/clean_bootstrap_nodes/node1/routes/ || true
-              cp -r core-updates/routes/* /var/www/globalcoyn/clean_bootstrap_nodes/node2/routes/ || true
+              cp -r $CORE_DIR/routes/* /var/www/globalcoyn/clean_bootstrap_nodes/node1/routes/ || true
+              cp -r $CORE_DIR/routes/* /var/www/globalcoyn/clean_bootstrap_nodes/node2/routes/ || true
             fi
             
             # Path 3: User home bootstrap_node_X directories
@@ -144,20 +159,39 @@ jobs:
             mkdir -p ~/bootstrap_node_2/routes
             
             # Copy core files
-            cp -r core-updates/core/* ~/bootstrap_node_1/core/ || true
-            cp -r core-updates/core/* ~/bootstrap_node_2/core/ || true
+            find . -type d -name "core-updates" -print
+            
+            # Find the core-updates directory
+            CORE_DIR=""
+            if [ -d "core-updates" ]; then
+              CORE_DIR="core-updates"
+            elif [ -d "deployment/core-updates" ]; then
+              CORE_DIR="deployment/core-updates"
+            fi
+            
+            if [ -z "$CORE_DIR" ]; then
+              echo "ERROR: Cannot find core-updates directory!"
+              ls -la
+              exit 1
+            fi
+            
+            echo "Using core directory: $CORE_DIR"
+            
+            # Copy core files
+            cp -r $CORE_DIR/core/* ~/bootstrap_node_1/core/ || true
+            cp -r $CORE_DIR/core/* ~/bootstrap_node_2/core/ || true
             
             # Copy API files
-            cp -r core-updates/api/* ~/bootstrap_node_1/api/ || true
-            cp -r core-updates/api/* ~/bootstrap_node_2/api/ || true
+            cp -r $CORE_DIR/api/* ~/bootstrap_node_1/api/ || true
+            cp -r $CORE_DIR/api/* ~/bootstrap_node_2/api/ || true
             
             # Copy routes files
-            cp -r core-updates/routes/* ~/bootstrap_node_1/routes/ || true
-            cp -r core-updates/routes/* ~/bootstrap_node_2/routes/ || true
+            cp -r $CORE_DIR/routes/* ~/bootstrap_node_1/routes/ || true
+            cp -r $CORE_DIR/routes/* ~/bootstrap_node_2/routes/ || true
             
             # Clean up
-            rm -rf core-updates
-            rm core-updates.zip
+            rm -rf core-updates deployment/core-updates
+            rm -f core-updates.zip deployment/core-updates.zip
             
             # Restart the bootstrap nodes to apply changes
             echo "Restarting bootstrap node services..."
