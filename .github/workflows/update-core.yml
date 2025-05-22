@@ -32,6 +32,8 @@ jobs:
           cp -r core deployment/core-updates/
           cp -r api deployment/core-updates/
           cp -r node/routes deployment/core-updates/
+          # Also include app.py to ensure route registration
+          cp node/app.py deployment/core-updates/app.py
           cd deployment
           zip -r core-updates.zip core-updates
           cd ..
@@ -120,6 +122,13 @@ jobs:
               # Copy routes files
               cp -r $CORE_DIR/routes/* /var/www/globalcoyn/bootstrap-node1/routes/ || true
               cp -r $CORE_DIR/routes/* /var/www/globalcoyn/bootstrap-node2/routes/ || true
+              
+              # Copy app.py if it exists in the deployment package
+              if [ -f "$CORE_DIR/app.py" ]; then
+                echo "Updating app.py with new route registrations for bootstrap-node"
+                cp $CORE_DIR/app.py /var/www/globalcoyn/bootstrap-node1/app.py || true
+                cp $CORE_DIR/app.py /var/www/globalcoyn/bootstrap-node2/app.py || true
+              fi
             fi
             
             # Path 2: clean_bootstrap_nodes/nodeX directory
@@ -145,6 +154,13 @@ jobs:
               # Copy routes files 
               cp -r $CORE_DIR/routes/* /var/www/globalcoyn/clean_bootstrap_nodes/node1/routes/ || true
               cp -r $CORE_DIR/routes/* /var/www/globalcoyn/clean_bootstrap_nodes/node2/routes/ || true
+              
+              # Copy app.py if it exists in the deployment package
+              if [ -f "$CORE_DIR/app.py" ]; then
+                echo "Updating app.py with new route registrations for clean_bootstrap_nodes"
+                cp $CORE_DIR/app.py /var/www/globalcoyn/clean_bootstrap_nodes/node1/app.py || true
+                cp $CORE_DIR/app.py /var/www/globalcoyn/clean_bootstrap_nodes/node2/app.py || true
+              fi
             fi
             
             # Path 3: User home bootstrap_node_X directories
@@ -188,6 +204,13 @@ jobs:
             # Copy routes files
             cp -r $CORE_DIR/routes/* ~/bootstrap_node_1/routes/ || true
             cp -r $CORE_DIR/routes/* ~/bootstrap_node_2/routes/ || true
+            
+            # Copy app.py if it exists in the deployment package
+            if [ -f "$CORE_DIR/app.py" ]; then
+              echo "Updating app.py with new route registrations"
+              cp $CORE_DIR/app.py ~/bootstrap_node_1/app.py || true
+              cp $CORE_DIR/app.py ~/bootstrap_node_2/app.py || true
+            fi
             
             # Clean up
             rm -rf core-updates deployment/core-updates
