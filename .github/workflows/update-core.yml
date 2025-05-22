@@ -37,6 +37,15 @@ jobs:
           cd ..
       
       - name: Deploy to EC2
+        uses: appleboy/scp-action@master
+        with:
+          host: ${{ secrets.EC2_HOST }}
+          username: ${{ secrets.EC2_USERNAME }}
+          key: ${{ secrets.DEPLOY_KEY }}
+          source: "deployment/core-updates.zip"
+          target: "~/deployment"
+      
+      - name: Execute deployment script
         uses: appleboy/ssh-action@master
         with:
           host: ${{ secrets.EC2_HOST }}
@@ -46,9 +55,6 @@ jobs:
             # Create deployment directory
             mkdir -p ~/deployment
             cd ~/deployment
-            
-            # Download deployment packages
-            curl -o core-updates.zip ${{ secrets.DOWNLOAD_URL }}/core-updates.zip
             
             # Backup current core files
             timestamp=$(date +%Y%m%d%H%M%S)
