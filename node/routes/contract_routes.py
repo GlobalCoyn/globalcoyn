@@ -4,11 +4,62 @@ API routes for smart contract operations.
 import json
 import time
 import logging
+import importlib
+import sys
 from typing import Dict, Any, List, Optional
 from flask import Blueprint, request, jsonify
 
 # Import from builtins (stored by app.py)
 import builtins
+
+# Setup logger
+logger = logging.getLogger("contract_routes")
+
+# Verify contract functionality is available
+def ensure_contract_functionality():
+    """
+    Ensure that the contract functionality is available in the Blockchain class.
+    If not, attempt to reload the module.
+    """
+    if not hasattr(builtins.GCN.blockchain, 'deploy_contract'):
+        logger.warning("Contract functionality not found in Blockchain class. Attempting to reload modules...")
+        
+        try:
+            # Try to reload the blockchain module
+            if 'blockchain' in sys.modules:
+                importlib.reload(sys.modules['blockchain'])
+            elif 'core.blockchain' in sys.modules:
+                importlib.reload(sys.modules['core.blockchain'])
+            elif 'blockchain.core.blockchain' in sys.modules:
+                importlib.reload(sys.modules['blockchain.core.blockchain'])
+                
+            # Also try to reload the contract module
+            if 'contract' in sys.modules:
+                importlib.reload(sys.modules['contract'])
+            elif 'core.contract' in sys.modules:
+                importlib.reload(sys.modules['core.contract'])
+            elif 'blockchain.core.contract' in sys.modules:
+                importlib.reload(sys.modules['blockchain.core.contract'])
+                
+            # Recreate Blockchain instance if possible
+            if hasattr(builtins.GCN, 'blockchain'):
+                from blockchain import Blockchain
+                builtins.GCN.blockchain = Blockchain(builtins.GCN.blockchain.data_file)
+                
+            logger.info("Modules reloaded. Checking for contract functionality...")
+            
+            # Check if reload was successful
+            has_contract = hasattr(builtins.GCN.blockchain, 'deploy_contract')
+            logger.info(f"Contract functionality available: {has_contract}")
+            
+            return has_contract
+        except Exception as e:
+            logger.error(f"Error attempting to reload modules: {str(e)}")
+            return False
+    return True
+
+# Try to ensure contract functionality on module load
+contract_functionality_available = ensure_contract_functionality()
 
 # Import Transaction class for contract fee transactions
 try:
@@ -55,6 +106,22 @@ logger = logging.getLogger("contract_routes")
 
 # Create blueprint
 contract_bp = Blueprint('contract_bp', __name__)
+
+# Add route decorator to check contract functionality
+def check_contract_functionality(f):
+    """Decorator to check if contract functionality is available"""
+    from functools import wraps
+    
+    @wraps(f)
+    def decorated_function(*args, **kwargs):
+        # Ensure contract functionality is available
+        if not ensure_contract_functionality():
+            return jsonify({
+                "status": "error",
+                "message": "Contract functionality is not available on this node. The server has not been correctly updated."
+            }), 500
+        return f(*args, **kwargs)
+    return decorated_function
 
 @contract_bp.route('/', methods=['GET'])
 @contract_bp.route('/all', methods=['GET'])
@@ -285,6 +352,7 @@ def get_contract_state_key(address, key):
         return jsonify({"status": "error", "message": str(e)}), 500
 
 @contract_bp.route('/deploy', methods=['POST'])
+@check_contract_functionality
 def deploy_contract():
     """
     Deploy a new smart contract.
@@ -316,6 +384,14 @@ def deploy_contract():
                 "message": f"Missing required fields: {', '.join(missing_fields)}"
             }), 400
         
+        # Check if deploy_contract method exists
+        if not hasattr(builtins.GCN.blockchain, 'deploy_contract'):
+            logger.error("CRITICAL ERROR: Blockchain object does not have deploy_contract method!")
+            return jsonify({
+                "status": "error",
+                "message": "Contract deployment is not available on this node. The server has not been correctly updated with contract functionality."
+            }), 500
+            
         # Deploy contract
         contract_address = builtins.GCN.blockchain.deploy_contract(
             contract_data=data["contract_data"],
@@ -337,6 +413,7 @@ def deploy_contract():
         return jsonify({"status": "error", "message": str(e)}), 500
 
 @contract_bp.route('/<address>/execute', methods=['POST'])
+@check_contract_functionality
 def execute_contract(address):
     """
     Execute a function on a smart contract.
@@ -372,6 +449,14 @@ def execute_contract(address):
                 "message": f"Missing required fields: {', '.join(missing_fields)}"
             }), 400
         
+        # Check if execute_contract method exists
+        if not hasattr(builtins.GCN.blockchain, 'execute_contract'):
+            logger.error("CRITICAL ERROR: Blockchain object does not have execute_contract method!")
+            return jsonify({
+                "status": "error",
+                "message": "Contract execution is not available on this node. The server has not been correctly updated with contract functionality."
+            }), 500
+            
         # Execute contract function
         result = builtins.GCN.blockchain.execute_contract(
             contract_address=address,
@@ -512,6 +597,7 @@ def transfer_tokens(address):
 # Template endpoints for specific contract types
 
 @contract_bp.route('/templates/token', methods=['POST'])
+@check_contract_functionality
 def create_token_contract():
     """
     Create a new token contract.
@@ -634,6 +720,7 @@ def create_token_contract():
         return jsonify({"status": "error", "message": str(e)}), 500
 
 @contract_bp.route('/templates/crowdfunding', methods=['POST'])
+@check_contract_functionality
 def create_crowdfunding_contract():
     """
     Create a new crowdfunding contract.
@@ -754,6 +841,7 @@ def create_crowdfunding_contract():
         return jsonify({"status": "error", "message": str(e)}), 500
 
 @contract_bp.route('/templates/voting', methods=['POST'])
+@check_contract_functionality
 def create_voting_contract():
     """
     Create a new voting contract.
