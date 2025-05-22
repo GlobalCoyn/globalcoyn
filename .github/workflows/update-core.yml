@@ -55,52 +55,50 @@ jobs:
             mkdir -p ~/backups/$timestamp/core
             mkdir -p ~/backups/$timestamp/api
             mkdir -p ~/backups/$timestamp/routes
-            cp -r /var/www/globalcoyn/node1/core/* ~/backups/$timestamp/core/ || true
-            cp -r /var/www/globalcoyn/node1/api/* ~/backups/$timestamp/api/ || true
-            cp -r /var/www/globalcoyn/node1/routes/* ~/backups/$timestamp/routes/ || true
+            
+            # Backup from actual bootstrap node directories
+            cp -r ~/bootstrap_node_1/core/* ~/backups/$timestamp/core/ || true
+            cp -r ~/bootstrap_node_1/api/* ~/backups/$timestamp/api/ || true
+            cp -r ~/bootstrap_node_1/routes/* ~/backups/$timestamp/routes/ || true
             
             # Extract updates
             unzip -o core-updates.zip
             
             # Make backup of blockchain data from bootstrap nodes
             mkdir -p ~/backups/$timestamp/blockchain_data
-            cp -r /var/www/globalcoyn/bootstrap-node1/globalcoyn_blockchain_data.json ~/backups/$timestamp/blockchain_data/ || true
-            cp -r /var/www/globalcoyn/bootstrap-node2/globalcoyn_blockchain_data.json ~/backups/$timestamp/blockchain_data/node2_data.json || true
+            cp -r ~/bootstrap_node_1/globalcoyn_blockchain_data.json ~/backups/$timestamp/blockchain_data/ || true
+            cp -r ~/bootstrap_node_2/globalcoyn_blockchain_data.json ~/backups/$timestamp/blockchain_data/node2_data.json || true
             
-            # Try alternative bootstrap node paths if the above fails
-            if [ ! -f ~/backups/$timestamp/blockchain_data/globalcoyn_blockchain_data.json ]; then
-              cp -r /var/www/globalcoyn/clean_bootstrap_nodes/node1/globalcoyn_blockchain_data.json ~/backups/$timestamp/blockchain_data/ || true
-              cp -r /var/www/globalcoyn/clean_bootstrap_nodes/node2/globalcoyn_blockchain_data.json ~/backups/$timestamp/blockchain_data/node2_data.json || true
-            fi
+            # Copy core updates to the actual bootstrap node directories
+            echo "Deploying to bootstrap_node_1 and bootstrap_node_2 directories"
             
-            # Copy core updates to bootstrap nodes - try multiple possible paths
-            # Path 1: bootstrap-nodeX directory
-            if [ -d "/var/www/globalcoyn/bootstrap-node1" ]; then
-              cp -r core-updates/core/* /var/www/globalcoyn/bootstrap-node1/core/ || true
-              cp -r core-updates/core/* /var/www/globalcoyn/bootstrap-node2/core/ || true
-              
-              # Update API routes
-              cp -r core-updates/api/routes/* /var/www/globalcoyn/bootstrap-node1/routes/ || true
-              cp -r core-updates/api/routes/* /var/www/globalcoyn/bootstrap-node2/routes/ || true
-              
-              # Update node routes
-              cp -r core-updates/routes/* /var/www/globalcoyn/bootstrap-node1/routes/ || true
-              cp -r core-updates/routes/* /var/www/globalcoyn/bootstrap-node2/routes/ || true
-            fi
+            # Ensure directories exist
+            mkdir -p ~/bootstrap_node_1/core
+            mkdir -p ~/bootstrap_node_2/core
+            mkdir -p ~/bootstrap_node_1/api/routes
+            mkdir -p ~/bootstrap_node_2/api/routes
+            mkdir -p ~/bootstrap_node_1/routes
+            mkdir -p ~/bootstrap_node_2/routes
             
-            # Path 2: clean_bootstrap_nodes/nodeX directory
-            if [ -d "/var/www/globalcoyn/clean_bootstrap_nodes/node1" ]; then
-              cp -r core-updates/core/* /var/www/globalcoyn/clean_bootstrap_nodes/node1/core/ || true
-              cp -r core-updates/core/* /var/www/globalcoyn/clean_bootstrap_nodes/node2/core/ || true
-              
-              # Update API routes
-              cp -r core-updates/api/routes/* /var/www/globalcoyn/clean_bootstrap_nodes/node1/routes/ || true
-              cp -r core-updates/api/routes/* /var/www/globalcoyn/clean_bootstrap_nodes/node2/routes/ || true
-              
-              # Update node routes
-              cp -r core-updates/routes/* /var/www/globalcoyn/clean_bootstrap_nodes/node1/routes/ || true
-              cp -r core-updates/routes/* /var/www/globalcoyn/clean_bootstrap_nodes/node2/routes/ || true
-            fi
+            # Copy core files
+            cp -r core-updates/core/* ~/bootstrap_node_1/core/ || true
+            cp -r core-updates/core/* ~/bootstrap_node_2/core/ || true
+            
+            # Copy API routes
+            cp -r core-updates/api/routes/* ~/bootstrap_node_1/api/routes/ || true
+            cp -r core-updates/api/routes/* ~/bootstrap_node_2/api/routes/ || true
+            
+            # Copy node routes
+            cp -r core-updates/routes/* ~/bootstrap_node_1/routes/ || true
+            cp -r core-updates/routes/* ~/bootstrap_node_2/routes/ || true
+            
+            # Also update blockchain directory for reference
+            mkdir -p /var/www/globalcoyn/blockchain/core
+            mkdir -p /var/www/globalcoyn/blockchain/api/routes
+            mkdir -p /var/www/globalcoyn/blockchain/node/routes
+            cp -r core-updates/core/* /var/www/globalcoyn/blockchain/core/ || true
+            cp -r core-updates/api/routes/* /var/www/globalcoyn/blockchain/api/routes/ || true
+            cp -r core-updates/routes/* /var/www/globalcoyn/blockchain/node/routes/ || true
             
             # Clean up
             rm -rf core-updates
@@ -110,7 +108,6 @@ jobs:
             echo "Restarting bootstrap node services..."
             sudo systemctl restart globalcoyn-bootstrap1.service || true
             sudo systemctl restart globalcoyn-bootstrap2.service || true
-            sudo systemctl restart bootstrap-node1.service || true
-            sudo systemctl restart bootstrap-node2.service || true
+            sudo systemctl restart globalcoyn-node.service || true
             
             echo "Core blockchain update completed at $(date)"
