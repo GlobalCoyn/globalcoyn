@@ -2,6 +2,7 @@
 Smart Contract implementation for GlobalCoyn.
 Provides a simple, secure environment for executing user-defined contracts.
 Deployed and updated by GitHub Actions workflow for bootstrap nodes via SCP.
+Updated with improved deployment script to handle different directory structures.
 """
 import hashlib
 import time
