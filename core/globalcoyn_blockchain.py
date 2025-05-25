@@ -2,6 +2,7 @@
 Main blockchain implementation for GlobalCoyn.
 This is the central module that integrates transactions, blocks, mining, consensus, and smart contracts.
 Updated to ensure contract deployment functionality is properly activated on bootstrap nodes.
+Production fix: Trigger deployment to restart bootstrap services with correct imports.
 """
 import hashlib
 import time
