@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import contractService from '../services/contractService';
-import walletService from '../services/walletService';
-import { useWallet } from '../hooks/useWallet';
+import contractService from '../../../services/api/contractService';
+import walletService from '../../../services/api/walletService';
+import { useWallet } from '../../../hooks/wallet/useWallet';
 
 const CreateContract = () => {
   const navigate = useNavigate();

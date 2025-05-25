@@ -9,6 +9,7 @@ const walletRoutes = require('./routes/wallet');
 const networkRoutes = require('./routes/network');
 const miningRoutes = require('./routes/mining');
 const contractRoutes = require('./routes/contract');
+const profileRoutes = require('./routes/profile');
 
 // Create Express app
 const app = express();
@@ -44,6 +45,7 @@ app.use('/api/wallet', walletRoutes);
 app.use('/api/network', networkRoutes);
 app.use('/api/mining', miningRoutes);
 app.use('/api/contracts', contractRoutes);
+app.use('/api/profiles', profileRoutes);
 
 // Health check endpoint
 app.get('/api/status', (req, res) => {

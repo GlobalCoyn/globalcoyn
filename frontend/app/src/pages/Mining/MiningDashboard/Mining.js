@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import walletService from '../services/walletService';
+import walletService from '../../../services/api/walletService';
 
 // API URLs from wallet service to maintain consistency
 const API_BASE_URL = walletService.getApiUrl();

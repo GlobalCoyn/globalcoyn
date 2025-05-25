@@ -2,24 +2,25 @@ import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 
 // Import pages
-import HomePage from './pages/HomePage';
-import Dashboard from './pages/Dashboard';
-import Wallet from './pages/Wallet';
-import Explorer from './pages/Explorer';
-import BlockDetails from './pages/BlockDetails';
-import WalletDetails from './pages/WalletDetails';
-import TransactionDetails from './pages/TransactionDetails';
-import Mining from './pages/Mining';
-import Network from './pages/Network';
-import Settings from './pages/Settings';
-import Whitepaper from './pages/Whitepaper';
-import ApiReference from './pages/ApiReference';
-import Contracts from './pages/Contracts';
-import ContractDetails from './pages/ContractDetails';
-import CreateContract from './pages/CreateContract';
+import HomePage from './pages/Home/HomePage';
+import Dashboard from './pages/Dashboard/Dashboard';
+import Wallet from './pages/Wallet/WalletOverview/Wallet';
+import Explorer from './pages/Explorer/Explorer';
+import BlockDetails from './pages/Explorer/components/BlockDetails';
+import WalletDetails from './pages/Wallet/WalletDetails/WalletDetails';
+import TransactionDetails from './pages/Explorer/components/TransactionDetails';
+import Mining from './pages/Mining/MiningDashboard/Mining';
+import Network from './pages/Network/Network';
+import Settings from './pages/Settings/Settings';
+import Whitepaper from './pages/Whitepaper/Whitepaper';
+import ApiReference from './pages/ApiReference/ApiReference';
+import Contracts from './pages/Contracts/ContractsOverview/Contracts';
+import ContractDetails from './pages/Contracts/ContractDetails/ContractDetails';
+import CreateContract from './pages/Contracts/CreateContract/CreateContract';
+import Profile from './pages/Profile/Profile';
 
 // Import components
-import Layout from './components/Layout';
+import Layout from './components/common/Layout/Layout';
 
 function App() {
   return (
@@ -47,6 +48,8 @@ function App() {
           <Route path="contracts/:contractAddress" element={<ContractDetails />} />
           <Route path="mining" element={<Mining />} />
           <Route path="network" element={<Network />} />
+          <Route path="profile" element={<Profile />} />
+          <Route path="profile/:address" element={<Profile />} />
           <Route path="settings" element={<Settings />} />
         </Route>
       </Routes>

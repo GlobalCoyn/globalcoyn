@@ -10,7 +10,8 @@ import {
   MoonIcon,
   SunIcon,
   ArrowLeftIcon,
-  DocumentTextIcon
+  DocumentTextIcon,
+  UserIcon
 } from '@heroicons/react/24/outline';
 import './Layout.css';
 
@@ -48,6 +49,7 @@ const Layout = () => {
     { name: 'Contracts', path: '/app/contracts', icon: DocumentTextIcon },
     { name: 'Mining', path: '/app/mining', icon: CpuChipIcon },
     { name: 'Network', path: '/app/network', icon: GlobeAltIcon },
+    { name: 'Profile', path: '/app/profile', icon: UserIcon },
     { name: 'Settings', path: '/app/settings', icon: Cog6ToothIcon },
   ];
 

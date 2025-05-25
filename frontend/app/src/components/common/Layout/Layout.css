@@ -238,6 +238,8 @@
   flex: 1;
   overflow: auto;
   background-color: #f9fafb;
+  padding: 0;
+  margin: 0;
 }
 
 .dark .main-content {
@@ -245,5 +247,6 @@
 }
 
 .content-area {
-  padding: 24px 0; /* Remove horizontal padding, keep vertical padding */
+  padding: 0; /* Remove all padding */
+  margin: 0; /* Remove all margin */
 }

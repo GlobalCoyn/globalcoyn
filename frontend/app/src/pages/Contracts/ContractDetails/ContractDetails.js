@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
-import { useWallet } from '../hooks/useWallet';
-import contractService from '../services/contractService';
+import { useWallet } from '../../../hooks/wallet/useWallet';
+import contractService from '../../../services/api/contractService';
 
 const ContractDetails = () => {
   const { contractAddress } = useParams();

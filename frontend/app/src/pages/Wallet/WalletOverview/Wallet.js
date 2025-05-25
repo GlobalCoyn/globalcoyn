@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { QRCodeSVG } from 'qrcode.react';
-import walletService from '../services/walletService';
-import EnvironmentToggle from '../components/EnvironmentToggle';
+import walletService from '../../../services/api/walletService';
+import EnvironmentToggle from '../../../components/common/EnvironmentToggle/EnvironmentToggle';
 
 const Wallet = () => {
   const [hasWallet, setHasWallet] = useState(false);

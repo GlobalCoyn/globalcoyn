@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import networkService from '../services/networkService';
+import networkService from '../../services/api/networkService';
 
 const Network = () => {
   // State for network data

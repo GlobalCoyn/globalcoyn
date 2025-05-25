@@ -3,8 +3,8 @@ import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 
 // Services
-import contractService from '../services/contractService';
-import { useWallet } from '../hooks/useWallet';
+import contractService from '../../../services/api/contractService';
+import { useWallet } from '../../../hooks/wallet/useWallet';
 
 // Contract List Component
 const ContractList = ({ contracts, onContractSelected, filterType = null }) => {
