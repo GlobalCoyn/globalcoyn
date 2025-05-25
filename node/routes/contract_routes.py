@@ -43,7 +43,7 @@ def ensure_contract_functionality():
                 
             # Recreate Blockchain instance if possible
             if hasattr(builtins.GCN, 'blockchain'):
-                from blockchain import Blockchain
+                from globalcoyn_blockchain import Blockchain
                 builtins.GCN.blockchain = Blockchain(builtins.GCN.blockchain.data_file)
                 
             logger.info("Modules reloaded. Checking for contract functionality...")

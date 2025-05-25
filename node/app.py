@@ -50,7 +50,7 @@ from flask_cors import CORS
 sys.path.append(core_dir)
 try:
     # First try importing directly from the core directory
-    from blockchain import Blockchain
+    from globalcoyn_blockchain import Blockchain
     from transaction import Transaction
     from block import Block
     from wallet import Wallet
@@ -63,7 +63,7 @@ except ImportError as e:
     print(f"Direct import failed: {e}")
     try:
         # If that fails, try with the blockchain.core prefix
-        from blockchain.core.blockchain import Blockchain
+        from globalcoyn_blockchain import Blockchain
         from blockchain.core.transaction import Transaction
         from blockchain.core.block import Block
         from blockchain.core.wallet import Wallet
@@ -76,7 +76,7 @@ except ImportError as e:
         print(f"Prefixed import failed: {e}")
         # Last resort, try direct imports from core dir
         sys.path.append(core_dir)
-        from blockchain import Blockchain
+        from globalcoyn_blockchain import Blockchain
         from transaction import Transaction
         from block import Block
         from wallet import Wallet
