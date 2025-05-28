@@ -11,7 +11,8 @@ import {
   SunIcon,
   ArrowLeftIcon,
   DocumentTextIcon,
-  UserIcon
+  UserIcon,
+  SparklesIcon
 } from '@heroicons/react/24/outline';
 import './Layout.css';
 
@@ -47,6 +48,7 @@ const Layout = () => {
     { name: 'Wallet', path: '/app/wallet', icon: WalletIcon },
     { name: 'Explorer', path: '/app/explorer', icon: CubeTransparentIcon },
     { name: 'Contracts', path: '/app/contracts', icon: DocumentTextIcon },
+    { name: 'Digital Soul', path: '/app/digital-soul', icon: SparklesIcon },
     { name: 'Mining', path: '/app/mining', icon: CpuChipIcon },
     { name: 'Network', path: '/app/network', icon: GlobeAltIcon },
     { name: 'Profile', path: '/app/profile', icon: UserIcon },

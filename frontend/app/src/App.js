@@ -18,6 +18,9 @@ import Contracts from './pages/Contracts/ContractsOverview/Contracts';
 import ContractDetails from './pages/Contracts/ContractDetails/ContractDetails';
 import CreateContract from './pages/Contracts/CreateContract/CreateContract';
 import Profile from './pages/Profile/Profile';
+import DigitalSoul from './pages/DigitalSoul/DigitalSoul';
+import CreateDigitalSoul from './pages/DigitalSoul/CreateDigitalSoul/CreateDigitalSoul';
+import WorldViewer from './pages/DigitalSoul/WorldViewer/WorldViewer';
 
 // Import components
 import Layout from './components/common/Layout/Layout';
@@ -35,6 +38,9 @@ function App() {
         {/* API Reference page with full-width layout */}
         <Route path="/api-reference" element={<ApiReference />} />
         
+        {/* WorldViewer with full-width layout (no sidebar) */}
+        <Route path="/app/soul/:username/world" element={<WorldViewer />} />
+        
         {/* App pages use the app layout with sidebar */}
         <Route path="/app" element={<Layout />}>
           <Route index element={<Dashboard />} />
@@ -46,6 +52,8 @@ function App() {
           <Route path="contracts" element={<Contracts />} />
           <Route path="contracts/create" element={<CreateContract />} />
           <Route path="contracts/:contractAddress" element={<ContractDetails />} />
+          <Route path="digital-soul" element={<DigitalSoul />} />
+          <Route path="create-digital-soul" element={<CreateDigitalSoul />} />
           <Route path="mining" element={<Mining />} />
           <Route path="network" element={<Network />} />
           <Route path="profile" element={<Profile />} />

@@ -19,6 +19,7 @@ from mempool import Mempool
 from mining import Miner
 from utils import bits_to_target, target_to_bits, validate_address_format
 from contract import Contract, ContractManager, ContractError
+from digital_soul import DigitalSoulContract
 
 class Blockchain:
     """
@@ -37,6 +38,7 @@ class Blockchain:
         self.miner = Miner()
         self.data_file = data_file
         self.contracts = ContractManager()
+        self.digital_souls = DigitalSoulContract(self)
         
         # Initialize logger
         self.logger = logging.getLogger("blockchain")
@@ -145,6 +147,54 @@ class Blockchain:
                 balance -= (tx.amount + tx.fee)
         
         return max(0.0, balance)  # Ensure balance is never negative
+    
+    def transfer_funds(self, from_address: str, to_address: str, amount: float, fee: float = 0.1) -> bool:
+        """
+        Transfer funds between addresses (used by smart contracts).
+        
+        Args:
+            from_address: Sender wallet address
+            to_address: Recipient wallet address
+            amount: Amount to transfer
+            fee: Transaction fee (default 0.1 GCN)
+            
+        Returns:
+            True if transfer successful, False otherwise
+        """
+        try:
+            # Validate addresses
+            if not validate_address_format(from_address) or not validate_address_format(to_address):
+                self.logger.error(f"Invalid address format in transfer: {from_address} -> {to_address}")
+                return False
+            
+            # Check sender balance
+            sender_balance = self.get_balance(from_address)
+            total_required = amount + fee
+            
+            if sender_balance < total_required:
+                self.logger.error(f"Insufficient balance for transfer: {sender_balance} < {total_required}")
+                return False
+            
+            # Create transaction
+            transaction = Transaction(
+                sender=from_address,
+                recipient=to_address,
+                amount=amount,
+                fee=fee,
+                timestamp=time.time()
+            )
+            
+            # Add to mempool
+            if self.add_transaction(transaction):
+                self.logger.info(f"Transfer initiated: {amount} GCN from {from_address} to {to_address}")
+                return True
+            else:
+                self.logger.error(f"Failed to add transfer transaction to mempool")
+                return False
+                
+        except Exception as e:
+            self.logger.error(f"Error in transfer_funds: {str(e)}")
+            return False
     
     def get_address_transactions(self, address: str) -> List[Dict[str, Any]]:
         """
