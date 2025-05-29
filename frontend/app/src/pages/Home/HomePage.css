@@ -897,6 +897,146 @@ body.dark-mode h4 {
   font-family: var(--font-main);
 }
 
+/* Digital Souls Section Styles */
+.digital-souls {
+  background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+  border-top: var(--section-border);
+  padding: var(--section-padding);
+}
+
+.digital-souls-features {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+  gap: 30px;
+  margin: 40px 0;
+}
+
+.souls-feature {
+  background: var(--bg-light);
+  padding: 30px;
+  border: 1px solid var(--border-color);
+  transition: var(--transition);
+  position: relative;
+}
+
+.souls-feature:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+}
+
+.souls-feature .feature-icon {
+  font-size: 2.5rem;
+  margin-bottom: 20px;
+  display: block;
+}
+
+.souls-feature h3 {
+  font-size: 1.4rem;
+  margin-bottom: 15px;
+  color: var(--dark-color);
+  font-weight: 600;
+}
+
+.souls-feature p {
+  color: var(--text-muted);
+  line-height: 1.6;
+  margin-bottom: 20px;
+}
+
+.souls-feature .feature-link {
+  color: var(--primary-color);
+  text-decoration: none;
+  font-weight: 500;
+  border-bottom: 2px solid transparent;
+  transition: var(--transition);
+}
+
+.souls-feature .feature-link:hover {
+  border-bottom-color: var(--primary-color);
+}
+
+.souls-vision {
+  background: var(--bg-light);
+  padding: 40px;
+  border: 2px solid var(--border-color);
+  margin: 50px 0;
+}
+
+.souls-vision h3 {
+  font-size: 1.8rem;
+  margin-bottom: 25px;
+  color: var(--dark-color);
+  text-align: center;
+}
+
+.souls-vision p {
+  font-size: 1.1rem;
+  line-height: 1.7;
+  color: var(--text-muted);
+  margin-bottom: 20px;
+}
+
+.souls-vision p:last-child {
+  margin-bottom: 0;
+}
+
+/* Dark mode styles for Digital Souls */
+.dark-mode .digital-souls {
+  background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
+  border-top-color: var(--dark-border-color);
+}
+
+.dark-mode .souls-feature {
+  background: #2d2d2d;
+  border-color: var(--dark-border-color);
+  color: var(--text-light);
+}
+
+.dark-mode .souls-feature h3 {
+  color: var(--text-light);
+}
+
+.dark-mode .souls-feature p {
+  color: #bbb;
+}
+
+.dark-mode .souls-vision {
+  background: #2d2d2d;
+  border-color: var(--dark-border-color);
+}
+
+.dark-mode .souls-vision h3 {
+  color: var(--text-light);
+}
+
+.dark-mode .souls-vision p {
+  color: #bbb;
+}
+
+/* Responsive adjustments for Digital Souls */
+@media (max-width: 768px) {
+  .digital-souls-features {
+    grid-template-columns: 1fr;
+    gap: 25px;
+  }
+  
+  .souls-feature {
+    padding: 25px;
+  }
+  
+  .souls-vision {
+    padding: 30px 25px;
+  }
+  
+  .souls-vision h3 {
+    font-size: 1.5rem;
+  }
+  
+  .souls-vision p {
+    font-size: 1rem;
+  }
+}
+
 .hero {
   padding-top: 140px; /* Account for fixed header */
 }

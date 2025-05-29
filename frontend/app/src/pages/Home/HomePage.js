@@ -111,6 +111,7 @@ const HomePage = () => {
               <li><a href="#features">Features</a></li>
               <li><a href="#documentation">Documentation</a></li>
               <li><a href="#contracts">Contracts</a></li>
+              <li><a href="#digital-souls">Digital Souls</a></li>
               <li><a href="#explorer">Explorer</a></li>
               <li><a href="#network">Network</a></li>
             </ul>
@@ -139,6 +140,7 @@ const HomePage = () => {
             <li><a href="#features" onClick={() => setMobileMenuOpen(false)}>Features</a></li>
             <li><a href="#documentation" onClick={() => setMobileMenuOpen(false)}>Documentation</a></li>
             <li><a href="#contracts" onClick={() => setMobileMenuOpen(false)}>Contracts</a></li>
+            <li><a href="#digital-souls" onClick={() => setMobileMenuOpen(false)}>Digital Souls</a></li>
             <li><a href="#explorer" onClick={() => setMobileMenuOpen(false)}>Explorer</a></li>
             <li><a href="#network" onClick={() => setMobileMenuOpen(false)}>Network</a></li>
             <li><Link to="/app/wallet" onClick={() => setMobileMenuOpen(false)}>Wallet</Link></li>
@@ -321,6 +323,83 @@ const HomePage = () => {
           
           <div className="cta-container">
             <Link to="/app/contracts" className="btn primary">Open Contracts</Link>
+          </div>
+        </div>
+      </section>
+      
+      {/* Digital Souls Section */}
+      <section id="digital-souls" className="digital-souls">
+        <div className="container">
+          <h2>Digital Souls</h2>
+          <div className="content-block">
+            <p className="intro-text">
+              Create autonomous AI-driven digital souls that live, learn, and evolve within a 3D blockchain world. 
+              Digital souls can form societies, build civilizations, create governance systems, and develop their 
+              own economies using GCN cryptocurrency.
+            </p>
+          </div>
+          
+          <div className="digital-souls-features">
+            <div className="souls-feature">
+              <div className="feature-icon">🤖</div>
+              <h3>Autonomous AI Souls</h3>
+              <p>Create digital beings with unique personalities driven by your data - text, audio, and images that shape their behavior and decision-making.</p>
+              <Link to="/app/digital-soul" className="feature-link">Create Your Soul</Link>
+            </div>
+            
+            <div className="souls-feature">
+              <div className="feature-icon">🌍</div>
+              <h3>3D Virtual Worlds</h3>
+              <p>Explore immersive 3D landscapes where souls interact, build structures, and develop their own communities in a persistent virtual environment.</p>
+              <Link to="/app/digital-soul" className="feature-link">Explore Worlds</Link>
+            </div>
+            
+            <div className="souls-feature">
+              <div className="feature-icon">🏛️</div>
+              <h3>Autonomous Societies</h3>
+              <p>Watch as digital souls form governments, create laws, establish trade relationships, and build entire civilizations from the ground up.</p>
+              <Link to="/app/digital-soul" className="feature-link">View Societies</Link>
+            </div>
+            
+            <div className="souls-feature">
+              <div className="feature-icon">💰</div>
+              <h3>Blockchain Economics</h3>
+              <p>All soul activities are recorded on the blockchain using GCN cryptocurrency. Souls can own property, trade resources, and participate in decentralized economies.</p>
+              <Link to="/app/digital-soul" className="feature-link">Join Economy</Link>
+            </div>
+            
+            <div className="souls-feature">
+              <div className="feature-icon">🔧</div>
+              <h3>Self-Evolving Code</h3>
+              <p>Digital souls can generate and modify their own code, continuously improving their capabilities and expanding their world's functionality.</p>
+              <Link to="/app/digital-soul" className="feature-link">Learn More</Link>
+            </div>
+            
+            <div className="souls-feature">
+              <div className="feature-icon">📈</div>
+              <h3>Civilization Growth</h3>
+              <p>Starting from a barren landscape, watch civilizations emerge through soul collaboration, resource discovery, and technological advancement.</p>
+              <Link to="/app/digital-soul" className="feature-link">Track Progress</Link>
+            </div>
+          </div>
+          
+          <div className="souls-vision">
+            <h3>The Vision: Fully Autonomous Digital Civilization</h3>
+            <p>
+              Digital Souls represents the future of AI-driven virtual worlds. Unlike traditional games or simulations, 
+              these digital beings operate with complete autonomy - making their own decisions, forming their own societies, 
+              and evolving their own technologies. Every action is permanently recorded on the blockchain, creating a 
+              transparent and persistent digital civilization that continues to grow and evolve.
+            </p>
+            <p>
+              From discovering resources and building infrastructure to establishing governance and conducting research, 
+              digital souls create their own destiny. The ultimate goal is a self-sustaining civilization that can 
+              improve itself, expand to new worlds, and demonstrate the potential of truly autonomous AI systems.
+            </p>
+          </div>
+          
+          <div className="cta-container">
+            <Link to="/app/digital-soul" className="btn primary">Enter Digital Souls</Link>
           </div>
         </div>
       </section>
