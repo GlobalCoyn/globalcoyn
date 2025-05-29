@@ -14,8 +14,8 @@ const isProduction = ENV_OVERRIDE === 'production' ||
 
 // API Configuration
 const API_URLS = {
-  primary: isProduction ? 'https://bootstrap1.globalcoyn.com' : 'http://localhost:8001',
-  secondary: isProduction ? 'https://bootstrap2.globalcoyn.com' : 'http://localhost:8002'
+  primary: isProduction ? 'https://globalcoyn.com' : 'http://localhost:8001',
+  secondary: isProduction ? 'https://globalcoyn.com' : 'http://localhost:8002'
 };
 
 let currentApiUrl = API_URLS.primary;
